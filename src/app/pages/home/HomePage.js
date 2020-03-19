@@ -1,19 +1,19 @@
 import React, { Suspense, lazy } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "./Dashboard";
-// import Accounts from "./account/Accounts";
 
 import { LayoutSplashScreen } from "../../../_metronic";
 
-// const GoogleMaterialPage = lazy(() =>
-//   import("./google-material/GoogleMaterialPage")
-// );
-// const ReactBootstrapPage = lazy(() =>
-//   import("./react-bootstrap/ReactBootstrapPage")
-// );
-
 const AccountComponent = lazy(() =>
   import("./account/Accounts")
+)
+
+const ContactComponent = lazy(() =>
+  import("./contacts/Contacts")
+)
+
+const LeadsComponent = lazy(() =>
+  import("./leads/Leads")
 )
 
 export default function HomePage() {
@@ -31,6 +31,8 @@ export default function HomePage() {
         }
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/account" component={AccountComponent} />
+        <Route path="/contacts" component={ContactComponent}/>
+        <Route path="/leads" component={LeadsComponent}/>
       </Switch>
     </Suspense>
   );

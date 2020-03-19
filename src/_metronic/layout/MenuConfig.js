@@ -22,6 +22,22 @@ export default {
         translate: "",
         bullet: "dot"
       },
+      {
+        title: "Leads",
+        root: true,
+        icon: "flaticon-rocket",
+        page: "leads",
+        translate: "",
+        bullet: "dot"
+      },
+      {
+        title: "Contacts",
+        root: true,
+        icon: "flaticon2-phone",
+        page: "contacts",
+        translate: "",
+        bullet: "dot"
+      },
     ]
   }
 };
