@@ -1,18 +1,20 @@
 import React, { Suspense, lazy } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Subscriptions from "./subscriptions/Subscriptions";
-import BusinessComponents from "./business/BusinessComponents";
-import Accounts from "./account/Accounts";
+// import Accounts from "./account/Accounts";
 
 import { LayoutSplashScreen } from "../../../_metronic";
 
-const GoogleMaterialPage = lazy(() =>
-  import("./google-material/GoogleMaterialPage")
-);
-const ReactBootstrapPage = lazy(() =>
-  import("./react-bootstrap/ReactBootstrapPage")
-);
+// const GoogleMaterialPage = lazy(() =>
+//   import("./google-material/GoogleMaterialPage")
+// );
+// const ReactBootstrapPage = lazy(() =>
+//   import("./react-bootstrap/ReactBootstrapPage")
+// );
+
+const AccountComponent = lazy(() =>
+  import("./account/Accounts")
+)
 
 export default function HomePage() {
   // useEffect(() => {
@@ -28,9 +30,7 @@ export default function HomePage() {
           <Redirect exact from="/" to="/dashboard" />
         }
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/users" component={Subscriptions} />
-        <Route path="/business" component={BusinessComponents} />
-        <Route path="/account" component={Accounts} />
+        <Route path="/account" component={AccountComponent} />
       </Switch>
     </Suspense>
   );
