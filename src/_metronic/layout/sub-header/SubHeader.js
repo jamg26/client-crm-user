@@ -94,7 +94,7 @@ class SubHeader extends React.Component {
               </button>
           </div>
 
-          <div className="kt-subheader__toolbar">
+          {/* <div className="kt-subheader__toolbar">
             <div className="kt-subheader__wrapper">
               <button type="button" className="btn kt-subheader__btn-primary">
                 Actions &nbsp;
@@ -102,7 +102,7 @@ class SubHeader extends React.Component {
               </button>
               <QuickActions />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
