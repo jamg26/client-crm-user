@@ -24,6 +24,7 @@ function Registration(props) {
             email: "",
             fullname: "",
             username: "",
+            businessName: "",
             password: "",
             acceptTerms: true,
             confirmPassword: ""
@@ -45,6 +46,12 @@ function Registration(props) {
 
             if (!values.fullname) {
               errors.fullname = intl.formatMessage({
+                id: "AUTH.VALIDATION.REQUIRED_FIELD"
+              });
+            }
+
+            if (!values.businessName) {
+              errors.businessName = intl.formatMessage({
                 id: "AUTH.VALIDATION.REQUIRED_FIELD"
               });
             }
@@ -80,6 +87,7 @@ function Registration(props) {
             register(
               values.email,
               values.fullname,
+              values.businessName,
               values.username,
               values.password
             )
@@ -124,6 +132,20 @@ function Registration(props) {
                   value={values.fullname}
                   helperText={touched.fullname && errors.fullname}
                   error={Boolean(touched.fullname && errors.fullname)}
+                />
+              </div>
+
+              <div className="form-group mb-0">
+                <TextField
+                  margin="normal"
+                  label="Business Name"
+                  className="kt-width-full"
+                  name="businessName"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.businessName}
+                  helperText={touched.businessName && errors.businessName}
+                  error={Boolean(touched.businessName && errors.businessName)}
                 />
               </div>
 

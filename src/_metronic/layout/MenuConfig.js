@@ -526,6 +526,14 @@ export default {
         translate: "",
         bullet: "dot"
       },
+      {
+        title: "Account",
+        root: true,
+        icon: "flaticon2-user",
+        page: "account",
+        translate: "",
+        bullet: "dot"
+      },
     ]
   }
 };

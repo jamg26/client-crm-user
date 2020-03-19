@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Subscriptions from "./subscriptions/Subscriptions";
 import BusinessComponents from "./business/BusinessComponents";
+import Accounts from "./account/Accounts";
 
 import { LayoutSplashScreen } from "../../../_metronic";
 
@@ -29,6 +30,7 @@ export default function HomePage() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/users" component={Subscriptions} />
         <Route path="/business" component={BusinessComponents} />
+        <Route path="/account" component={Accounts} />
       </Switch>
     </Suspense>
   );
