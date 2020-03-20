@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
 import AccountsDetailsComponent from './AccountsDetailsComponent';
 import { getAccountList, registerAccount, updateAccount, deleteAccount} from '../../../../services/account.service';
 
 const ViewComponent = () => {
+  
+  const userData = useSelector(state => state.auth.user);
+
   const [state, setState] = useState(0);
   
   useEffect(() => {
@@ -36,6 +40,7 @@ const ViewComponent = () => {
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
+            newData.businessId = userData.mainRole.business.id;
             registerAccount(newData)
               .then((result) => {
                 resolve();
@@ -48,6 +53,7 @@ const ViewComponent = () => {
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
+             newData.businessId = userData.mainRole.business.id;
             updateAccount(newData)
               .then((result) => {
                 resolve();
