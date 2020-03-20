@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import AccountsDetailsComponent from './AccountsDetailsComponent';
 import { getAccountList, registerAccount, updateAccount, deleteAccount} from '../../../../services/account.service';
 
 const ViewComponent = () => {
@@ -26,6 +27,12 @@ const ViewComponent = () => {
       title="Accounts"
       columns={state.columns}
       data={state.data}
+      detailPanel={rowData => {
+        return (
+          <AccountsDetailsComponent data={rowData}/>
+        )
+      }}
+      onRowClick={(event, rowData, togglePanel) => togglePanel()}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
