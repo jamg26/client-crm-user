@@ -46,7 +46,6 @@ const ViewComponent = () => {
         onRowAdd: newData =>
           new Promise(resolve => {
             newData.accountId = account.accountId;
-            console.log(newData,"=====")
             addContacts(newData)
               .then((result) => {
                 resolve();

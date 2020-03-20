@@ -48,7 +48,8 @@ class AccountDropdown extends React.Component {
         super(props);
         this.handleSelectAccount = this.handleSelectAccount.bind(this);
         this.state = {
-            data : []
+            data : [],
+            account: "0"
         }
     }
 
@@ -61,6 +62,7 @@ class AccountDropdown extends React.Component {
     
     handleSelectAccount(event){
         let accountId  = event.target.value;
+        this.setState({account:accountId});
         this.props.onSelecAccount({accountId : accountId });
     }
 
@@ -68,8 +70,8 @@ class AccountDropdown extends React.Component {
         return (
             <FormControl>
             <InputLabel id="labelIndustry">Accounts</InputLabel>
-            <Select labelId="labelIndustry" onChange={ this.handleSelectAccount.bind(this) } >
-                <MenuItem value="">
+            <Select labelId="labelIndustry" onChange={ this.handleSelectAccount.bind(this) } value={this.state.account}>
+                <MenuItem value="0">
                     <em>Select Parent Account</em>
                 </MenuItem>
                 { this.state.data.map(value => <MenuItem key={value.id} value={value.id}>{value.accountName}</MenuItem>) }
