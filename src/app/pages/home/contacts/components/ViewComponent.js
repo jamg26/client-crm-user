@@ -58,6 +58,7 @@ const ViewComponent = () => {
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
+            newData.accountId = account.accountId;
             updateContact(newData)
               .then((result) => {
                 resolve();
