@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
 import { getLeadsList, registerLead, updateLead, deleteLead} from '../../../../services/leads.service';
 
 const ViewComponent = () => {
   const [state, setState] = useState(0);
-  
+  const userData = useSelector(state => state.auth.user);
   useEffect(() => {
     const fetchData = async () => {
-    // const response = await getLeadsList();
+    
+    const response = await getLeadsList();
       setState({
         columns: [
           { title: 'Name', field: 'name' },
@@ -23,21 +25,22 @@ const ViewComponent = () => {
 
   return (
     <MaterialTable
-      title="Accounts"
+      title="Leads"
       columns={state.columns}
       data={state.data}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
-            // registerAccount(newData)
-            //   .then((result) => {
-            //     resolve();
-            //     setState(prevState => {
-            //       const data = [...prevState.data];
-            //       data.push(newData);
-            //       return { ...prevState, data };
-            //     });
-            //   })
+            newData.businessId = userData.mainRole.business.id;
+            registerLead(newData)
+              .then((result) => {
+                resolve();
+                setState(prevState => {
+                  const data = [...prevState.data];
+                  data.push(newData);
+                  return { ...prevState, data };
+                });
+              })
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
