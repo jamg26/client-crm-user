@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import * as auth from "../../../../store/ducks/auth.duck";
 import { registerAccount } from "../../../../services/account.service";
 
-
+var industryIdVal = '';
 function RegisterComponent(props) {
   const { intl } = props;
 
@@ -21,8 +21,9 @@ function RegisterComponent(props) {
     },
   }));
 
-
+  
   const selectIndustryHandleChange = event => {
+    industryIdVal = event.target.value;
     setIndustry(event.target.value);
   };
 
@@ -70,19 +71,24 @@ function RegisterComponent(props) {
 
             <Formik
               initialValues={{
-                email: "",
-                fullname: "",
-                username: "",
-                businessName: "",
-                password: "",
-                acceptTerms: true,
-                confirmPassword: ""
+                accountName: "",
+                phone: "",
+                website: "",
+                addressLine: "",
+                zipCode: "",
+                industryId: ""
               }}
               validate={values => {
                 const errors = {};
 
                 if (!values.accountName) {
                   errors.accountName = intl.formatMessage({
+                    id: "AUTH.VALIDATION.REQUIRED_FIELD"
+                  });
+                }
+
+                if (!industryIdVal) {
+                  errors.industryId = intl.formatMessage({
                     id: "AUTH.VALIDATION.REQUIRED_FIELD"
                   });
                 }
@@ -208,12 +214,14 @@ function RegisterComponent(props) {
                       <div className="col-md-6">
                         <div className="form-group mb-0">
                           <FormControl className={classes.formControl}>
-                            <InputLabel id="labelIndustry">Industry</InputLabel>
+                            <InputLabel id="labelIndustry" onBlur={handleBlur} error={Boolean(touched.industryId && errors.industryId)}>Industry</InputLabel>
                             <Select
                               labelId="labelIndustry"
                               name="industryId"
                               value={industryId}
                               onChange={selectIndustryHandleChange}
+                              onBlur={handleBlur}
+                              error={Boolean(touched.industryId && errors.industryId)}
                             >
                               <MenuItem value="">
                                 <em>Select Parent Account</em>
@@ -382,8 +390,5 @@ function RegisterComponent(props) {
 }
 
 export default injectIntl(
-  connect(
-    null,
-    auth.actions
-  )(RegisterComponent)
+  RegisterComponent
 );
