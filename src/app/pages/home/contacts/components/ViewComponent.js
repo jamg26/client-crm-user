@@ -1,21 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-// import { getLeadsList, registerLead, updateLead, deleteLead} from '../../../../services/leads.service';
+import AccountDropdown from '../../../../partials/shared/AccountDropdown';
+import { getContactList, addContacts } from '../../../../services/contact.service';
+import { getAccountList } from '../../../../services/account.service';
 
 const ViewComponent = () => {
   const [state, setState] = useState(0);
+  const [account, setAccount] = useState(0)
+
+  const handleSelectAccount = (account) => {
+    setAccount({accountId : account.accountId})
+  }
   
   useEffect(() => {
     const fetchData = async () => {
-    // const response = await getLeadsList();
+    const response = await getContactList();
+    const accountList = await getAccountList();
       setState({
         columns: [
-          { title: 'Name', field: 'name' },
-          { title: 'Phone', field: 'phone' },
-          { title: 'Company Name', field: 'company'},
-          { title: 'Lead Source', field: 'leadSource'}
+          { title: 'Profile', field: 'profile' },
+          { title: 'First Name', field: 'firstName' },
+          { title: 'Last Name', field: 'lastName' },
+          { title: 'Email', field: 'email' },
+          { title: 'Phone', field: 'phone'},
+          { 
+            title: 'Account Name',
+            field: 'Account',
+            editComponent: props => (
+              <AccountDropdown data={accountList} onSelecAccount={handleSelectAccount}/>
+            )
+          }
         ],
-        // data : response.data
+        data : response.data
       });
     }
     fetchData();
@@ -23,21 +39,23 @@ const ViewComponent = () => {
 
   return (
     <MaterialTable
-      title="Accounts"
+      title="Contacts"
       columns={state.columns}
       data={state.data}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
-            // registerAccount(newData)
-            //   .then((result) => {
-            //     resolve();
-            //     setState(prevState => {
-            //       const data = [...prevState.data];
-            //       data.push(newData);
-            //       return { ...prevState, data };
-            //     });
-            //   })
+            newData.accountId = account.accountId;
+            console.log(newData,"=====")
+            addContacts(newData)
+              .then((result) => {
+                resolve();
+                setState(prevState => {
+                  const data = [...prevState.data];
+                  data.push(newData);
+                  return { ...prevState, data };
+                });
+              })
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
