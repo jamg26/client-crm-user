@@ -13,9 +13,12 @@ function AccountsDetailsComponent(props) {
 
   return (
     <>
-      <Button onClick={() => setLgShow(true)}>Large modal</Button>
+
+	alert modal
+
+      {/* <Button onClick={() => setLgShow(true)}>Large modal</Button> */}
       
-      <Modal
+      {/* <Modal
         size="lg"
         show={lgShow}
         onHide={() => setLgShow(false)}
@@ -166,7 +169,7 @@ function AccountsDetailsComponent(props) {
               	
             </div>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

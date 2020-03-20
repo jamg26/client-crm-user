@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
+import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import AccountsDetailsComponent from './AccountsDetailsComponent';
 import { getAccountList, registerAccount, updateAccount, deleteAccount} from '../../../../services/account.service';
 
@@ -26,66 +27,71 @@ const ViewComponent = () => {
     fetchData();
   }, []);
 
+  const openModal = () =>{
+    alert('hahaha')
+  }
+
   return (
-    <MaterialTable
-      title="Accounts"
-      columns={state.columns}
-      data={state.data}
-      detailPanel={rowData => {
-        return (
-          <AccountsDetailsComponent data={rowData}/>
-        )
-      }}
-      onRowClick={(event, rowData, togglePanel) => togglePanel()}
-      editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            newData.businessId = userData.mainRole.business.id;
-            registerAccount(newData)
-              .then((result) => {
-                resolve();
-                setState(prevState => {
-                  const data = [...prevState.data];
-                  data.push(newData);
-                  return { ...prevState, data };
-                });
-              })
-          }),
-        onRowUpdate: (newData, oldData) =>
-           new Promise((resolve, reject) => {
-             newData.businessId = userData.mainRole.business.id;
-            updateAccount(newData)
-              .then((result) => {
-                resolve();
-                if (oldData) {
+    <div>
+      <AccountsDetailsComponent/>
+      <MaterialTable
+        title="Accounts"
+        columns={state.columns}
+        data={state.data}
+        detailPanel={rowData => {
+          openModal()
+        }}
+        onRowClick={(event, rowData, togglePanel) => togglePanel()}
+        editable={{
+          onRowAdd: newData =>
+            new Promise(resolve => {
+              newData.businessId = userData.mainRole.business.id;
+              registerAccount(newData)
+                .then((result) => {
+                  resolve();
                   setState(prevState => {
                     const data = [...prevState.data];
-                    data[data.indexOf(oldData)] = newData;
+                    data.push(newData);
                     return { ...prevState, data };
                   });
-                }
-              })
-              .catch((err) => {
-                reject(err)
-              })
-          }),
-        onRowDelete: oldData =>
-          new Promise((resolve,reject) => {
-            deleteAccount(oldData.id)
-              .then((results) => {
-                resolve();
-                setState(prevState => {
-                  const data = [...prevState.data];
-                  data.splice(data.indexOf(oldData), 1);
-                  return { ...prevState, data };
-                });
-              })
-              .catch((err) => {
-                reject()
-              })
-          }),
-      }}
-    />
+                })
+            }),
+          onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                newData.businessId = userData.mainRole.business.id;
+              updateAccount(newData)
+                .then((result) => {
+                  resolve();
+                  if (oldData) {
+                    setState(prevState => {
+                      const data = [...prevState.data];
+                      data[data.indexOf(oldData)] = newData;
+                      return { ...prevState, data };
+                    });
+                  }
+                })
+                .catch((err) => {
+                  reject(err)
+                })
+            }),
+          onRowDelete: oldData =>
+            new Promise((resolve,reject) => {
+              deleteAccount(oldData.id)
+                .then((results) => {
+                  resolve();
+                  setState(prevState => {
+                    const data = [...prevState.data];
+                    data.splice(data.indexOf(oldData), 1);
+                    return { ...prevState, data };
+                  });
+                })
+                .catch((err) => {
+                  reject()
+                })
+            }),
+        }}
+      />
+    </div>
   );
 }
 
