@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import AccountDropdown from '../../../../partials/shared/AccountDropdown';
-import { getContactList, addContacts } from '../../../../services/contact.service';
+import { getContactList, addContacts, updateContact, deleteContact } from '../../../../services/contact.service';
 import { getAccountList } from '../../../../services/account.service';
 
 const ViewComponent = () => {
@@ -58,35 +58,35 @@ const ViewComponent = () => {
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
-            // updateAccount(newData)
-            //   .then((result) => {
-            //     resolve();
-            //     if (oldData) {
-            //       setState(prevState => {
-            //         const data = [...prevState.data];
-            //         data[data.indexOf(oldData)] = newData;
-            //         return { ...prevState, data };
-            //       });
-            //     }
-            //   })
-            //   .catch((err) => {
-            //     reject(err)
-            //   })
+            updateContact(newData)
+              .then((result) => {
+                resolve();
+                if (oldData) {
+                  setState(prevState => {
+                    const data = [...prevState.data];
+                    data[data.indexOf(oldData)] = newData;
+                    return { ...prevState, data };
+                  });
+                }
+              })
+              .catch((err) => {
+                reject(err)
+              })
           }),
         onRowDelete: oldData =>
           new Promise((resolve,reject) => {
-            // deleteAccount(oldData.id)
-            //   .then((results) => {
-            //     resolve();
-            //     setState(prevState => {
-            //       const data = [...prevState.data];
-            //       data.splice(data.indexOf(oldData), 1);
-            //       return { ...prevState, data };
-            //     });
-            //   })
-            //   .catch((err) => {
-            //     reject()
-            //   })
+            deleteContact(oldData.id)
+              .then((results) => {
+                resolve();
+                setState(prevState => {
+                  const data = [...prevState.data];
+                  data.splice(data.indexOf(oldData), 1);
+                  return { ...prevState, data };
+                });
+              })
+              .catch((err) => {
+                reject()
+              })
           }),
       }}
     />

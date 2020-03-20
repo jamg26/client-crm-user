@@ -11,10 +11,10 @@ export function addContacts (contact) {
   return axios.post(`${ROOT_URL}/${CONTACTS_URL}`, contact);
 }
 
-// export function updateAccount(accounts) {
-//   return axios.patch(`${ROOT_URL}/${ACCOUNT_URL}`, accounts);
-// }
+export function updateContact(contact) {
+  return axios.patch(`${ROOT_URL}/${CONTACTS_URL}`, contact);
+}
 
-// export function deleteAccount(id){
-//   return axios.delete(`${ROOT_URL}/${ACCOUNT_URL}/${id}`);
-// }
+export function deleteContact(id){
+  return axios.delete(`${ROOT_URL}/${CONTACTS_URL}/${id}`);
+}
