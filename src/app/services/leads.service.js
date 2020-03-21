@@ -1,10 +1,12 @@
 import axios from "axios";
 
-export const ROOT_URL = "https://thecrmnetwork20200225035915.azurewebsites.net";
+export const ROOT_URL = process.env.REACT_APP_API_URL;
 export const LEAD_URL = "api/lead";
+export const GET_LEAD_TABL_VIEW_URL = "api/lead/tableview";
 
 export function getLeadsList() {
-  return axios.get(`${ROOT_URL}/${LEAD_URL}`);
+
+  return axios.get(`${ROOT_URL}/${GET_LEAD_TABL_VIEW_URL}`);
 }
 
 export function registerLead (lead) {

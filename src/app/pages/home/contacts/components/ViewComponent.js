@@ -4,12 +4,14 @@ import AccountDropdown from '../../../../partials/shared/AccountDropdown';
 import { getContactList, addContacts, updateContact, deleteContact } from '../../../../services/contact.service';
 import { getAccountList } from '../../../../services/account.service';
 
+var selectedAccount = {};
 const ViewComponent = () => {
   const [state, setState] = useState(0);
   const [account, setAccount] = useState(0)
 
   const handleSelectAccount = (account) => {
     setAccount({accountId : account.accountId})
+    selectedAccount = account;
   }
   
   useEffect(() => {
@@ -25,9 +27,12 @@ const ViewComponent = () => {
           { title: 'Phone', field: 'phone'},
           { 
             title: 'Account Name',
-            field: 'Account',
+            field: 'account.accountName',
             editComponent: props => (
-              <AccountDropdown data={accountList} onSelecAccount={handleSelectAccount}/>
+              <AccountDropdown  data={accountList} 
+                                onSelecAccount={handleSelectAccount} 
+                                currentAccount={props.rowData} 
+                                readOnly={true}  />
             )
           }
         ],
@@ -58,7 +63,8 @@ const ViewComponent = () => {
           }),
         onRowUpdate: (newData, oldData) =>
            new Promise((resolve, reject) => {
-            newData.accountId = account.accountId;
+            newData.accountId = selectedAccount.accountId;
+            newData.account.accountName = selectedAccount.accountName;
             updateContact(newData)
               .then((result) => {
                 resolve();

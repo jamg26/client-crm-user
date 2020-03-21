@@ -27,19 +27,23 @@ const ViewComponent = () => {
     fetchData();
   }, []);
 
-  const openModal = () =>{
-    alert('hahaha')
+  function showModal (rowData) {
+    return (
+            <AccountsDetailsComponent data={rowData}/>
+          )
   }
 
   return (
     <div>
-      <AccountsDetailsComponent/>
+      
       <MaterialTable
         title="Accounts"
         columns={state.columns}
         data={state.data}
         detailPanel={rowData => {
-          openModal()
+           return (
+            <AccountsDetailsComponent data={rowData}/>
+          )
         }}
         onRowClick={(event, rowData, togglePanel) => togglePanel()}
         editable={{

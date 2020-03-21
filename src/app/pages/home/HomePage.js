@@ -16,6 +16,10 @@ const LeadsComponent = lazy(() =>
   import("./leads/Leads")
 )
 
+const BusinessComponent = lazy(() =>
+  import("./business/Business")
+)
+
 export default function HomePage() {
   // useEffect(() => {
   //   console.log('Home page');
@@ -33,6 +37,7 @@ export default function HomePage() {
         <Route path="/account" component={AccountComponent} />
         <Route path="/contacts" component={ContactComponent}/>
         <Route path="/leads" component={LeadsComponent}/>
+        <Route path="/business" component={BusinessComponent}/>
       </Switch>
     </Suspense>
   );

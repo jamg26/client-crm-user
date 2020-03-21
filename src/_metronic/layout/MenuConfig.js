@@ -15,10 +15,18 @@ export default {
         bullet: "dot"
       },
       {
-        title: "Account",
+        title: "Product & Services",
         root: true,
-        icon: "flaticon2-user",
-        page: "account",
+        icon: "flaticon2-graph-2",
+        page: "products-services",
+        translate: "",
+        bullet: "dot"
+      },
+      {
+        title: "Invite User",
+        root: true,
+        icon: "flaticon2-phone",
+        page: "invite-user",
         translate: "",
         bullet: "dot"
       },
@@ -31,6 +39,14 @@ export default {
         bullet: "dot"
       },
       {
+        title: "Account",
+        root: true,
+        icon: "flaticon2-user",
+        page: "account",
+        translate: "",
+        bullet: "dot"
+      },
+      {
         title: "Contacts",
         root: true,
         icon: "flaticon2-phone",
@@ -38,6 +54,14 @@ export default {
         translate: "",
         bullet: "dot"
       },
+      {
+        title: "Business",
+        root: true,
+        icon: "flaticon-business",
+        page: "business",
+        translate: "",
+        bullet: "dot"
+      }
     ]
   }
 };
