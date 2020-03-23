@@ -1,13 +1,150 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-import { getAccountList} from '../../../../services/account.service';
+import { makeStyles } from '@material-ui/core/styles';
+import { getBusinessProfile} from '../../../../services/business.service';
+import BusinessProfile  from './BusinessProfileComponents';
+import BusinessLocations  from './BusinessLocationsComponents'; 
 import { Checkbox, FormControlLabel, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import ProfileIcon from '@material-ui/icons/Person';
+import PaymentIcon from '@material-ui/icons/Payment';
+import LocationIcon from '@material-ui/icons/Room';
+import ShipAddressIcon from '@material-ui/icons/LocalShipping';
+import TermsConditionIcon from '@material-ui/icons/ConfirmationNumber';
+import LicenseIcon from '@material-ui/icons/Subtitles';
+import InvoicingIcon from '@material-ui/icons/Receipt';
+import Avatar from 'react-avatar-edit'
 
-const ViewComponent = () => {
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <h1>Business</h1>
-  )
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box p={3}>{children}</Box>}
+    </Typography>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-force-tab-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+function profileContainer (props) {
+	if (props !== 0) {
+		return (
+			<BusinessProfile data={props.data} />
+			)
+	}
+}
+
+function LocationsContainer (props) {
+
+		return (
+			<BusinessLocations data={props.data} />
+			)
+	
+}
+
+
+
+
+const ViewComponent = () => {
+	const classes = useStyles();
+
+  	const [value, setValue] = useState(0);
+ 	const [state, setState] = useState(0);
+ 	
+	const handleChange = (event, newValue) => {
+	    setValue(newValue);
+	};
+
+	
+	useEffect(() => {
+	    const fetchData = async () => {
+	    const response = await getBusinessProfile();
+	      setState({
+	        data : response.data
+	      });
+
+	    }
+	    fetchData();
+	  }, []);
+
+	  	return (
+		<div className={classes.root}>
+			<AppBar position="static" color="default">
+		        <Tabs
+			        value={value}
+			        onChange={handleChange}
+			        variant="scrollable"
+			        scrollButtons="on"
+			        indicatorColor="primary"
+			        textColor="primary"
+			        aria-label="scrollable force tabs example"
+		        >
+			        <Tab label="Profile" icon={<ProfileIcon />} {...a11yProps(0)} />
+			        <Tab label="Payment Gateway" icon={<PaymentIcon />} {...a11yProps(1)} />
+			        <Tab label="Locations" icon={<LocationIcon />} {...a11yProps(2)} />
+			        <Tab label="Shipping Address" icon={<ShipAddressIcon />} {...a11yProps(3)} />
+			        <Tab label="Terms & Conditions" icon={<TermsConditionIcon />} {...a11yProps(4)} />
+			        <Tab label="License" icon={<LicenseIcon />} {...a11yProps(5)} />
+			        <Tab label="Invoicing" icon={<InvoicingIcon />} {...a11yProps(6)} />
+		        </Tabs>
+		    </AppBar>
+		    <TabPanel value={value} index={0}>
+		    	{profileContainer(state)}
+		     </TabPanel>
+		    <TabPanel value={value} index={1}>
+		        Payment Gateway
+		    </TabPanel>
+		    <TabPanel value={value} index={2}>
+		        {LocationsContainer(state)}
+		    </TabPanel>
+		    <TabPanel value={value} index={3}>
+		        Shipping Address
+		    </TabPanel>
+		    <TabPanel value={value} index={4}>
+		        Terms and Conditions
+		    </TabPanel>
+		    <TabPanel value={value} index={5}>
+		        License
+		    </TabPanel>
+		    <TabPanel value={value} index={6}>
+		        Invoicing
+		    </TabPanel>
+	    </div>
+
+	  )
 
 }
 

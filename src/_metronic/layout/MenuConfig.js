@@ -61,7 +61,40 @@ export default {
         page: "business",
         translate: "",
         bullet: "dot"
+      },
+      {
+        title: "Configuration",
+        root: true,
+        icon: "flaticon-business",
+        page: "configuration",
+        translate: "",
+        bullet: "dot",
+        submenu: [
+          {
+            title: "User Setup",
+            bullet: "dot",
+            submenu: [
+              {
+                title: "Users",
+                bullet: "line",
+                page: "google-material/layout/box"
+              },
+              {
+                title: "Assign Rights",
+                bullet: "line",
+                page: "google-material/layout/container"
+              },
+              {
+                title: "User Type",
+                bullet: "line",
+                page: "google-material/layout/grid"
+              }
+            ]
+          }
+        ]
       }
     ]
   }
 };
+
+
