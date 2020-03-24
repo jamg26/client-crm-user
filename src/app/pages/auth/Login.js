@@ -27,7 +27,7 @@ function Login(props) {
 
   return (
     <>
-      <div className="kt-login__head">
+      {/* <div className="kt-login__head">
         <span className="kt-login__signup-label">
           Don't have an account yet?
         </span>
@@ -35,7 +35,7 @@ function Login(props) {
         <Link to="/auth/registration" className="kt-link kt-login__signup-link">
           Sign Up!
         </Link>
-      </div>
+      </div> */}
 
       <div className="kt-login__body">
         <div className="kt-login__form">
@@ -180,15 +180,15 @@ function Login(props) {
             )}
           </Formik>
 
-          <div className="kt-login__divider">
+          {/* <div className="kt-login__divider">
             <div className="kt-divider">
               <span />
               <span>OR</span>
               <span />
             </div>
-          </div>
+          </div> */}
 
-          <div className="kt-login__options">
+          {/* <div className="kt-login__options">
             <Link to="http://facebook.com" className="btn btn-primary kt-btn">
               <i className="fab fa-facebook-f" />
               Facebook
@@ -201,7 +201,7 @@ function Login(props) {
               <i className="fab fa-google" />
               Google
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

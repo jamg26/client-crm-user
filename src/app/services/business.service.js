@@ -1,13 +1,8 @@
 import axios from "axios";
+export const ROOT_URL = process.env.REACT_APP_API_URL;
+export const BUSINESS_URL = "api/business";
 
-export const ROOT_URL = "https://thecrmnetwork20200225035915.azurewebsites.net";
-export const GET_BUSINESS = "api/admin/business/table";
-
-export function getBusiness() {
-  return axios.get(`${ROOT_URL}/${GET_BUSINESS}`);
+export function getBusinessProfile() {
+  return axios.get(`${ROOT_URL}/${BUSINESS_URL}`);
 }
 
-// export function getUserByToken() {
-//   // Authorization head should be fulfilled in interceptor.
-//   return axios.get(`${ROOT_URL}/${ME_URL}`);
-// }

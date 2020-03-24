@@ -9,6 +9,8 @@
 # testing
 /coverage
 
+# production
+.env
 # redactor
 /.idea
 
