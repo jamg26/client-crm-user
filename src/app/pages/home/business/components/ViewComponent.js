@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBusinessProfile} from '../../../../services/business.service';
+import { getUserByToken} from '../../../../services/user.service';
+import { getBusinessLocationList } from '../../../../services/business.service';
 import BusinessProfile  from './BusinessProfileComponents';
 import BusinessLocations  from './BusinessLocationsComponents'; 
 import { Checkbox, FormControlLabel, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
@@ -69,9 +70,9 @@ function profileContainer (props) {
 
 function LocationsContainer (props) {
 
-		return (
-			<BusinessLocations data={props.data} />
-			)
+	return (
+		<BusinessLocations data={props.data} />
+		)
 	
 }
 
@@ -91,11 +92,10 @@ const ViewComponent = () => {
 	
 	useEffect(() => {
 	    const fetchData = async () => {
-	    const response = await getBusinessProfile();
+	    const response = await getUserByToken();
 	      setState({
-	        data : response.data
+	        data : response.data.mainRole.business
 	      });
-
 	    }
 	    fetchData();
 	  }, []);

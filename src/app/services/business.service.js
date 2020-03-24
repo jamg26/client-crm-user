@@ -1,8 +1,13 @@
 import axios from "axios";
 export const ROOT_URL = process.env.REACT_APP_API_URL;
 export const BUSINESS_URL = "api/business";
+export const BUSINESS_LOCATION_URL = "api/businesslocation/";
 
-export function getBusinessProfile() {
-  return axios.get(`${ROOT_URL}/${BUSINESS_URL}`);
+
+export function getBusinessLocationList(data) {
+  return axios.get(`${ROOT_URL}/${BUSINESS_LOCATION_URL}${ data }`);
 }
 
+export function saveBusinessLocation(data) {
+  return axios.post(`${ROOT_URL}/${BUSINESS_LOCATION_URL}`, { data });
+}
