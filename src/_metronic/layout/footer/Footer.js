@@ -15,15 +15,15 @@ class Footer extends React.Component {
           <div className="kt-footer__copyright">
             {today.toString()}&nbsp;&copy;&nbsp;
             <a
-              href="http://keenthemes.com/metronic"
+              href="javascript_void(0)"
               target="_blank"
               rel="noopener noreferrer"
               className="kt-link"
             >
-              Keenthemes
+              Powered by The CRM Network
             </a>
           </div>
-          <div className="kt-footer__menu">
+          {/* <div className="kt-footer__menu">
             <a
               href="http://keenthemes.com/metronic"
               target="_blank"
@@ -48,7 +48,7 @@ class Footer extends React.Component {
             >
               Contact
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     );

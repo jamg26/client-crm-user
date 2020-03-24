@@ -92,7 +92,15 @@ export default {
             ]
           }
         ]
-      }
+      },
+      {
+        title: "Support",
+        root: true,
+        icon: "flaticon2-phone",
+        page: "supports",
+        translate: "",
+        bullet: "dot"
+      },
     ]
   }
 };
