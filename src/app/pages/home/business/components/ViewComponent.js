@@ -106,6 +106,7 @@ const ViewComponent = () => {
 		        <Tabs
 			        value={value}
 			        onChange={handleChange}
+			        id="BusinessProfileTab"
 			        variant="scrollable"
 			        scrollButtons="on"
 			        indicatorColor="primary"
