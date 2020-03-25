@@ -12,24 +12,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Modal from 'react-bootstrap/Modal'
 import { Alert, AlertTitle } from '@material-ui/lab';
 import BusinessLocationModal from './BusinessLocationModal';
-import { getBusinessLocationList, saveBusinessLocation, deleteBusinessLocation, updateBusinessLocation } from '../../../../services/business.service';
+import BusinessLocationCards from './businessLocations/BusinessLocationCards';
+import { getBusinessLocationList, saveBusinessLocation, deleteBusinessLocation, updateBusinessLocation, getBusinessLocationData } from '../../../../services/business.service';
 import { Checkbox, FormControlLabel, Switch, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
 
 
 const useStyles = makeStyles(theme => ({
   container: {
     display:'flex',
-    
   },
   root: {
     minWidth: 275,
     width:'20%',
     marginLeft: 10
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
   },
   title: {
     fontSize: 14,
@@ -37,6 +32,10 @@ const useStyles = makeStyles(theme => ({
   pos: {
     marginBottom: 12,
   },
+  containerCard: {
+    display:'flex',
+
+  }
 }));
 
 var formData = {isMainAddress: false, businessLocationName: '', businessId: ''}
@@ -44,9 +43,7 @@ var formData = {isMainAddress: false, businessLocationName: '', businessId: ''}
 const BusinessLocationsComponents = (props) => {
 
   const classes = useStyles();
-  const [state, setState] = useState({
-    dataLocation: props.data.businessLocation
-  });
+  const [state, setState] = useState(0);
   
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [show, setShow] = useState(false);
@@ -61,11 +58,12 @@ const BusinessLocationsComponents = (props) => {
 
 
   useEffect(() => {
+    const responseLocation = {}
       const fetchData = async () => {
         const responseLocation = await getBusinessLocationList(props.data.businessLocation.businessId);
         setState({
             dataLocation : responseLocation.data
-         });    
+         });   
 
       }
       fetchData();
@@ -80,17 +78,11 @@ const BusinessLocationsComponents = (props) => {
     }
 
     const handleDelete = (event) => {
-       deleteBusinessLocation(props.data.businessLocation.businessId)
+      let id = event.target.dataset.id
+       deleteBusinessLocation(id)
         .then((result) => {
            window.location.reload(); 
         })
-    }
-
-
-    const handleUpdateBusinessLocation = (event) => {
-      
-
-      
     }
 
     const handleChange = (event) => {
@@ -132,10 +124,7 @@ const BusinessLocationsComponents = (props) => {
         <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
                 <div className="kt-portlet">
                   <form autoComplete="off"  onSubmit={handleSave}>
-
                     <div className="kt-portlet__body">
-                          
-                      
                           <div className="form-group mb-0">
                           
                               <FormControlLabel
@@ -230,39 +219,38 @@ const BusinessLocationsComponents = (props) => {
 
 
   const showEditModal = (locationData) => {
+      const response = {};
+       const fetchData = async () => {
+        const response = await getBusinessLocationData(locationData);
+            setModalSize('lg');
+            setModalTitle('Edit Business Location');
 
-    setShow(true);
-    setModalSize('lg');
-    setModalTitle('Edit Business Location');
-    setModalBody(
-        <BusinessLocationModal data={locationData} />
-        
-    );
-    setModalFooter (
-      <>
-        <button
-          className="btn btn-primary btn-elevate"
-          onClick={handleUpdateBusinessLocation}
-        >
-          Update
-        </button>
+              setModalBody(
+                <BusinessLocationModal data={response.data} />  
+              ); 
 
-        
-      </>
-    )
+            setModalFooter (
+
+            )
+            setShow(true);
+        }
+    fetchData();
+
+    
 
 
 
   }
 
-  const showDeleteModal = () => {
+  const showDeleteModal = (deleteId) => {
     setShow(true);
     setModalTitle('Delete Business Location');
     setModalSize('');
     setModalBody(
       <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
+        <form autoComplete="off"  >
               <div className="kt-portlet">
-                <form autoComplete="off"  onSubmit={handleDelete}>
+                
                   <div className="kt-portlet__body">
                       <Typography variant="h5" component="h2">
                           Are you sure you want to Delete?
@@ -271,14 +259,15 @@ const BusinessLocationsComponents = (props) => {
                   
                   <div className="kt-portlet__footer">
                   </div>
-                </form>  
+                
               </div>
-          </div>
+          </form>  
+        </div>
     );
     setModalFooter (
 
           <>
-          <button className="btn btn-primary btn-elevate">YES</button>
+          <button className="btn btn-primary btn-elevate" onClick={handleDelete} data-id={deleteId} >YES</button>
           <button className="btn btn-danger btn-elevate" onClick={handleClose}>NO</button>
           </>
 
@@ -287,35 +276,21 @@ const BusinessLocationsComponents = (props) => {
   }
 
 
+      
+  function displayBusinessLocation () {
+    if (state.dataLocation)   {
+        return (<BusinessLocationCards data={state.dataLocation} cardStyle={classes} onDeleteBusinessLoc={showDeleteModal} onEditBusinessLoc={showEditModal}  />)
+    }
+        
+  }
+  
 
   return (
-  
+    <>
+
       <div className={classes.container}>
-          
-          <Card className={classes.root} variant="outlined">
-              <CardContent>
-                  <Typography variant="h5" component="h2">
-                    {state.dataLocation.businessLocationName}
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
-                      {state.dataLocation.addressLine}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                      {state.dataLocation.city} {state.dataLocation.state} {state.dataLocation.country} {state.dataLocation.zipCode}
-                  </Typography>
-              </CardContent>
-              <CardActions>
-
-                    <IconButton aria-label="edit" onClick={(event) => showEditModal(state.dataLocation)}>
-                        <EditIcon fontSize="small" />
-                    </IconButton>
-
-                    <IconButton aria-label="delete" onClick={showDeleteModal}>
-                        <DeleteIcon fontSize="small" />
-                    </IconButton>
-              </CardActions>
-          </Card>
-
+        <div className={classes.containerCard}>
+          {displayBusinessLocation ()}
           <Card className={classes.root} variant="outlined">
               <CardContent>
                   <Typography variant="h5" component="h2">
@@ -330,20 +305,23 @@ const BusinessLocationsComponents = (props) => {
                   </Typography>
               </CardContent>
           </Card>
+        </div>
+      </div>
 
           <Modal show={show} onHide={handleClose} size={modalSize}>
-      <Modal.Header closeButton>
-        <Modal.Title>{modalTitle}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-          {modalBody}
-      </Modal.Body>
-      <Modal.Footer>
-          {modalFooter}
-      </Modal.Footer>
-    </Modal>
+            <Modal.Header closeButton>
+              <Modal.Title>{modalTitle}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {modalBody}
+            </Modal.Body>
+            <Modal.Footer>
+                {modalFooter}
+            </Modal.Footer>
+          </Modal>
+  </>
       
-      </div>
+      
   );
 }
 export default BusinessLocationsComponents;

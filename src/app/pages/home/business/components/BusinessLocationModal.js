@@ -1,18 +1,35 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Checkbox, FormControlLabel, Switch, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
+import { getBusinessLocationList, saveBusinessLocation, deleteBusinessLocation, updateBusinessLocation } from '../../../../services/business.service';
+
+const updateBusinessLocationAction = (event) => {
+      
+  updateBusinessLocation(event)
+        .then((result) => {
+           window.location.reload(); 
+        })
+      
+}
+
 
 class BusinessLocationModal extends React.Component {
     constructor(props){
         super(props);
+        this.state = {};
         this.state = props.data
 
         this.handleChange = this.handleChange.bind(this);
-
-
-
+        this.handleUpdateBusinessLocation = this.handleUpdateBusinessLocation.bind(this);
+    }
+    handleUpdateBusinessLocation () {
+       updateBusinessLocationAction(this.state)
     }
 
+
+    componentDidMount(){
+       this.setState(this.props.data)
+    }
 
     handleChange(event) {
 
@@ -25,7 +42,7 @@ class BusinessLocationModal extends React.Component {
                 this.setState({country: event.target.value});
                 break;
             case 'isMainAddress':
-                // formData.isMainAddress = !formData.isMainAddress;
+                this.setState({country: !event.target.value});
                 break;
             case 'country':
                  this.setState({country: event.target.value});
@@ -43,10 +60,7 @@ class BusinessLocationModal extends React.Component {
         }
         global = this.setState;
 
-    }
-
-
-
+     }
 
     render(){
         return (
@@ -55,8 +69,6 @@ class BusinessLocationModal extends React.Component {
                   <form autoComplete="off"   >
 
                     <div className="kt-portlet__body">
-                           
-                      
                           <div className="form-group mb-0">
                           
                               <FormControlLabel
@@ -131,11 +143,17 @@ class BusinessLocationModal extends React.Component {
                             </div>
                         </div> 
                     </div>
-                    
+                  </form>   
                     <div className="kt-portlet__footer">
                         
+                        <button
+                          className="btn btn-primary btn-elevate"
+                            onClick={this.handleUpdateBusinessLocation.bind(this)}
+                        >
+                          Update
+                        </button>
                     </div>
-                  </form>  
+                   
                 </div>
             </div>
           )
