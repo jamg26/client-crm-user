@@ -24,6 +24,9 @@ export function getTicketById(id){
     return axios.get(`${ROOT_URL}/${SUPPORT_TICKET}/${id}`);
 }
 
+export function saveNewTicketSupport(ticket){
+    return axios.post(`${ROOT_URL}/${API_SUPPORT_TICKET}/`,ticket );
+}
 
 //attachment
 

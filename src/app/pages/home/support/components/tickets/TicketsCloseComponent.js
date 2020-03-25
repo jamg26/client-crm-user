@@ -3,8 +3,10 @@ import MaterialTable from 'material-table';
 import * as moment from 'moment';
 import { getClosedSupportTicket } from '../../../../../services/support.service';
 
-const TicketsAllComponent = () => {
+const TicketsCloseComponent = (props) => {
+  
   const [state, setState] = useState(0);
+  const propsData = props.props;
   
   useEffect(() => {
     const fetchData = async () => {
@@ -33,11 +35,20 @@ const TicketsAllComponent = () => {
     fetchData();
   }, []);
 
+
+  const editTicketSupport = (data) => {
+    propsData.history.push({
+      pathname:`supports/${data.id}`,
+      data : data
+     });
+  }
+
   return (
     <MaterialTable
-      title="Closed Ticket"
+      title="All Ticket"
       columns={state.columns}
       data={state.data}
+      onRowClick={(event, rowData) => editTicketSupport(rowData)}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
@@ -50,31 +61,10 @@ const TicketsAllComponent = () => {
             //       return { ...prevState, data };
             //     });
             //   })
-          }),
-        onRowUpdate: (newData, oldData) =>
-           new Promise((resolve, reject) => {
-            // updateBusiness(newData)
-            //   .then((result) => {
-            //     resolve();
-            //     if (oldData) {
-            //       setState(prevState => {
-            //         const data = [...prevState.data];
-            //         data[data.indexOf(oldData)] = newData;
-            //         return { ...prevState, data };
-            //       });
-            //     }
-            //   })
-            //   .catch((err) => {
-            //     reject(err)
-            //   })
-          }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
-           
-          }),
+          })
       }}
     />
   );
 }
 
-export default TicketsAllComponent;
+export default TicketsCloseComponent;

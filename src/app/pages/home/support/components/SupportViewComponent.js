@@ -7,9 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 //components
-import TicketsAllComponent from './tickets/TicketsAllComponent';
 import TicketsCloseComponent from './tickets/TicketsCloseComponent';
 import TicketsOpenComponent from './tickets/TicketsOpenComponent';
+import TicketCreateComponent from './tickets/TicketCreateComponent';
 
 function TabContainer({ children, dir }) {
   return (
@@ -56,6 +56,7 @@ export default function SupportViewComponent(props) {
         >
           <Tab label="Open" />
           <Tab label="Closed" />
+          <Tab label="Create Ticket"/>
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -68,6 +69,9 @@ export default function SupportViewComponent(props) {
         </TabContainer>
         <TabContainer dir={theme.direction}>
             <TicketsCloseComponent props={props}/>
+        </TabContainer>
+        <TabContainer dir={theme.direction}>
+            <TicketCreateComponent props={props}/>
         </TabContainer>
       </SwipeableViews>
     </div>
