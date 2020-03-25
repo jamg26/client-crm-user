@@ -10,8 +10,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Modal from 'react-bootstrap/Modal'
-import { getBusinessLocationList, saveBusinessLocation } from '../../../../services/business.service';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import BusinessLocationModal from './BusinessLocationModal';
+import { getBusinessLocationList, saveBusinessLocation, deleteBusinessLocation, updateBusinessLocation } from '../../../../services/business.service';
 import { Checkbox, FormControlLabel, Switch, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,40 +39,59 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-var formData = {isMainAddress: false}
+var formData = {isMainAddress: false, businessLocationName: '', businessId: ''}
 
-export default function BusinessLocationsComponents(props) {
+const BusinessLocationsComponents = (props) => {
 
   const classes = useStyles();
-  const [state, setState] = useState(0);
+  const [state, setState] = useState({
+    dataLocation: props.data.businessLocation
+  });
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [show, setShow] = useState(false);
   const [modalTitle, setModalTitle] = useState(0);
   const [modalBody, setModalBody] = useState(0);
+  const [modalFooter, setModalFooter] = useState(0);
+  const [modalSize, setModalSize] = useState(0);
+  const [alert, setAlert] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
+
   useEffect(() => {
       const fetchData = async () => {
         const responseLocation = await getBusinessLocationList(props.data.businessLocation.businessId);
         setState({
             dataLocation : responseLocation.data
-         });      
+         });    
 
       }
       fetchData();
     }, []);
 
-   const handleSubmit = (event) => {
+   const handleSave = (event) => {
+      formData.businessId = props.data.businessLocation.businessId
        saveBusinessLocation(formData)
         .then((result) => {
-          debugger;
+           window.location.reload(); 
         })
-        debugger;
     }
 
-  const showAddModal = () => {
+    const handleDelete = (event) => {
+       deleteBusinessLocation(props.data.businessLocation.businessId)
+        .then((result) => {
+           window.location.reload(); 
+        })
+    }
+
+
+    const handleUpdateBusinessLocation = (event) => {
+      
+
+      
+    }
 
     const handleChange = (event) => {
         switch (event.target.name){
@@ -101,19 +123,24 @@ export default function BusinessLocationsComponents(props) {
      const toggleChecked = (event) => {
         formData.isMainAddress = !formData.isMainAddress
     }
-    
+
+  const showAddModal = () => {
     setShow(true);
+    setModalSize('lg');
     setModalTitle('Add Business Location');
     setModalBody(
-            <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
+        <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
                 <div className="kt-portlet">
+                  <form autoComplete="off"  onSubmit={handleSave}>
+
                     <div className="kt-portlet__body">
-                      <form autoComplete="off"  >
+                          
+                      
                           <div className="form-group mb-0">
                           
                               <FormControlLabel
                                 control={<Switch name ="isMainAddress" onChange={handleChange} />}
-                                label="Normal"
+                                label="Defaul Main Address"
                               />
                           
                           </div>
@@ -176,37 +203,90 @@ export default function BusinessLocationsComponents(props) {
                                       />
                                   </div>
                             </div>
-                        </div>
-
-
-
-                     </form>   
+                        </div> 
                     </div>
                     
                     <div className="kt-portlet__footer">
-                      
                     </div>
+                  </form>  
                 </div>
             </div>
         
     );
+    setModalFooter (
+      <>
+        <button
+          className="btn btn-primary btn-elevate"
+          onClick={handleSave}
+        >
+          Add
+        </button>
+
+        <button className="btn btn-danger btn-elevate" onClick={handleClose}>Close</button>
+      </>
+    )
   }
 
-  const showEditModal = () => {
+
+
+  const showEditModal = (locationData) => {
+
     setShow(true);
+    setModalSize('lg');
     setModalTitle('Edit Business Location');
     setModalBody(
-        'asdasdasd'
+        <BusinessLocationModal data={locationData} />
+        
     );
+    setModalFooter (
+      <>
+        <button
+          className="btn btn-primary btn-elevate"
+          onClick={handleUpdateBusinessLocation}
+        >
+          Update
+        </button>
+
+        
+      </>
+    )
+
+
+
   }
 
-  // function BusinessLocation () {
-  //   if (state !== 0) {
-  //     const listlocation = state.dataLocation.map((item, index) => {
-  //       debugger; 
-  //     });
-  //   }
-  // }
+  const showDeleteModal = () => {
+    setShow(true);
+    setModalTitle('Delete Business Location');
+    setModalSize('');
+    setModalBody(
+      <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
+              <div className="kt-portlet">
+                <form autoComplete="off"  onSubmit={handleDelete}>
+                  <div className="kt-portlet__body">
+                      <Typography variant="h5" component="h2">
+                          Are you sure you want to Delete?
+                      </Typography>
+                  </div>
+                  
+                  <div className="kt-portlet__footer">
+                  </div>
+                </form>  
+              </div>
+          </div>
+    );
+    setModalFooter (
+
+          <>
+          <button className="btn btn-primary btn-elevate">YES</button>
+          <button className="btn btn-danger btn-elevate" onClick={handleClose}>NO</button>
+          </>
+
+        
+    )
+  }
+
+
 
   return (
   
@@ -215,22 +295,24 @@ export default function BusinessLocationsComponents(props) {
           <Card className={classes.root} variant="outlined">
               <CardContent>
                   <Typography variant="h5" component="h2">
-                      Fresh.vegas
+                    {state.dataLocation.businessLocationName}
                   </Typography>
                   <Typography className={classes.pos} color="textSecondary">
-                      B12345643234
+                      {state.dataLocation.addressLine}
                   </Typography>
                   <Typography variant="body2" component="p">
-                      6780 South Las Vegas Blvd Las Vegas, Nevada, USA-89119
+                      {state.dataLocation.city} {state.dataLocation.state} {state.dataLocation.country} {state.dataLocation.zipCode}
                   </Typography>
               </CardContent>
               <CardActions>
-                  <IconButton aria-label="edit">
-                      <EditIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton aria-label="delete">
-                      <DeleteIcon fontSize="small" />
-                  </IconButton>
+
+                    <IconButton aria-label="edit" onClick={(event) => showEditModal(state.dataLocation)}>
+                        <EditIcon fontSize="small" />
+                    </IconButton>
+
+                    <IconButton aria-label="delete" onClick={showDeleteModal}>
+                        <DeleteIcon fontSize="small" />
+                    </IconButton>
               </CardActions>
           </Card>
 
@@ -249,7 +331,7 @@ export default function BusinessLocationsComponents(props) {
               </CardContent>
           </Card>
 
-          <Modal show={show} onHide={handleClose} size="lg">
+          <Modal show={show} onHide={handleClose} size={modalSize}>
       <Modal.Header closeButton>
         <Modal.Title>{modalTitle}</Modal.Title>
       </Modal.Header>
@@ -257,15 +339,11 @@ export default function BusinessLocationsComponents(props) {
           {modalBody}
       </Modal.Body>
       <Modal.Footer>
-      <button
-                        className="btn btn-primary btn-elevate"
-                        onClick={handleSubmit}
-                      >
-                        Add
-                      </button>
+          {modalFooter}
       </Modal.Footer>
     </Modal>
       
       </div>
   );
 }
+export default BusinessLocationsComponents;
