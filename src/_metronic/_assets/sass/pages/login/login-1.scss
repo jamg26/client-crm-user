@@ -15,19 +15,24 @@
 .kt-login.kt-login--v1 {
     // Aside
     .kt-login__aside {
-        width: 605px;
+        width: 60%;
         padding: 3rem 3.5rem;
         background-repeat: no-repeat;
         background-size: cover;
-
+        background-position: center;
+        background-image: url('/media/bg/login-img.jpg');
         .kt-login__logo {
             display: flex;
         }
+        .kt-title-container{
+            position:absolute;
+            top: 13%;
 
-        .kt-login__title {
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 500;
+            .kt-login__title {
+                color: #67666e;
+                font-size: 2rem;
+                font-weight: 500;
+            }
         }
 
         .kt-login__subtitle {
@@ -44,11 +49,11 @@
             .kt-login__menu {
                 > a {
                     text-decoration: none;
-                    color: #fff;
+                    color: #67666e;
                     margin-right: 2rem;
                     display: inline-block;
 
-                    @include kt-link-color(rgba(#fff, 0.7), #fff);
+                    @include kt-link-color(rgba(#67666e, 0.7), #67666e);
 
                     &:last-child {
                         margin-right: 0;
@@ -57,7 +62,7 @@
             }
 
             .kt-login__copyright {
-                color: rgba(#fff, 0.4);
+                color: rgb(103, 102, 110);
             }
         }
     }
