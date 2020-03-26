@@ -27,7 +27,7 @@ export default function AuthPage() {
                 <Link to="/" className="kt-login__logo">
                   <img
                     alt="Logo"
-                    src={toAbsoluteUrl("/media/logos/logo-thecrmnetwork-dark.png")}
+                    src={toAbsoluteUrl("/media/logos/logo-thecrmnetwork.png")}
                   />
                 </Link>
               </div>

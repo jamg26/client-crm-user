@@ -1,10 +1,14 @@
 import axios from "axios";
+import React from 'react'
+import { post } from "axios";
 
 export const ROOT_URL = process.env.REACT_APP_API_URL;
 export const SUPPORT_TICKET = "api/supportticket";
 export const API_SUPPORT_TICKET = "api/supportticket";
 export const SUPPORT_TICKET_ATTACHMENT = "attachment";
 export const SUPPORT_COMMENT = 'comment'
+
+export const FILE_UPLOAD_URL = "api/fileupload";
 
 ///api/SupportTicket/Attachment/{SupportTicketCommentId}
 
@@ -51,4 +55,19 @@ export function getCommentById(id) {
 
 export function saveComment(comment) {
     return axios.post(`${ROOT_URL}/${SUPPORT_COMMENT}`, comment)
+}
+
+
+// UPLOAD
+const config = {
+  'content-type': 'multipart/form-data',
+}
+
+export function requestFileUpload(file) {
+    var formData = new FormData();
+    
+    const url = `${ROOT_URL}/${FILE_UPLOAD_URL}`;
+    formData.append('files', file);
+    return post(url, formData, config);
+
 }
