@@ -6,8 +6,8 @@ import Login from "./Login";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
 
+
 export default function AuthPage() {
-  console.log("authPage");
   return (
     <>
       <div className="kt-grid kt-grid--ver kt-grid--root">
@@ -15,11 +15,12 @@ export default function AuthPage() {
           id="kt_login"
           className="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v1"
         >
-          <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
+          <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop" 
+          >
             <div
-              className="kt-grid__item kt-grid__item--order-tablet-and-mobile-2 kt-grid kt-grid--hor kt-login__aside"
-              style={{
-                backgroundImage: `url(${toAbsoluteUrl("/media/bg/login-img.jpg")})`
+              className="kt-grid__item  kt-grid kt-grid--hor kt-login__aside"
+               style={{
+                
               }}
             >
               <div className="kt-grid__item">
@@ -30,12 +31,12 @@ export default function AuthPage() {
                   />
                 </Link>
               </div>
-              <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
-                <div className="kt-grid__item kt-grid__item--middle">
-                  <h3 className="kt-login__title">Welcome to The CRM Network</h3>
-                  <h4 className="kt-login__subtitle">
+              <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver" style={{justifyContent: 'center'}}>
+                <div className="kt-grid__item kt-grid__item--middle kt-title-container" >
+                  <h3 className="kt-login__title" >Welcome to The CRM Network</h3>
+{/*                  <h4 className="kt-login__subtitle" style={{color: '#67666e'}}>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  </h4>
+                  </h4>*/}
                 </div>
               </div>
               <div className="kt-grid__item">
