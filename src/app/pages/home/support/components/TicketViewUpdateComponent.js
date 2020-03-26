@@ -21,7 +21,7 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getFileName } from '../../../../../_metronic/utils/utils';
 import { awsServices } from '../../../../services/aws.service';
-import { saveAttachment, getAttachment, getCommentById, saveComment } from '../../../../services/support.service';
+import { saveAttachment, getAttachment, getCommentById, saveComment, requestFileUpload } from '../../../../services/support.service';
 import TicketSupportAttachment from './TicketSupportAttachment';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -128,7 +128,7 @@ class TicketViewUpdateComponent extends React.Component {
 
     onUpload() {
         this.setState({loading:true});
-        awsServices(this.state.selectedFile)
+        requestFileUpload(this.state.selectedFile)
             .then((response) => {
                 this.saveAttachment(response)
                     .then((responseData) => {
@@ -148,10 +148,11 @@ class TicketViewUpdateComponent extends React.Component {
 
     saveAttachment(data){
         return new Promise((resolve, reject) =>{
+            let upload = data.data[0];
             let file = {
                 supportTicketId : this.state.ticket.id,
-                filePath: data.location,
-                fileName: getFileName(data.location),
+                filePath: upload.fileURL,
+                fileName: getFileName(upload.fileURL),
                 userId: this.props.user.id
             };
             saveAttachment(file)

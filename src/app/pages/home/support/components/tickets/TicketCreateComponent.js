@@ -23,7 +23,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { green } from '@material-ui/core/colors';
 import { getFileName } from '../../../../../../_metronic/utils/utils';
 import { awsServices } from '../../../../../services/aws.service';
-import { saveAttachment, getAttachment, getCommentById, saveComment, saveNewTicketSupport } from '../../../../../services/support.service';
+import { saveAttachment, getAttachment, getCommentById, saveComment, saveNewTicketSupport, requestFileUpload } from '../../../../../services/support.service';
 
 const classes = theme => ({
     root: {
@@ -64,7 +64,7 @@ class TicketCreateComponent extends React.Component {
         // this.onUpload = this.onUpload.bind(this);
         this.descriptionHandler = this.descriptionHandler.bind(this);
         this.subjectHandler = this.subjectHandler.bind(this);
-        this.saveCommentHandler = this.saveCommentHandler.bind(this);
+        this.saveTicket = this.saveTicket.bind(this);
         console.log(this.state)
     }
 
@@ -76,7 +76,7 @@ class TicketCreateComponent extends React.Component {
         this.setState({ subject: event.target.value});
     }
 
-    saveCommentHandler(){
+    saveTicket(){
         this.saveTicketFunction()
             .then((result) => {
                 this.setState({
@@ -96,7 +96,7 @@ class TicketCreateComponent extends React.Component {
     async saveTicketFunction() {
         let ticket = await this.saveTicketSupport();
         let upload = await this.uploadToAws();
-        if (upload){
+        if (upload.data[0]){
             let attachments = await this.saveAttachmentToTicket({upload,ticket});
         }
         return true;
@@ -119,9 +119,10 @@ class TicketCreateComponent extends React.Component {
     uploadToAws(){
         return new Promise((resolve, reject) =>{
             if (this.state.selectedFile) {
-                awsServices(this.state.selectedFile)
-                    .then(results => resolve(results))
-                    .catch(err => reject(err))
+                let fileData =  this.state.selectedFile;
+                    requestFileUpload(fileData)
+                    .then((response) => resolve(response))
+                    .catch((err) => reject(err))
             } else {
                 resolve(false)
             }
@@ -130,13 +131,14 @@ class TicketCreateComponent extends React.Component {
 
     saveAttachmentToTicket(data){
         return new Promise((resolve, reject) =>{
+            let upload = data.upload.data[0]
             let file = {
                 supportTicketId : data.ticket.id,
-                filePath: data.upload.location,
-                fileName: getFileName(data.upload.location),
+                filePath: upload.fileURL,
+                fileName: getFileName(upload.fileURL),
                 userId: this.state.user.id
             };
-            saveAttachment(file)
+             saveAttachment(file)
                 .then((response) => resolve(response))
                 .catch((err) => reject(err))
         })
@@ -277,7 +279,7 @@ class TicketCreateComponent extends React.Component {
                         </Grid>
                     </Form.Group>
                     <Form.Group controlId="savebtn">
-                        <Button variant="contained" color="primary" onClick={ this.saveCommentHandler }>Save</Button>
+                        <Button variant="contained" color="primary" onClick={ this.saveTicket }>Save</Button>
                     </Form.Group>
                 </Form>
                 <Snackbar
@@ -296,9 +298,9 @@ class TicketCreateComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
-		user : state.auth.user
-	}
+    return {
+        user : state.auth.user
+    }
 }
 
 export default connect(mapStateToProps)(TicketCreateComponent);

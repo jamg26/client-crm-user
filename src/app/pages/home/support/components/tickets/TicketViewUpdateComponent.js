@@ -21,7 +21,7 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getFileName } from '../../../../../_metronic/utils/utils';
 import { awsServices } from '../../../../services/aws.service';
-import { saveAttachment, getAttachment, getCommentById, saveComment } from '../../../../services/support.service';
+import { saveAttachment, getAttachment, getCommentById, saveComment, requestFileUpload } from '../../../../services/support.service';
 import TicketSupportAttachment from './TicketSupportAttachment';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,7 +51,6 @@ const classes = theme => ({
         marginLeft: -12,
     },
 })
-
 
 class TicketViewUpdateComponent extends React.Component {
 
@@ -128,8 +127,9 @@ class TicketViewUpdateComponent extends React.Component {
 
     onUpload() {
         this.setState({loading:true});
-        awsServices(this.state.selectedFile)
+        requestFileUpload(this.state.selectedFile)
             .then((response) => {
+
                 this.saveAttachment(response)
                     .then((responseData) => {
                         this.setState({
@@ -422,9 +422,9 @@ class TicketViewUpdateComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
-		user : state.auth.user
-	}
+    return {
+        user : state.auth.user
+    }
 }
 
 export default connect(mapStateToProps)(TicketViewUpdateComponent);
