@@ -1,5 +1,8 @@
 import React from 'react';
 import { Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import { getLeadSourceList } from '../../services/leadSource.service';
+
 
 class LeadSourceDropDown extends React.Component {
     
@@ -7,44 +10,49 @@ class LeadSourceDropDown extends React.Component {
         super(props);
         this.handleSelectLeadSource = this.handleSelectLeadSource.bind(this);
         this.state = {
-            data : [],
-            leadSourceId: props.currentLeadSource.leadSourceId
+            leadData : [],
+            leadSourceId: this.props.currentLeadSource.leadSourceId
         }
-         this.props.onSelectLeadSource({leadSourceId:props.currentLeadSource.leadSourceId, leadSourceName:props.currentLeadSource.leadSourceName});
-
     }
 
     componentDidMount(){
-        this.setState({
-            data : this.props.data.data,
-        })
+        this.getLeadsSource();
+        this.setState({leadSourceId:this.props.currentLeadSource.leadSourceId})
     }
 
+    getLeadsSource() {
+        getLeadSourceList()
+            .then(results => this.setState({leadData : results.data}))
+            .catch(err => console.log(err))
+    }
     
     handleSelectLeadSource(event){
-        let leadSourceId  = event.target.value;
-        const leadSourceData = this.state.data;
+        this.setState({leadSourceId:event.target.value})
+        this.props.getSelectedLeadSource(event.target.value);
 
-        const findLeadSource = leadSourceData.find(leadSource => leadSource.id === leadSourceId);
-
-        let leadSourceName  = findLeadSource.leadSourceName;
-        this.setState({leadSourceId:leadSourceId, leadSourceName: leadSourceName});
-        this.props.onSelectLeadSource({leadSourceId:leadSourceId, leadSourceName: leadSourceName});
     }
 
     render(){
         return (
-
-            <FormControl>
-            <InputLabel id="labelLeadSource">Lead Source</InputLabel>
-            <Select labelId="labelLeadSource" onChange={ this.handleSelectLeadSource.bind(this,) } value={this.state.leadSourceId }>
+            <FormControl variant="outlined" style={{width:'100%'}}>
+                <InputLabel id="labelLeadSource">Lead Source</InputLabel>
+                <Select
+                  labelId="labelLeadSource"
+                  value={this.props.currentLeadSource.leadSourceId}
+                  onChange={this.handleSelectLeadSource.bind(this)}
+                  label="Lead Source"
+                  name="leadSourceId"
+                >
                 <MenuItem value="0" >
                     <em>Select Lead Source</em>
                 </MenuItem>
-                { this.state.data.map(value => <MenuItem key={value.id} value={value.id} data-leadSourceName={value.leadSourceName}>{value.leadSourceName}</MenuItem>) }
-                
+                    { this.state.leadData.map(value => 
+                        <MenuItem key={value.id} value={value.id}>
+                            {value.leadSourceName}
+                        </MenuItem>) 
+                    }
             </Select>
-          </FormControl>
+        </FormControl>
           )
     }
 
