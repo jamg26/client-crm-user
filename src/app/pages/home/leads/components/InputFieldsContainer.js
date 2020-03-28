@@ -206,8 +206,8 @@ class InputFieldsContainer extends React.Component {
                                         />
                                     </div>
 
-                                    <div className="form-group mb-0" style={{paddingTop: '8px'}}>
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <div className="form-group mb-0" style={{paddingTop: '0px', paddingBottom: '0px', marginBottom: '-11px'}}>
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils} >
 
                                             <KeyboardDatePicker
                                                 margin="normal"
@@ -220,6 +220,7 @@ class InputFieldsContainer extends React.Component {
                                                 KeyboardButtonProps={{
                                                     'aria-label': 'change date',
                                                 }}
+                                                style={{paddingTop: '0px', paddingBottom: '8px'}}
                                             />
 
                                         </MuiPickersUtilsProvider>
