@@ -13,6 +13,7 @@ import CrudButtonOPtions  from '../../../../partials/shared/CrudButtonOptions';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Row, Col, Container } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // var selectedLeadSource = {};
 var formData = {}
@@ -35,6 +36,14 @@ const ViewComponent = () => {
   const handleClose = () => setShow(false);
 
   const [reRender, setRerender] = useState(false);
+
+  const notify = data => {
+    if (data.success) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,6 +99,7 @@ const ViewComponent = () => {
           .then((result) => {
              setRerender(!reRender)
              setShow(false); 
+             notify({ success: true, message: 'Success adding leads.' });
           }).catch(err => console.log(err))
       
     } else {
@@ -104,6 +114,7 @@ const ViewComponent = () => {
           .then((result) => {
               setRerender(!reRender)
               setShow(false); 
+              notify({ success: true, message: 'Success updating leads.' });
           }).catch(err => console.log(err))
 
     } else {
@@ -119,6 +130,7 @@ const ViewComponent = () => {
           .then((result) => {
               setRerender(!reRender)
               setShow(false);
+              notify({ success: true, message: 'Success deleting leads.' });
           })
   }
 
