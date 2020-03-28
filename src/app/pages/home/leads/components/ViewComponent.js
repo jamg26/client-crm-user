@@ -11,6 +11,8 @@ import ModalContainer from '../../../../partials/shared/ModalContainer';
 import InputfieldsContainer from './InputFieldsContainer';
 import CrudButtonOPtions  from '../../../../partials/shared/CrudButtonOptions';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { Row, Col, Container } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 
 // var selectedLeadSource = {};
 var formData = {}
@@ -45,33 +47,37 @@ const ViewComponent = () => {
           { title: 'First name', field: 'firstName' },
           { title: 'Last name', field: 'lastName' },
           { title: 'Phone', field: 'phoneNumber'},
-          // { 
-          //   title: 'Lead Source',
-          //   field: 'leadSourceName',
-          //   editComponent: props => (
-          //     <LeadSourceDropdown data={leadSourceList} 
-          //                         onSelectLeadSource={handleSelectLeadSource} 
-          //                         currentLeadSource={props.rowData} />            )
-          // }
-        ],
-        data : response.data,
-        actions : [
-          {
-            icon: 'edit',
-            tooltip: 'Invite user',
-            isFreeAction: false,
-            onClick: (event, rowData) => {
-                showUpdateModal(rowData.id)
-            }
-          },
-          {
-            icon: 'delete',
-            tooltip: 'Invite user',
-            onClick: (event, rowData) => {
-               showDeleteModal ()
+          { title: 'Action',
+            field: 'actions',
+            width: 200,
+            render: rowData => {
+              return (
+                <Row>
+                  <Col>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      title={rowData.id}
+                      onClick={() => showUpdateModal(rowData.id)}
+                    >
+                      UPDATE
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      variant='contained'
+                      onClick={() => showDeleteModal(rowData.id)}
+                    >
+                      DELETE
+                    </Button>
+                  </Col>
+                </Row>
+              );
             }
           }
-        ]
+        ],
+        data : response.data,
+        
       });
     }
     fetchData();
@@ -188,7 +194,17 @@ const ViewComponent = () => {
   }
 
   return (
-    <>
+    <Container>
+      <ToastContainer />
+      <Button
+        className='mb-2'
+        variant="contained"
+        color="primary"
+        size='large'
+        onClick={showAddModal}
+      >
+        Add
+      </Button>
       <MaterialTable
         title="Leads"
         columns={state.columns}
@@ -196,75 +212,8 @@ const ViewComponent = () => {
         options={{
             actionsColumnIndex: -1,
           }}
-        onRowClick={(event, rowData) => showLeadDetailModal(rowData.id)}
         actions={state.actions}
-        // editable={{
-        //   onRowAdd: newData =>
-        //     new Promise(resolve => {
-        //       newData.businessId = userData.mainRole.business.id;
-        //       registerLead(newData)
-        //         .then((result) => {
-        //           resolve();
-        //           setState(prevState => {
-        //             const data = [...prevState.data];
-        //             data.push(newData);
-        //             return { ...prevState, data };
-        //           });
-        //         })
-        //     }),
-        //   onRowUpdate: (newData, oldData) =>
-        //      new Promise((resolve, reject) => {
-        //       newData.leadSourceId = selectedLeadSource.leadSourceId;
-        //       newData.leadSourceName = selectedLeadSource.leadSourceName;
-        //       updateLead(newData)
-        //         .then((result) => {
-        //           resolve();
-        //           if (oldData) {
-        //             setState(prevState => {
-        //               const data = [...prevState.data];
-        //               data[data.indexOf(oldData)] = newData;
-        //               return { ...prevState, data };
-        //             });
-        //           }
-        //         })
-        //         .catch((err) => {
-        //           reject(err)
-        //         })
-        //     }),
-        //   onRowDelete: oldData =>
-        //     new Promise((resolve,reject) => {
-        //       deleteLead(oldData.id)
-        //         .then((results) => {
-        //           resolve();
-        //           setState(prevState => {
-        //             const data = [...prevState.data];
-        //             data.splice(data.indexOf(oldData), 1);
-        //             return { ...prevState, data };
-        //           });
-        //         })
-        //         .catch((err) => {
-        //           reject()
-        //         })
-        //     }),
-        // }}
-        components={{
-            Toolbar: props => (
-            <div>
-              <MTableToolbar {...props} />
-              <div style={{display: 'flex', justifyContent: 'flex-end',  margin: '0 20px 20px 0'}}>
-                 <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<AddIcon />}
-                    onClick={showAddModal}
-                  >
-                    Add Lead
-                  </Button>
-              </div>
-
-            </div>
-          ),
-        }}
+        
       />
       <ModalContainer 
           handleClose={handleClose}
@@ -274,7 +223,7 @@ const ViewComponent = () => {
           modalBody={modalBody}
           modalFooter={modalFooter}
       />
-    </>
+    </Container>
   );
 }
 
