@@ -108,7 +108,6 @@ const ViewComponent = () => {
   };
 
   const upAccount = data => {
-    console.log(data)
     setInput({
       id: data.id,
       profile: data.profile,
@@ -190,7 +189,7 @@ const ViewComponent = () => {
         Add
       </Button>
       <MaterialTable
-        title='Business'
+        title='Accounts'
         columns={state.columns}
         data={state.data}
       />
