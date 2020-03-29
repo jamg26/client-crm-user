@@ -14,8 +14,11 @@ const ModalContainer = props => {
         <Modal.Header closeButton>
           <Modal.Title>{props.modalTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.modalBody}</Modal.Body>
-        <Modal.Footer>{props.modalFooter}</Modal.Footer>
+        <Modal.Body>
+          {props.modalBody}
+          {props.modalFooter}
+        </Modal.Body>
+        {/* <Modal.Footer></Modal.Footer> */}
       </Modal>
     </div>
   );

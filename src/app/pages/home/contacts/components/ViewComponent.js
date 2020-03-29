@@ -31,6 +31,7 @@ const ViewComponent = () => {
     description: '',
     dateOfBirth: '',
     phone: '',
+    accountId: 'JR1zcprJkUs.',
     street: ''
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +48,7 @@ const ViewComponent = () => {
     const fetchData = async () => {
       const response = await getContactList();
       const accountList = await getAccountList();
+      setAccount(accountList);
       setState({
         columns: [
           { title: 'Profile', field: 'profile' },
