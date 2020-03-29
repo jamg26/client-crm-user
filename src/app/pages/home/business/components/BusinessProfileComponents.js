@@ -8,8 +8,13 @@ class BusinessProfileComponents extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            businessName: this.props.data.businessName,
-            email: this.props.data.email
+            formData : {
+                businessName: this.props.data.businessName,
+                email: this.props.data.email,
+                id: this.props.data.id
+            },
+            processing: this.props.onProcessing,
+            
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -19,28 +24,24 @@ class BusinessProfileComponents extends React.Component {
 
 
     handleChange(event) {
-
-        switch (event.target.name){
-            case 'email':
-                this.setState({email: event.target.value});
-                break;
-            case 'businessName':
-                this.setState({businessName: event.target.value});
-                break;
-        }
+        let newFormData = this.state.formData;
+        let keyName = event.target.name;
+        newFormData[keyName] = event.target.value
+        this.setState({formData: newFormData});
     }
 
     handleSubmit(event) {
-       console.log(this.state);
+        // this.setState({processing: true})
+        this.props.onUpdateProfile(this.state.formData)
     }
 
 
-
     render(){
+
         return (
             <div className="row">
                 <div className="col-md-6">
-                    <form autoComplete="off" onSubmit={this.handleSubmit}>
+                    
                         <div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item">
                             <div className="kt-portlet">
                                 <div className="kt-portlet__body">
@@ -52,7 +53,7 @@ class BusinessProfileComponents extends React.Component {
                                             className="kt-width-full"
                                             name="businessName"
                                             required="true"
-                                            value={this.state.businessName}
+                                            value={this.state.formData.businessName}
                                             onChange={this.handleChange}
                                          />
                                     </div>
@@ -64,7 +65,7 @@ class BusinessProfileComponents extends React.Component {
                                             className="kt-width-full"
                                             name="email"
                                             required="true"
-                                            value={this.state.email}
+                                            value={this.state.formData.email}
                                             onChange={this.handleChange}
                                          />
                                     </div>
@@ -73,7 +74,9 @@ class BusinessProfileComponents extends React.Component {
                                     
                                       <button
                                         className="btn btn-primary btn-elevate"
-                                        
+                                        onClick={this.handleSubmit}
+                                        disableElevation
+                                        disabled={this.state.processing}
                                       >
                                         Update
                                       </button>
@@ -81,7 +84,7 @@ class BusinessProfileComponents extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </form>
+                   
                 </div>
             </div>
           )

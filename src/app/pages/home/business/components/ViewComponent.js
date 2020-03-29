@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { makeStyles } from '@material-ui/core/styles';
 import { getUserByToken} from '../../../../services/user.service';
-import { getBusinessLocationList } from '../../../../services/business.service';
+import { getBusinessLocationList, updateBusinessProfile } from '../../../../services/business.service';
 import BusinessProfile  from './BusinessProfileComponents';
 import BusinessLocations  from './BusinessLocationsComponents'; 
 import { Checkbox, FormControlLabel, TextField, Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
@@ -21,6 +21,8 @@ import Avatar from 'react-avatar-edit'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -38,6 +40,16 @@ function TabPanel(props) {
     </Typography>
   );
 }
+
+const notify = data => {
+    if (data.success) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+  }
+
+
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -60,29 +72,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function profileContainer (props) {
-	if (props !== 0) {
-		return (
-			<BusinessProfile data={props.data} />
-			)
-	}
-}
 
-function LocationsContainer (props) {
-
-	return (
-		<BusinessLocations data={props.data} />
-		)
-	
-}
 
 
 
 
 const ViewComponent = () => {
 	const classes = useStyles();
+	const [reRender, setRerender] = useState(false);
 
   	const [value, setValue] = useState(0);
+  	const [processupdateBusinessProfile, setProcessupdateBusinessProfile] = useState(false);
  	const [state, setState] = useState(0);
  	
 	const handleChange = (event, newValue) => {
@@ -98,10 +98,40 @@ const ViewComponent = () => {
 	      });
 	    }
 	    fetchData();
-	  }, []);
+	  }, [reRender]);
+
+
+		const HandleUpdateBusinessProfile = (formDataBusinessProfile) => {
+			updateBusinessProfile(formDataBusinessProfile)
+		        .then(result => {
+		          	setRerender(!reRender);
+		          	notify({ success: true, message: 'Success Updating Business Profile.' });
+					setProcessupdateBusinessProfile(false)	          
+		    }).catch(err => console.log(err));
+
+		}
+
+		const  profileContainer = (props) => {
+			if (props !== 0) {
+				
+				return (
+					<BusinessProfile data={props.data} onUpdateProfile={HandleUpdateBusinessProfile} onProcessing={processupdateBusinessProfile}/>
+					)
+				
+			}
+		}
+
+		const LocationsContainer = (props) => {
+
+			return (
+				<BusinessLocations data={props.data} />
+				)
+			
+		}
 
 	  	return (
 		<div className={classes.root}>
+			<ToastContainer />
 			<AppBar position="static" color="default">
 		        <Tabs
 			        value={value}
