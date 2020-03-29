@@ -9,7 +9,7 @@ import {
   deleteLead
 } from '../../../../services/leads.service';
 import { getLeadSourceList } from '../../../../services/leadSource.service';
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import ModalContainer from '../../../../partials/shared/ModalContainer';
@@ -55,6 +55,7 @@ const ViewComponent = () => {
     const fetchData = async () => {
       const response = await getLeadsList();
       const leadSourceList = await getLeadSourceList();
+      setLeadSource(leadSourceList.data);
       setState({
         columns: [
           { title: 'Company name', field: 'companyName' },
@@ -105,7 +106,7 @@ const ViewComponent = () => {
   const handleSave = () => {
     if (formData != {}) {
       formData.businessId = userData.mainRole.business.id;
-      console.log(formData);
+
       registerLead(formData)
         .then(result => {
           setRerender(!reRender);
@@ -227,32 +228,46 @@ const ViewComponent = () => {
   return (
     <Container>
       <ToastContainer />
-      <Button
-        className='mb-2'
-        variant='contained'
-        color='primary'
-        size='large'
-        onClick={showAddModal}
-      >
-        Add
-      </Button>
-      <MaterialTable
-        title='Leads'
-        columns={state.columns}
-        data={state.data}
-        options={{
-          actionsColumnIndex: -1
-        }}
-        actions={state.actions}
-      />
-      <ModalContainer
-        handleClose={handleClose}
-        handleOpen={show}
-        modalSize={modalSize}
-        modalTitle={modalTitle}
-        modalBody={modalBody}
-        modalFooter={modalFooter}
-      />
+      {state.data ? (
+        <>
+          <Button
+            className='mb-2'
+            variant='contained'
+            color='primary'
+            size='large'
+            onClick={showAddModal}
+          >
+            Add
+          </Button>
+          <MaterialTable
+            title='Leads'
+            columns={state.columns}
+            data={state.data}
+            // options={{
+            //   actionsColumnIndex: -1
+            // }}
+            options={{
+              pageSize: state.data?.length,
+              pageSizeOptions: [state.data?.length],
+              toolbar: true,
+              paging: true
+            }}
+            actions={state.actions}
+          />
+          <ModalContainer
+            handleClose={handleClose}
+            handleOpen={show}
+            modalSize={modalSize}
+            modalTitle={modalTitle}
+            modalBody={modalBody}
+            modalFooter={modalFooter}
+          />
+        </>
+      ) : (
+        <div align='center'>
+          <CircularProgress />
+        </div>
+      )}
     </Container>
   );
 };
