@@ -8,14 +8,24 @@ import {
   deleteContact
 } from '../../../../services/contact.service';
 import { getAccountList } from '../../../../services/account.service';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import TableModal from '../../Modal';
 import { Row, Col } from 'react-bootstrap';
 import ContactsInput from './ContactsInput';
+import 'react-toastify/dist/ReactToastify.css';
 
-var selectedAccount = {};
-const ViewComponent = () => {
+const notify = data => {
+  if (data.success) {
+    toast.success(data.message);
+  } else {
+    toast.error(data.message);
+  }
+}
+
+  var selectedAccount = {};
+  const ViewComponent = () => {
   const [state, setState] = useState(0);
   const [account, setAccount] = useState(0);
 
@@ -108,7 +118,21 @@ const ViewComponent = () => {
   }, []);
 
   const upContact = data => {
-    setInput(data);
+    setInput({
+      id: data.id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      zipCode: data.zipCode,
+      description: data.description,
+      dateOfBirth: data.dateOfBirth,
+      phone: data.phone,
+      accountId: data.accountId,
+      street: data.street
+    })
     setIsModalOpen(true);
     setRerender(!reRender);
   };
@@ -128,21 +152,21 @@ const ViewComponent = () => {
       ...input,
       [e.target.id]: e.target.value
     });
+    console.log(input)
   };
 
   const handleSubmitContact = async e => {
     e.preventDefault();
-    console.log(input);
     if (isUpdate) {
       try {
-        await addContacts(input);
-        //notify({ success: true, message: 'Success updating master Contact.' });
+        await updateContact(input);
+        notify({ success: true, message: 'Success updating master Contact.' });
       } catch (error) {}
     }
     if (!isUpdate) {
       try {
-        await updateContact(input);
-        //notify({ success: true, message: 'Success adding master Contact.' });
+        await addContacts(input);
+        notify({ success: true, message: 'Success adding master Contact.' });
       } catch (error) {}
     }
     setIsModalOpen(false);
@@ -151,6 +175,7 @@ const ViewComponent = () => {
 
   return (
     <>
+    <ToastContainer />
       <TableModal
         type='admin'
         title='Master Admin'
@@ -181,55 +206,6 @@ const ViewComponent = () => {
         title='Contacts'
         columns={state.columns}
         data={state.data}
-        // editable={{
-        //   onRowAdd: newData =>
-        //     new Promise(resolve => {
-        //       newData.accountId = account.accountId;
-        //       addContacts(newData)
-        //         .then((result) => {
-        //           resolve();
-        //           setState(prevState => {
-        //             const data = [...prevState.data];
-        //             data.push(newData);
-        //             return { ...prevState, data };
-        //           });
-        //         })
-        //     }),
-        //   onRowUpdate: (newData, oldData) =>
-        //      new Promise((resolve, reject) => {
-        //       newData.accountId = selectedAccount.accountId;
-        //       newData.account.accountName = selectedAccount.accountName;
-        //       updateContact(newData)
-        //         .then((result) => {
-        //           resolve();
-        //           if (oldData) {
-        //             setState(prevState => {
-        //               const data = [...prevState.data];
-        //               data[data.indexOf(oldData)] = newData;
-        //               return { ...prevState, data };
-        //             });
-        //           }
-        //         })
-        //         .catch((err) => {
-        //           reject(err)
-        //         })
-        //     }),
-        //   onRowDelete: oldData =>
-        //     new Promise((resolve,reject) => {
-        //       deleteContact(oldData.id)
-        //         .then((results) => {
-        //           resolve();
-        //           setState(prevState => {
-        //             const data = [...prevState.data];
-        //             data.splice(data.indexOf(oldData), 1);
-        //             return { ...prevState, data };
-        //           });
-        //         })
-        //         .catch((err) => {
-        //           reject()
-        //         })
-        //     }),
-        // }}
       />
     </>
   );
