@@ -1,7 +1,7 @@
 import React from 'react';
 import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { getLeadSourceList } from '../../services/leadSource.service';
+import { getLeadStatus } from '../../services/leadStatus.service';
 
 class LeadStatusDropDown extends React.Component {
   constructor(props) {
@@ -14,17 +14,18 @@ class LeadStatusDropDown extends React.Component {
     };
   }
 
-  getLeadSource = async () => {
-    const leadSourceList = await getLeadSourceList();
+  getLeadStatusList = async () => {
+    const leadStatus = await getLeadStatus();
     this.setState({
-      leadStatusList: leadSourceList.data
+      leadStatusList: leadStatus.data
     });
+    console.log('lead status - ', leadStatus.data);
   };
 
   componentDidMount() {
     // this.getLeadsSource();
     this.setState({ leadStatusId: this.props.currentLeadStatus.leadStatusId });
-    this.getLeadSource();
+    this.getLeadStatusList();
   }
 
   // getLeadsSource() {
@@ -50,14 +51,21 @@ class LeadStatusDropDown extends React.Component {
         >
           <MenuItem value='0'>
             <em>
-              {!this.state?.leadStatusList ? 'Loading' : 'Select Lead Status'}
+              Select Lead Status
+              {/* {!this.state?.leadStatusList ? 'Loading' : 'Select Lead Status'} */}
             </em>
+          </MenuItem>
+          <MenuItem value='1'>
+            <em>Lead Pending</em>
+          </MenuItem>
+          <MenuItem value='2'>
+            <em>Active Customer</em>
           </MenuItem>
 
           {this.state?.leadStatusList?.map((lead, index) => {
             return (
               <MenuItem key={index} value={lead.id}>
-                <em>{lead.leadSourceName}</em>
+                <em>{lead.id}</em>
               </MenuItem>
             );
           })}
