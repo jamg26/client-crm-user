@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import * as moment from 'moment';
-import { getOpenSupportTicket } from '../../../../../services/support.service';
+import {
+  getOpenSupportTicket,
+  saveNewTicketSupport
+} from '../../../../../services/support.service';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import TableModal from '../../../Modal';
@@ -79,7 +82,11 @@ const TicketsAllComponent = props => {
 
   const handleSubmitTicket = async e => {
     e.preventDefault();
-    console.log(input);
+    const newInput = {
+      ...input,
+      businessId: 'R2PPfBhpaLA.'
+    };
+    console.log(newInput);
     if (isUpdate) {
       try {
         //await addContacts(input);
@@ -89,6 +96,7 @@ const TicketsAllComponent = props => {
     if (!isUpdate) {
       try {
         //await updateContact(input);
+        saveNewTicketSupport(newInput);
         //notify({ success: true, message: 'Success adding master Contact.' });
       } catch (error) {}
     }
