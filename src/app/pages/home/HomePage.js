@@ -24,6 +24,10 @@ const SupportComponent = lazy(() =>
   import("./support/SupportComponent")
 )
 
+const InviteUserComponent = lazy(() =>
+  import("./inviteuser/inviteuser")
+)
+
 export default function HomePage() {
   // useEffect(() => {
   //   console.log('Home page');
@@ -43,6 +47,7 @@ export default function HomePage() {
         <Route path="/leads" component={LeadsComponent}/>
         <Route path="/business" component={BusinessComponent}/>
         <Route path="/supports" component={SupportComponent}/>
+        <Route path="/invite-user" component={InviteUserComponent}/>
       </Switch>
     </Suspense>
   );
