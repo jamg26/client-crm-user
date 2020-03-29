@@ -36,7 +36,7 @@ class InputFieldsContainer extends React.Component {
       description: '',
       lastName: '',
       receivedDate: '',
-      leadStatusId: '0',
+      leadStatusId: 'JR1zcprJkUs.',
       estimatedtBilling: '',
       isdcode: '',
       mobile: '',
@@ -95,7 +95,7 @@ class InputFieldsContainer extends React.Component {
   handleSelectLeadStatus(leadStatusId) {
     if (this.props.modalType !== 'details') {
       let data = this.state;
-      data.leadStatusId = leadStatusId;
+      //data.leadStatusId = leadStatusId;
       this.setState(data);
       this.props.getFormData(data);
     }

@@ -18,8 +18,7 @@ const TicketsAllComponent = props => {
   const initialInput = {
     id: '',
     subject: '',
-    description: '',
-    supportTicketAttachment: ''
+    description: ''
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
