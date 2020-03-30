@@ -10,10 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import TicketsCloseComponent from './tickets/TicketsCloseComponent';
 import TicketsOpenComponent from './tickets/TicketsOpenComponent';
 import TicketCreateComponent from './tickets/TicketCreateComponent';
+import TicketAdd from './tickets/TicketAdd';
 
 function TabContainer({ children, dir }) {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component='div' dir={dir}>
       {children}
     </Typography>
   );
@@ -21,14 +22,14 @@ function TabContainer({ children, dir }) {
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired,
+  dir: PropTypes.string.isRequired
 };
 
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: '100%',
-  },
+    width: '100%'
+  }
 }));
 
 export default function SupportViewComponent(props) {
@@ -46,17 +47,18 @@ export default function SupportViewComponent(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position='static' color='default'>
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
+          indicatorColor='primary'
+          textColor='primary'
+          variant='fullWidth'
         >
-          <Tab label="Open" />
-          <Tab label="Closed" />
-          <Tab label="Create Ticket"/>
+          <Tab label='Open' />
+          <Tab label='Closed' />
+          {/* <Tab label='Create Ticket' /> */}
+          <Tab label='Open a Ticket' />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -65,13 +67,16 @@ export default function SupportViewComponent(props) {
         onChangeIndex={handleChangeIndex}
       >
         <TabContainer dir={theme.direction}>
-            <TicketsOpenComponent props={props}/>
+          <TicketsOpenComponent props={props} />
         </TabContainer>
         <TabContainer dir={theme.direction}>
-            <TicketsCloseComponent props={props}/>
+          <TicketsCloseComponent props={props} />
         </TabContainer>
+        {/* <TabContainer dir={theme.direction}>
+          <TicketCreateComponent props={props} />
+        </TabContainer> */}
         <TabContainer dir={theme.direction}>
-            <TicketCreateComponent props={props}/>
+          <TicketAdd props={props} />
         </TabContainer>
       </SwipeableViews>
     </div>
