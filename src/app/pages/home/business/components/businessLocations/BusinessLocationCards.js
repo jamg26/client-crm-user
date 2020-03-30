@@ -7,7 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 import ReactDOM from 'react-dom';
+import { Row, Col, Container } from 'react-bootstrap';
 
 class BusinessLocationCards extends React.Component {
     
@@ -24,26 +26,27 @@ class BusinessLocationCards extends React.Component {
     showDeleteModal (event) {
        let id = event.currentTarget.dataset.id
        this.props.onDeleteBusinessLoc(id);
+       debugger;
     }
 
     showEditModal (event) {
-       let id = event.currentTarget.dataset.id
-       this.props.onEditBusinessLoc(id);
-       
-      debugger;
+       let data = event.currentTarget.dataset.id
+       this.props.onEditBusinessLoc(data);
+
     }
 
     handleUpdate (event) {
       let id = {id:event.currentTarget.dataset.id}
 
     }
-
+    debugger;
     render(){
 
         return (
-          <>
+          <Row>
+            
             { this.state.data.map(value => 
-
+                
                   <Card  variant="outlined" className={this.state.classes.root}>
                       <CardContent>
                           <Typography variant="h5" component="h2">
@@ -58,7 +61,7 @@ class BusinessLocationCards extends React.Component {
                       </CardContent>
                       <CardActions>
 
-                            <IconButton aria-label="edit" data-id={value.id} onClick={this.showEditModal.bind(this)}>
+                            <IconButton aria-label="edit" data-id={value.id}  onClick={this.showEditModal.bind(value)} data-two={value.name}>
                                 <EditIcon fontSize="small" />
                             </IconButton>
                             
@@ -67,9 +70,11 @@ class BusinessLocationCards extends React.Component {
                             </IconButton>
                       </CardActions>
                   </Card>
+
                 ) 
             }
-          </>
+
+          </Row>
             
           )
     }

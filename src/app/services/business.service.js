@@ -21,7 +21,11 @@ export function deleteBusinessLocation(id) {
   return axios.delete(`${ROOT_URL}/${BUSINESS_LOCATION_URL}/${id}`);
 }
 
-
 export function updateBusinessLocation(newData) {
   return axios.patch(`${ROOT_URL}/${BUSINESS_LOCATION_URL}`, newData);
 }
+
+export function updateBusinessProfile(newData) {
+  return axios.patch(`${ROOT_URL}/${BUSINESS_URL}`, newData);
+}
+

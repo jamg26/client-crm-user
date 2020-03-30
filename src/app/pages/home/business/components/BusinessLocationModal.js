@@ -58,7 +58,6 @@ class BusinessLocationModal extends React.Component {
                  this.setState({zipCode: event.target.value});
                 break;
         }
-        global = this.setState;
 
      }
 

@@ -5,6 +5,8 @@ import {
   getOpenSupportTicket,
   saveNewTicketSupport
 } from '../../../../../services/support.service';
+import { Table } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import TableModal from '../../../Modal';
@@ -28,34 +30,27 @@ const TicketsAllComponent = props => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getOpenSupportTicket();
+      console.log(response);
       setState({
         columns: [
-          { title: 'Status', field: 'status' },
-          { title: 'Ticket#', field: 'supportTicketKey' },
-          { title: 'Subject', field: 'subject' },
-          // {
-          //   title: 'Name',
-          //   field: 'user',
-          //   render: rowData =>
-          //     `${rowData.user.firstName} ${rowData.user.lastName}`
-          // },
-          // {
-          //   title: 'Email',
-          //   field: 'email',
-          //   render: rowData => `${rowData.user.email}`
-          // },
-          // {
-          //   title: 'Phone',
-          //   field: 'phone',
-          //   render: rowData => `${rowData.user.phoneNumber}`
-          // },
+          {
+            title: 'Action',
+            render: rowData => (
+              <a onClick={() => editTicketSupport(rowData)}>
+                <EditOutlined twoToneColor='#1a88d9' />
+              </a>
+            )
+          },
+          { title: 'Status', dataIndex: 'status' },
+          { title: 'Ticket#', dataIndex: 'supportTicketKey' },
+          { title: 'Subject', dataIndex: 'subject' },
           {
             title: 'Requested On',
-            field: 'dateCreated',
-            render: rowData => `${moment(rowData.dateCreated).format('LLL')}`
+            dataIndex: 'dateCreated',
+            render: rowData => `${moment(rowData).format('LLL')}`
           }
         ],
-        data: response.data
+        data: response.data.reverse()
       });
     };
     fetchData();
@@ -117,7 +112,7 @@ const TicketsAllComponent = props => {
         />
       </TableModal>
 
-      <Button
+      {/* <Button
         className='mb-2'
         variant='contained'
         color='primary'
@@ -129,8 +124,17 @@ const TicketsAllComponent = props => {
         }}
       >
         Add support ticket
-      </Button>
-      <MaterialTable
+      </Button> */}
+
+      <Table
+        columns={state.columns}
+        dataSource={state.data}
+        bordered
+        size='small'
+        showHeader
+        loading={!state.data ? true : false}
+      />
+      {/* <MaterialTable
         title='All Ticket'
         columns={state.columns}
         data={state.data}
@@ -149,7 +153,7 @@ const TicketsAllComponent = props => {
               //   })
             })
         }}
-      />
+      /> */}
     </>
   );
 };
