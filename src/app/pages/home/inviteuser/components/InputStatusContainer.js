@@ -4,7 +4,9 @@ import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import UserTypeDropdown from '../../../../partials/shared/UserTypeDropDown';
 
 const InputContainer = props => {
-    debugger;
+    let error = props.formValidation.error;
+    let errMsg = props.formValidation.errorMessage;
+    
   return (
           <Container>
             <Row>
@@ -37,6 +39,7 @@ const InputContainer = props => {
                             shrink: true
                         }}
                         size='small'
+                        helperText={errMsg}
                         />
                     </InputGroup>
                 </Col>
@@ -110,6 +113,8 @@ const InputContainer = props => {
                         value={props.data.confirmPassword}
                         variant='outlined'
                         fullWidth={true}
+                        helperText={errMsg}
+                        error={error}
                         InputLabelProps={{
                             shrink: true
                         }}

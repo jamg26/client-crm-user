@@ -11,10 +11,10 @@ const InputContainer = props => {
                 <Col xs={6}>
                     <InputGroup className='mb-0'>
                         <UserTypeDropdown
-                            currentLeadSource={{
-                              leadSourceId: props.leadSourceId
+                            currentUserType={{
+                              userTypeId: props.userTypeId
                             }}
-                            getSelectedLeadSource={props.handleSelectLeadSource}
+                            getSelectedUserType={props.handleSelectUserType}
                             businessId={props.data.businessId}
                           />
                     </InputGroup>

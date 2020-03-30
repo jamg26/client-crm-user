@@ -5,6 +5,7 @@ import '../../../_metronic/_assets/sass/pages/login/login-1.scss';
 import Login from './Login';
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
+import AcceptInvitation from './AcceptInvitation';
 
 export default function AuthPage() {
   return (
@@ -67,6 +68,10 @@ export default function AuthPage() {
                 <Route
                   path='/auth/forgot-password'
                   component={ForgotPassword}
+                />
+                <Route
+                  path='/accept-invitation/:id'
+                  component={AcceptInvitation}
                 />
                 <Redirect from='/auth' exact={true} to='/auth/login' />
                 <Redirect to='/auth/login' />
