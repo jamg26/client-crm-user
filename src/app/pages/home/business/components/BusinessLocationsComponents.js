@@ -72,7 +72,7 @@ const BusinessLocationsComponents = (props) => {
     id: '',
     isMainAddress: false,
     businessLocationName: '',
-    businessId: '',
+    businessId: userData.mainRole.business.id,
     country: '',
     state: '',
     city: '',

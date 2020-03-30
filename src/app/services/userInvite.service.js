@@ -12,11 +12,11 @@ export function addInviteUser (data) {
 }
 
 export function acceptInviteUser(data) {
-  return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, accounts);
+  return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, data);
 }
 
 export function rejectInviteUser(data) {
-  return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, accounts);
+  return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, data);
 }
 
 export function deleteInviteUser(id){

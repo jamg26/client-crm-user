@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { 
-  getAccountList,
-  registerAccount,
-  updateAccount,
-  deleteAccount } from '../../../../services/account.service';
+  getUserInviteList,
+  addInviteUser,
+  acceptInviteUser,
+  rejectInviteUser,
+  deleteInviteUser } from '../../../../services/userInvite.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
 import InputContainer from './InputContainer';
@@ -22,12 +23,17 @@ const ViewComponent = () => {
     userInviteId: '',
     businessId: userData.mainRole.business.id,
     userTypeId: '',
-    businessName: '',
+    businessName: userData.mainRole.business.businessName,
     userTypeName: '',
     email: '',
     firstName: '',
     lastName: '',
   };
+
+  const defaultValidation = {
+    'error': false,
+    'errorMessage': ''
+  }
 
   const notify = data => {
     if (data.success) {
@@ -45,18 +51,25 @@ const ViewComponent = () => {
   const [input, setInput] = useState(initialInput);
   const [inputStatus, setInputStatus] = useState(0);
   const [statusType,setStatusType] = useState('');
+  const [formValiation, setFormValidation]=useState(defaultValidation);
   const [reRender, setRerender] = useState(false); // Re render table after updating
+
+  const clearValidation = () => {
+    setFormValidation(defaultValidation);
+  }
+
+
 
   useEffect(() => {
     const fetchData = async () => {
-    const response = await getAccountList();
+    const response = await getUserInviteList(userData.mainRole.business.id);
       setState({
         columns: [
-          { title: 'First Name', field: 'profile' },
-          { title: 'Last Name', field: 'accountName' },
-          { title: 'Email', field: 'phone' },
-          { title: 'Invited As', field: 'website'},
-          { title: 'Status', field: 'addressLine'},
+          { title: 'First Name', field: 'firstName' },
+          { title: 'Last Name', field: 'lastName' },
+          { title: 'Email', field: 'email' },
+          { title: 'Invited As', field: 'userTypeName'},
+          { title: 'Status', field: 'status'},
           { title: 'Action',
             field: 'actions',
             width: 300,
@@ -65,10 +78,10 @@ const ViewComponent = () => {
               let btnRjectDisable = false;
               let btnAcceptDisable = false;
 
-              if (data.accountName==='ww') {
+              if (data.status!=='Pending') {
                 btnRjectDisable = true
                 btnAcceptDisable = true
-                debugger;
+
               }
               return (
                 <Row>
@@ -131,6 +144,7 @@ const ViewComponent = () => {
   };
 
   const upInviteUserStatus = data => {
+    clearValidation();
     setInputStatus({
       userInviteId: data.userInviteId,
       email: data.email,
@@ -144,59 +158,105 @@ const ViewComponent = () => {
   };
 
   const upAccount = data => {
+    clearValidation();
     setInput({
-      id: data.id,
-      profile: data.profile,
-      accountName: data.accountName,
-      phone: data.phone,
-      website: data.website,
-      addressLine: data.addressLine,
-      country: data.country,
-      state: data.state,
-      city: data.city,
-      zipCode: data.zipCode,
-      industryName: data.industryName,
-      parentName: data.parentName,
-      accountType: data.accountType,
-      description:data.description
+      userInviteId: data.userInviteId,
+      businessId: userData.mainRole.business.id,
+      userTypeId: data.userTypeId,
+      businessName: data.businessName,
+      userTypeName: data.userTypeName,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
     });
     setIsModalOpen(true);
     setRerender(!reRender);
   };
 
   const handleChange = e => {
-    setInput({
-      ...input,
-      [e.target.id]: e.target.value
-    });
+    if (actionType === 'accept' || actionType === 'reject') {
+      setInputStatus({
+        ...inputStatus,
+        [e.target.id]: e.target.value
+      });
+
+    } else {
+      setInput({
+        ...input,
+        [e.target.id]: e.target.value
+      });
+    }
+      
+  };
+
+  const handleSelectUserType = userType => {
+    debugger;
+     setInput({
+        ...input,
+        ['userTypeId']: userType.userTypeId,
+        ['userTypeName']: userType.userTypeName
+      });
+      
   };
 
   const handleSubmitBusiness = async e => {
-    debugger;
     e.preventDefault();
     input.businessId = userData.mainRole.business.id;
+    clearValidation();
+    let isError = false;
     if (actionType === 'invite') {
-      // try {
-      //   await updateAccount(input);
-      //   notify({ success: true, message: 'Success updating account.' });
-      // } catch (error) {}
+      debugger;
+      try {
+        await addInviteUser(input);
+        notify({ success: true, message: 'Success inviting user.' });
+      } catch (error) {}
     }
     if (actionType === 'accept') {
-        debugger;
+        if (inputStatus.password !== inputStatus.confirmPassword) {
+          setFormValidation({
+              'error': true,
+              'errorMessage': 'Confirm password did not match.'
+            
+          });
+          isError = true;
+        }else {
+          try {
+              await acceptInviteUser(inputStatus);
+              notify({ success: true, message: 'User was successfully accpeted.' });
+              debugger;
+            } catch (error) {}
+        }
+        
     }
+
+    if (actionType === 'accept') {
+       
+      try {
+          await acceptInviteUser(inputStatus);
+          notify({ success: true, message: 'User was successfully rejected.' });
+          debugger;
+        } catch (error) {}
+      
+        
+    }
+
+    debugger;
     // if (!isUpdate) {
     //   try {
     //     await registerAccount(input);
     //     notify({ success: true, message: 'Success adding account.' });
     //   } catch (error) {}
     // }
-    setIsModalOpen(false);
-    setIsModalStatusOpen(false);
-    setRerender(!reRender);
+    if (!isError) {
+      setIsModalOpen(false);
+      setIsModalStatusOpen(false);
+      setRerender(!reRender);
+    }
+    
   };
 
   const delAccount = async id => {
-    await deleteAccount(id);
+    await deleteInviteUser(id);
     setRerender(!reRender);
   };
 
@@ -213,6 +273,7 @@ const ViewComponent = () => {
           data={input}
           handleChange={handleChange}
           handleSubmit={handleSubmitBusiness}
+          handleSelectUserType={handleSelectUserType}
         />
 
       </TableModal>
@@ -225,8 +286,10 @@ const ViewComponent = () => {
         handleSubmit={handleSubmitBusiness}
       >
         <InputStatusContainer
-          data={input}
+          data={inputStatus}
+          handleChange={handleChange}
           handleSubmit={handleSubmitBusiness}
+          formValidation={formValiation}
         />
         
       </TableModal>
