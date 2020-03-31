@@ -7,6 +7,10 @@ export function getUserInviteList(businessId) {
   return axios.get(`${ROOT_URL}/${USERINVITE_URL}/${businessId}`);
 }
 
+export function getUserInviteData(userInviteId) {
+  return axios.get(`${ROOT_URL}/${USERINVITE_URL}/detail/${userInviteId}`);
+}
+
 export function addInviteUser (data) {
   return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, data);
 }
