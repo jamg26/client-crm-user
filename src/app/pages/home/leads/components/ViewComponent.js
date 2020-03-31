@@ -85,8 +85,7 @@ const ViewComponent = () => {
                       onClick={() => {
                         deleteLead(rowData.id);
                         setRerender(!reRender);
-                        // setDeleteId(rowData.id);
-                        // showDeleteModal();
+
                       }}
                     >
                       DELETE
@@ -152,7 +151,7 @@ const ViewComponent = () => {
     setModalSize('lg');
     setModalTitle('Add Lead');
     setModalBody(
-      <InputfieldsContainer modalType='add' getFormData={handleChange} />
+      <InputfieldsContainer modalType='add' getFormData={handleChange} businessId={userData.mainRole.business.id} />
     );
     setModalFooter(
       <CrudButtonOPtions
@@ -207,7 +206,7 @@ const ViewComponent = () => {
 
   const showDeleteModal = () => {
     setShow(true);
-    setModalSize('m');
+    setModalSize('lg');
     setModalTitle('Delete Lead');
 
     setModalBody(
@@ -243,16 +242,6 @@ const ViewComponent = () => {
             title='Leads'
             columns={state.columns}
             data={state.data}
-            // options={{
-            //   actionsColumnIndex: -1
-            // }}
-            options={{
-              pageSize: state.data?.length,
-              pageSizeOptions: [state.data?.length],
-              toolbar: true,
-              paging: true
-            }}
-            actions={state.actions}
           />
           <ModalContainer
             handleClose={handleClose}

@@ -15,17 +15,18 @@ class LeadStatusDropDown extends React.Component {
   }
 
   getLeadStatusList = async () => {
-    const leadStatus = await getLeadStatus();
+    const leadStatus = await getLeadStatus(this.props.businessId);
     this.setState({
       leadStatusList: leadStatus.data
     });
-    console.log('lead status - ', leadStatus.data);
   };
 
   componentDidMount() {
     // this.getLeadsSource();
     this.setState({ leadStatusId: this.props.currentLeadStatus.leadStatusId });
     this.getLeadStatusList();
+    
+    
   }
 
   // getLeadsSource() {
@@ -55,26 +56,13 @@ class LeadStatusDropDown extends React.Component {
               {/* {!this.state?.leadStatusList ? 'Loading' : 'Select Lead Status'} */}
             </em>
           </MenuItem>
-          <MenuItem value='1'>
-            <em>Lead Pending</em>
-          </MenuItem>
-          <MenuItem value='2'>
-            <em>Active Customer</em>
-          </MenuItem>
 
-          {this.state?.leadStatusList?.map((lead, index) => {
-            return (
-              <MenuItem key={index} value={lead.id}>
-                <em>{lead.id}</em>
-              </MenuItem>
-            );
-          })}
 
-          {/*{ this.state.leadData.map(value => 
-                        <MenuItem key={value.id} value={value.id} data-leadStatusName={value.leadStatusName}>
+          { this.state?.leadStatusList?.map(value => 
+                        <MenuItem key={value.id} value={value.id}>
                             {value.leadStatusName}
                         </MenuItem>) 
-                    }*/}
+                    }
         </Select>
       </FormControl>
     );
