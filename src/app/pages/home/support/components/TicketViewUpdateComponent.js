@@ -428,7 +428,7 @@ class TicketViewUpdateComponent extends React.Component {
                               <Button
                                 variant='contained'
                                 color='primary'
-                                disableElevation
+                                //disableElevation
                                 style={this.class.wrapper}
                                 disabled={this.state.loading}
                                 onClick={this.onUpload}
@@ -481,7 +481,7 @@ class TicketViewUpdateComponent extends React.Component {
                                   <Button
                                     variant='contained'
                                     color='primary'
-                                    disableElevation
+                                    // disableElevation
                                     onClick={() =>
                                       this.setState({ toggleForm: true })
                                     }
