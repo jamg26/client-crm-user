@@ -49,7 +49,7 @@ class UserTypeDropDown extends React.Component {
                     <em>Select User Type</em>
                 </MenuItem>
                     { this.state.userTypeData.map(value => 
-                        <MenuItem key={value.businessId} value={value.businessId} >
+                        <MenuItem key={value.id} value={value.id} >
                             {value.businessUserRoleName}
                         </MenuItem>) 
                     }
