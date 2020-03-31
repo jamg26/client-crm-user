@@ -29,6 +29,7 @@ const TicketAdd = () => {
   };
   const [input, setInput] = useState(initialInput);
   const [attached, setAttached] = useState({ fileName: '', filePath: '' });
+  const [ticketBtn, setTicketBtn] = useState(false);
 
   // useEffect(() => {
   //   // const fetchData = async () => {
@@ -78,7 +79,7 @@ const TicketAdd = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-
+    setTicketBtn(true);
     const newParam = {
       ...input,
       businessId: 'R2PPfBhpaLA.'
@@ -160,6 +161,7 @@ const TicketAdd = () => {
                 className='float-right mt-3'
                 variant='contained'
                 color='primary'
+                disabled={ticketBtn}
               >
                 Confirm
               </Button>
