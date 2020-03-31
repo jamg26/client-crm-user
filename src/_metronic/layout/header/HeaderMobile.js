@@ -1,15 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import objectPath from "object-path";
-import * as builder from "../../ducks/builder";
-import KTToggle from "../../_assets/js/toggle";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import objectPath from 'object-path';
+import * as builder from '../../ducks/builder';
+import KTToggle from '../../_assets/js/toggle';
+import { getBusiness } from '../../../app/services/business.service';
 
 class HeaderMobile extends React.Component {
   toggleButtonRef = React.createRef();
 
+  state = {
+    business: {}
+  };
+
+  getBusinessDetails = async () => {
+    const business = await getBusiness();
+    this.setState({ business: business.data });
+  };
+
   componentDidMount() {
     new KTToggle(this.toggleButtonRef.current, this.props.toggleOptions);
+    this.getBusinessDetails();
   }
 
   render() {
@@ -22,21 +33,26 @@ class HeaderMobile extends React.Component {
     } = this.props;
     return (
       <div
-        id="kt_header_mobile"
+        id='kt_header_mobile'
         className={`kt-header-mobile ${headerMobileCssClasses}`}
         {...headerMobileAttributes}
       >
-        <div className="kt-header-mobile__logo">
-          <Link to="/">
-            <img alt="logo" src={headerLogo} />
+        <div className='kt-header-mobile__logo'>
+          <Link to='/'>
+            <img
+              alt='logo'
+              width='180px'
+              height='64px'
+              src={this.state.business.logoUrl || this.props.headerLogo}
+            />
           </Link>
         </div>
 
-        <div className="kt-header-mobile__toolbar">
+        <div className='kt-header-mobile__toolbar'>
           {asideDisplay && (
             <button
-              className="kt-header-mobile__toggler kt-header-mobile__toggler--left"
-              id="kt_aside_mobile_toggler"
+              className='kt-header-mobile__toggler kt-header-mobile__toggler--left'
+              id='kt_aside_mobile_toggler'
             >
               <span />
             </button>
@@ -44,8 +60,8 @@ class HeaderMobile extends React.Component {
 
           {headerMenuSelfDisplay && (
             <button
-              className="kt-header-mobile__toggler"
-              id="kt_header_mobile_toggler"
+              className='kt-header-mobile__toggler'
+              id='kt_header_mobile_toggler'
             >
               <span />
             </button>
@@ -53,10 +69,10 @@ class HeaderMobile extends React.Component {
 
           <button
             ref={this.toggleButtonRef}
-            className="kt-header-mobile__topbar-toggler"
-            id="kt_header_mobile_topbar_toggler"
+            className='kt-header-mobile__topbar-toggler'
+            id='kt_header_mobile_topbar_toggler'
           >
-            <i className="flaticon-more" />
+            <i className='flaticon-more' />
           </button>
         </div>
       </div>
@@ -68,22 +84,22 @@ const mapStateToProps = store => ({
   headerLogo: builder.selectors.getStickyLogo(store),
   asideDisplay: objectPath.get(
     store.builder.layoutConfig,
-    "aside.self.display"
+    'aside.self.display'
   ),
   headerMenuSelfDisplay:
-    objectPath.get(store.builder.layoutConfig, "header.menu.self.display") ===
+    objectPath.get(store.builder.layoutConfig, 'header.menu.self.display') ===
     true,
   toggleOptions: {
-    target: "body",
-    targetState: "kt-header__topbar--mobile-on",
-    togglerState: "kt-header-mobile__toolbar-topbar-toggler--active"
+    target: 'body',
+    targetState: 'kt-header__topbar--mobile-on',
+    togglerState: 'kt-header-mobile__toolbar-topbar-toggler--active'
   },
   headerMobileCssClasses: builder.selectors.getClasses(store, {
-    path: "header_mobile",
+    path: 'header_mobile',
     toString: true
   }),
   headerMobileAttributes: builder.selectors.getAttributes(store, {
-    path: "aside_menu"
+    path: 'aside_menu'
   })
 });
 
