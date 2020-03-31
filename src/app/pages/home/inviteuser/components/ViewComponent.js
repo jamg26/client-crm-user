@@ -5,6 +5,7 @@ import {
   addInviteUser,
   acceptInviteUser,
   rejectInviteUser,
+  resendInviteUser,
   deleteInviteUser } from '../../../../services/userInvite.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
@@ -66,11 +67,11 @@ const ViewComponent = () => {
           { title: 'First Name', field: 'firstName' },
           { title: 'Last Name', field: 'lastName' },
           { title: 'Email', field: 'email' },
-          { title: 'Invited As', field: 'userTypeName'},
+          { title: 'Invited As', field: 'businessUserRoleName'},
           { title: 'Status', field: 'status'},
           { title: 'Action',
             field: 'actions',
-            width: 300,
+            width: 400,
             render: data => {
 
               let btnRjectDisable = false;
@@ -112,6 +113,23 @@ const ViewComponent = () => {
                       }}
                     >
                       REJECT
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      title={data.id}
+                      disabled={btnAcceptDisable}
+                      onClick={() => {
+                        setInput(data);
+                        setIsModalOpen(true);
+                        setActionType('resend');
+                        clearValidation();
+
+                      }}
+                    >
+                      RESEND
                     </Button>
                   </Col>
                   <Col>
@@ -179,20 +197,24 @@ const ViewComponent = () => {
       });
 
     } else {
-      setInput({
-        ...input,
-        [e.target.id]: e.target.value
-      });
+        if (actionType !== 'resend') {
+          setInput({
+            ...input,
+            [e.target.id]: e.target.value
+          });
+        }
     }
       
   };
 
   const handleSelectUserType = userType => {
-    clearValidation();
-     setInput({
-        ...input,
-        ['businessUserRoleId']: userType.businessUserRoleId,
-      });
+    if (actionType !== 'resend') {
+      clearValidation();
+       setInput({
+          ...input,
+          ['businessUserRoleId']: userType.businessUserRoleId,
+        });
+    }
       
   };
 
@@ -255,6 +277,14 @@ const ViewComponent = () => {
         }
     }
 
+    if (actionType === 'resend') {
+      try {
+          await resendInviteUser(input);
+          notify({ success: true, message: 'Resend invitation successful.' });
+          
+        } catch (error) {}
+    }
+
     if (actionType === 'reject') {
       try {
           await rejectInviteUser(inputStatus);
@@ -292,6 +322,8 @@ const ViewComponent = () => {
           handleSubmit={handleSubmitBusiness}
           handleSelectUserType={handleSelectUserType}
           formValidation={formValiation}
+          businessUserRoleId={input.businessUserRoleId}
+          formActionType={actionType}
         />
 
       </TableModal>

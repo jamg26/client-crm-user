@@ -6,6 +6,7 @@ import UserTypeDropdown from '../../../../partials/shared/UserTypeDropDown';
 
 const InputContainer = props => {
     let validate = props.formValidation
+    let btnName = (props.formActionType === 'resend' ? 'RESEND INVITATION' : 'INVITE' ) 
 
   return (
           <Container>
@@ -88,7 +89,7 @@ const InputContainer = props => {
                             props.handleSubmit(e)
                         }}
                     >
-                        Invite
+                        {btnName}
                     </Button>
                     </InputGroup>
                 </Col>
