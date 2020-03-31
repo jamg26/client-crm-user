@@ -15,6 +15,10 @@ export function addInviteUser (data) {
   return axios.post(`${ROOT_URL}/${USERINVITE_URL}`, data);
 }
 
+export function resendInviteUser (data) {
+  return axios.post(`${ROOT_URL}/${USERINVITE_URL}/resendinvite`, data);
+}
+
 export function acceptInviteUser(data) {
   return axios.post(`${ROOT_URL}/${USERINVITE_URL}/acceptinvite`, data);
 }
