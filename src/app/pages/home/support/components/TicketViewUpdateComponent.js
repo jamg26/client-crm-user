@@ -374,13 +374,13 @@ class TicketViewUpdateComponent extends React.Component {
                     <ExpansionPanelDetails>
                       <Grid container spacing={3} justify='space-between'>
                         <Grid item xs={12}>
-                          {/* <Typography>
+                          <Typography>
                             Note:Upload attachment extension allow:.pdf, .xlsx,
                             .xls, .png, .doc, .docx, .jpg, .jpeg, .csv, .txt
-                          </Typography> */}
+                          </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                          {/* <input
+                          <input
                             style={{ display: 'none' }}
                             id='contained-button-file'
                             type='file'
@@ -395,7 +395,7 @@ class TicketViewUpdateComponent extends React.Component {
                             >
                               Upload
                             </Button>
-                          </label> */}
+                          </label>
                         </Grid>
                         <Grid item xs={12}>
                           <List
