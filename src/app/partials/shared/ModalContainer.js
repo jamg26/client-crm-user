@@ -6,10 +6,11 @@ const ModalContainer = props => {
   return (
     <div>
       <Modal
-        dialogClassName={props.modalClassName}
+        dialogClassName='modal-90w'
         show={props.handleOpen}
         onHide={props.handleClose}
         size={props.modalSize}
+        centered
       >
         <Modal.Header closeButton>
           <Modal.Title>{props.modalTitle}</Modal.Title>

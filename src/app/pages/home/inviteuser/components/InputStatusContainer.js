@@ -4,8 +4,13 @@ import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import UserTypeDropdown from '../../../../partials/shared/UserTypeDropDown';
 
 const InputContainer = props => {
-    let error = props.formValidation.error;
-    let errMsg = props.formValidation.errorMessage;
+    let validate = props.formValidation
+    let actionType = props.formActionType
+    let passwordShow = 'block';
+
+    if (actionType === 'reject') {
+        passwordShow = 'none';
+    }
     
   return (
           <Container>
@@ -39,7 +44,6 @@ const InputContainer = props => {
                             shrink: true
                         }}
                         size='small'
-                        helperText={errMsg}
                         />
                     </InputGroup>
                 </Col>
@@ -93,7 +97,10 @@ const InputContainer = props => {
                         value={props.data.password}
                         variant='outlined'
                         type="password"
+                        style={{display:passwordShow}}
                         fullWidth={true}
+                        helperText={validate?.password?.errorMessage}
+                        error={validate?.password?.error}
                         InputLabelProps={{
                             shrink: true
                         }}
@@ -113,8 +120,9 @@ const InputContainer = props => {
                         value={props.data.confirmPassword}
                         variant='outlined'
                         fullWidth={true}
-                        helperText={errMsg}
-                        error={error}
+                        helperText={validate?.confirmPassword?.errorMessage}
+                        error={validate?.confirmPassword?.error}
+                        style={{display:passwordShow}}
                         InputLabelProps={{
                             shrink: true
                         }}

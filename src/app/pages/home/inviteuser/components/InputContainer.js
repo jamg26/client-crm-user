@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import UserTypeDropdown from '../../../../partials/shared/UserTypeDropDown';
 
+
 const InputContainer = props => {
-    debugger;
+    let validate = props.formValidation
+
   return (
           <Container>
             <Row>
-                <Col xs={6}>
-                    <InputGroup className='mb-0'>
+                <Col xs={12}>
+                    <InputGroup className='mb-4'>
                         <UserTypeDropdown
                             currentUserType={{
-                              userTypeId: props.userTypeId
+                              businessUserRoleId: props.businessUserRoleId
                             }}
                             getSelectedUserType={props.handleSelectUserType}
                             businessId={props.data.businessId}
+                            formValidation={props.formValidation}
                           />
                     </InputGroup>
                 </Col>
-                <Col xs={6}>
+                <Col xs={4}>
                     <InputGroup className='mb-4' >
                         <TextField
                         onChange={props.handleChange}
@@ -29,6 +32,8 @@ const InputContainer = props => {
                         value={props.data.email}
                         variant='outlined'
                         fullWidth={true}
+                        error={validate?.email?.error}
+                        helperText={validate?.email?.errorMessage}
                         InputLabelProps={{
                             shrink: true
                         }}
@@ -36,7 +41,7 @@ const InputContainer = props => {
                         />
                     </InputGroup>
                 </Col>
-                <Col xs={6}>
+                <Col xs={4}>
                     <InputGroup className='mb-4'>
                         <TextField
                         onChange={props.handleChange}
@@ -53,7 +58,7 @@ const InputContainer = props => {
                         />
                     </InputGroup>
                 </Col>
-                <Col xs={6}>
+                <Col xs={4}>
                     <InputGroup className='mb-4'>
                         <TextField
                         onChange={props.handleChange}
@@ -79,7 +84,9 @@ const InputContainer = props => {
                         className='float-right'
                         variant='contained'
                         color='primary'
-                        onClick={props.handleSubmit}
+                        onClick={(e) => {
+                            props.handleSubmit(e)
+                        }}
                     >
                         Invite
                     </Button>

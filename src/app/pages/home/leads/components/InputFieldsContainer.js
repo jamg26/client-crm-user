@@ -27,7 +27,7 @@ class InputFieldsContainer extends React.Component {
     let defaultReceiveDate = new Date();
     this.state = {
       firstName: '',
-      leadSourceId: '0',
+      leadSourceId: '4PDvakaYzWg.',
       companyName: '',
       ssn: '',
       equiment: '',
@@ -53,7 +53,7 @@ class InputFieldsContainer extends React.Component {
   componentDidMount() {
     let leadId = this.props.leadsourceId;
 
-    if (leadId !== 'undefined') {
+    if (typeof(leadId) !== 'undefined') {
       getLeadsDetails(leadId)
         .then(results => {
           let leadData = results.data;
@@ -297,6 +297,7 @@ class InputFieldsContainer extends React.Component {
                   leadStatusId: this.state.leadStatusId
                 }}
                 getSelectedLeadStatus={this.handleSelectLeadStatus}
+                businessId={this.props.businessId}
               />
             </div>
 

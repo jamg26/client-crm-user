@@ -22,9 +22,7 @@ const ViewComponent = () => {
   const initialInput = {
     userInviteId: '',
     businessId: userData.mainRole.business.id,
-    userTypeId: '',
-    businessName: userData.mainRole.business.businessName,
-    userTypeName: '',
+    businessUserRoleId: '',
     email: '',
     firstName: '',
     lastName: '',
@@ -119,7 +117,9 @@ const ViewComponent = () => {
                   <Col>
                     <Button
                       variant='contained'
-                      onClick={() => delAccount(data.id)}
+                      onClick={() => {
+                        delInviteUser(data.userInviteId)
+                      }}
                     >
                       DELETE
                     </Button>
@@ -162,9 +162,7 @@ const ViewComponent = () => {
     setInput({
       userInviteId: data.userInviteId,
       businessId: userData.mainRole.business.id,
-      userTypeId: data.userTypeId,
-      businessName: data.businessName,
-      userTypeName: data.userTypeName,
+      businessUserRoleId: data.businessUserRoleId,
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
@@ -190,11 +188,10 @@ const ViewComponent = () => {
   };
 
   const handleSelectUserType = userType => {
-    debugger;
+    clearValidation();
      setInput({
         ...input,
-        ['userTypeId']: userType.userTypeId,
-        ['userTypeName']: userType.userTypeName
+        ['businessUserRoleId']: userType.businessUserRoleId,
       });
       
   };
@@ -205,48 +202,67 @@ const ViewComponent = () => {
     clearValidation();
     let isError = false;
     if (actionType === 'invite') {
-      debugger;
-      try {
-        await addInviteUser(input);
-        notify({ success: true, message: 'Success inviting user.' });
-      } catch (error) {}
-    }
-    if (actionType === 'accept') {
-        if (inputStatus.password !== inputStatus.confirmPassword) {
+      if (input.businessUserRoleId === '') {
           setFormValidation({
-              'error': true,
-              'errorMessage': 'Confirm password did not match.'
-            
+              invitedAs: {
+                'error': true,
+                'errorMessage': 'Please selected invated as.'
+              },
+              btnDisbale: false
           });
           isError = true;
-        }else {
+      } else if (input.email === '') {
+          setFormValidation({
+              email: {
+                'error': true,
+                'errorMessage': 'Please enter email address'
+              }
+          });
+          isError = true;
+      }else {
+          try {
+            await addInviteUser(input);
+            notify({ success: true, message: 'Success inviting user.' });
+          } catch (error) {}
+      }
+      
+    }
+    if (actionType === 'accept') {
+      
+        if (inputStatus.password !== inputStatus.confirmPassword) {
+          setFormValidation({
+              confirmPassword: {
+                'error': true,
+                'errorMessage': 'Confirm password did not match.'
+              }
+
+          });
+          isError = true;
+        } else if (inputStatus.password.length < 8) {
+          setFormValidation({
+              password: {
+                'error': true,
+                'errorMessage': 'Password should contain atleast 8 characters.'
+              }
+          });
+          isError = true;
+        } else {
           try {
               await acceptInviteUser(inputStatus);
               notify({ success: true, message: 'User was successfully accpeted.' });
-              debugger;
+              
             } catch (error) {}
         }
-        
     }
 
-    if (actionType === 'accept') {
-       
+    if (actionType === 'reject') {
       try {
-          await acceptInviteUser(inputStatus);
+          await rejectInviteUser(inputStatus);
           notify({ success: true, message: 'User was successfully rejected.' });
-          debugger;
+          
         } catch (error) {}
-      
-        
     }
 
-    debugger;
-    // if (!isUpdate) {
-    //   try {
-    //     await registerAccount(input);
-    //     notify({ success: true, message: 'Success adding account.' });
-    //   } catch (error) {}
-    // }
     if (!isError) {
       setIsModalOpen(false);
       setIsModalStatusOpen(false);
@@ -255,9 +271,10 @@ const ViewComponent = () => {
     
   };
 
-  const delAccount = async id => {
+  const delInviteUser = async id => {
     await deleteInviteUser(id);
     setRerender(!reRender);
+    notify({ success: true, message: 'Success deleting request invitation.' });
   };
 
   return (
@@ -274,6 +291,7 @@ const ViewComponent = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmitBusiness}
           handleSelectUserType={handleSelectUserType}
+          formValidation={formValiation}
         />
 
       </TableModal>
@@ -290,6 +308,7 @@ const ViewComponent = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmitBusiness}
           formValidation={formValiation}
+          formActionType={actionType}
         />
         
       </TableModal>
@@ -303,6 +322,7 @@ const ViewComponent = () => {
           setIsModalOpen(true);
           setActionType('invite')
           setInput(initialInput);
+          clearValidation();
         }}
       >
         Add
