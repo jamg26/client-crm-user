@@ -5,6 +5,7 @@ export const LOGIN_URL = "auth";
 export const REGISTER_URL = "api/auth/register";
 export const REQUEST_PASSWORD_URL = "api/auth/forgot-password";
 export const ME_URL = "api/user";
+export const CHANGE_PASSWORD_URL = "auth/changepassword";
 
 export function login(email, password) {
   return axios.post(`${ROOT_URL}/${LOGIN_URL}`, { email, password });
@@ -21,4 +22,8 @@ export function requestPassword(email) {
 export function getUserByToken() {
   // Authorization head should be fulfilled in interceptor.
   return axios.get(`${ROOT_URL}/${ME_URL}`);
+}
+
+export function changePassword(data) {
+  return axios.post(`${ROOT_URL}/${CHANGE_PASSWORD_URL}`, data );
 }

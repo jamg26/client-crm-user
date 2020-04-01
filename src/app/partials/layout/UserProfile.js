@@ -74,20 +74,23 @@ class UserProfile extends React.Component {
                 </div>
               </div>
             </a>
-            <a className="kt-notification__item">
-              <div className="kt-notification__item-icon">
-                <i className="flaticon2-mail kt-font-warning" />
-              </div>
-              <div className="kt-notification__item-details">
-                <div className="kt-notification__item-title kt-font-bold">
-                  My Messages
+            <Link className="kt-notification__item"
+                  to="/change-password"
+              >
+                <div className="kt-notification__item-icon">
+                  <i className="flaticon-security" />
                 </div>
-                <div className="kt-notification__item-time">
-                  Inbox and tasks
+                <div className="kt-notification__item-details">
+                  <div className="kt-notification__item-title kt-font-bold">
+                    Security
+                  </div>
+                  <div className="kt-notification__item-time">
+                    Change Password
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a className="kt-notification__item">
+              
+            </Link>
+            {/*<a className="kt-notification__item">
               <div className="kt-notification__item-icon">
                 <i className="flaticon2-rocket-1 kt-font-danger" />
               </div>
@@ -99,8 +102,8 @@ class UserProfile extends React.Component {
                   Logs and notifications
                 </div>
               </div>
-            </a>
-            <a className="kt-notification__item">
+            </a>*/}
+            {/*<a className="kt-notification__item">
               <div className="kt-notification__item-icon">
                 <i className="flaticon2-hourglass kt-font-brand" />
               </div>
@@ -112,7 +115,7 @@ class UserProfile extends React.Component {
                   latest tasks and projects
                 </div>
               </div>
-            </a>
+            </a>*/}
             <div className="kt-notification__custom">
               <Link
                 to="/logout"

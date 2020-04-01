@@ -17,7 +17,8 @@ import {
   updateBusinessLogo,
   updateBusinessBanner,
   getBusiness,
-  updateBusinessProfile
+  removeBusinessBanner,
+  removeBusinessLogo
 } from '../../../../services/business.service';
 
 class BusinessProfileComponents extends React.Component {
@@ -121,20 +122,12 @@ class BusinessProfileComponents extends React.Component {
   triggerLogo = () => this.logo.click();
 
   clearLogo = async () => {
-    const logo = await updateBusinessProfile({
-      id: this.props.data.id,
-      businessName: this.props.data.businessName,
-      logoUrl: null
-    });
+    const logo = await removeBusinessLogo(this.props.data.id);
     console.log('Logo cleared.', logo);
   };
 
   clearBanner = async () => {
-    const logo = await updateBusinessProfile({
-      id: this.props.data.id,
-      businessName: this.props.data.businessName,
-      bannerUrl: null
-    });
+    const logo = await removeBusinessBanner(this.props.data.id);
     console.log('Banner cleared.', logo);
   };
 

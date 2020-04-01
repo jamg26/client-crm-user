@@ -32,10 +32,24 @@ export function updateBusinessProfile(newData) {
   return axios.patch(`${ROOT_URL}/${BUSINESS_URL}`, newData);
 }
 
+// logo & banner
+
 export function updateBusinessLogo(id, data) {
   return axios.patch(`${ROOT_URL}/${BUSINESS_URL}/businesslogo/${id}`, data);
 }
 
 export function updateBusinessBanner(id, data) {
   return axios.patch(`${ROOT_URL}/${BUSINESS_URL}/businessbanner/${id}`, data);
+}
+
+export function removeBusinessLogo(id) {
+  return axios.patch(`${ROOT_URL}/${BUSINESS_URL}/removebusinesslogo/${id}`, {
+    BusinessId: id
+  });
+}
+
+export function removeBusinessBanner(id) {
+  return axios.patch(`${ROOT_URL}/${BUSINESS_URL}/removebusinessbanner/${id}`, {
+    BusinessId: id
+  });
 }
