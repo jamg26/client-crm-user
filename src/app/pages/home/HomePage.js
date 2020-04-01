@@ -17,6 +17,7 @@ const SupportComponent = lazy(() => import('./support/SupportComponent'));
 const InviteUserComponent = lazy(() => import('./inviteuser/inviteuser'));
 
 const userTypes = lazy(() => import('./usertypes/UserTypes'));
+const PasswordComponent = lazy(() => import('./myaccount/password'));
 
 export default function HomePage() {
   // useEffect(() => {
@@ -31,13 +32,16 @@ export default function HomePage() {
           /* Redirect from root URL to /dashboard. */
           <Redirect exact from='/' to='/dashboard' />
         }
+
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/account' component={AccountComponent} />
         <Route path='/contacts' component={ContactComponent} />
         <Route path='/leads' component={LeadsComponent} />
         <Route path='/business' component={BusinessComponent} />
         <Route path='/supports' component={SupportComponent} />
-        <Route path='/invite-user' component={InviteUserComponent} />
+        {/* <Route path="/invite-user" component={InviteUserComponent}/> */}
+        <Route path='/change-password' component={PasswordComponent} />
+        <Redirect to='/error/error-v1' />
         <Route path='/usertypes' component={userTypes} />
       </Switch>
     </Suspense>

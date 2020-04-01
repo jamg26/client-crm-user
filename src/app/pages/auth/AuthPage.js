@@ -3,9 +3,11 @@ import { Link, Switch, Route, Redirect } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../../_metronic';
 import '../../../_metronic/_assets/sass/pages/login/login-1.scss';
 import Login from './Login';
+import InviteUser from "../home/inviteuser/inviteuser";
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import AcceptInvitation from './AcceptInvitation';
+import ResetPassword from './ResetPassword';
 
 export default function AuthPage() {
   return (
@@ -63,6 +65,7 @@ export default function AuthPage() {
 
             <div className='kt-grid__item kt-grid__item--fluid  kt-grid__item--order-tablet-and-mobile-1  kt-login__wrapper'>
               <Switch>
+                <Route path="/invite-user" component={InviteUser}/>
                 <Route path='/auth/login' component={Login} />
                 <Route path='/auth/registration' component={Registration} />
                 <Route
@@ -72,6 +75,10 @@ export default function AuthPage() {
                 <Route
                   path='/accept-invitation/:id'
                   component={AcceptInvitation}
+                />
+                <Route
+                  path='/reset-password/:id'
+                  component={ResetPassword}
                 />
                 <Redirect from='/auth' exact={true} to='/auth/login' />
                 <Redirect to='/auth/login' />
