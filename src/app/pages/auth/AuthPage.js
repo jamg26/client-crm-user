@@ -6,6 +6,7 @@ import Login from './Login';
 import Registration from './Registration';
 import ForgotPassword from './ForgotPassword';
 import AcceptInvitation from './AcceptInvitation';
+import ResetPassword from './ResetPassword';
 
 export default function AuthPage() {
   return (
@@ -72,6 +73,10 @@ export default function AuthPage() {
                 <Route
                   path='/accept-invitation/:id'
                   component={AcceptInvitation}
+                />
+                <Route
+                  path='/reset-password/:id'
+                  component={ResetPassword}
                 />
                 <Redirect from='/auth' exact={true} to='/auth/login' />
                 <Redirect to='/auth/login' />
