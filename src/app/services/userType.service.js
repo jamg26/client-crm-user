@@ -16,5 +16,5 @@ export function updateUserType(request) {
 }
 
 export function deleteUserType(id) {
-  return axios.delete(`${ROOT_URL}/${USER_TYPE_URL}/${id}`, { Id: id });
+  return axios.delete(`${ROOT_URL}/${USER_TYPE_URL}/${id}`);
 }
