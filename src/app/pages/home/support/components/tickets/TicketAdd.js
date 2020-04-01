@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable from 'material-table';
-import * as moment from 'moment';
-import { getClosedSupportTicket } from '../../../../../services/support.service';
-import TicketInput from './TicketInput';
 import {
   addSupportTicket,
   saveAttachment
 } from '../../../../../services/support.service';
-import { awsServices, fileUpload } from '../../../../../services/aws.service';
+import { fileUpload } from '../../../../../services/aws.service';
 
 import {
   TextField,
@@ -19,6 +15,7 @@ import {
 } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { notify } from '../../../../shared/Notify';
 
 const TicketAdd = () => {
   const initialInput = {
@@ -59,7 +56,6 @@ const TicketAdd = () => {
   // }, []);
 
   const handleChange = e => {
-    console.log(e.target.value);
     setInput({
       ...input,
       [e.target.id]: e.target.value
@@ -94,7 +90,11 @@ const TicketAdd = () => {
     const attachAdmin = await saveAttachment(newAttached);
     console.log(attachAdmin);
 
-    window.location.reload(false);
+    setInput(initialInput);
+    setAttached({ fileName: '', filePath: '' });
+    setTicketBtn(false);
+    notify('Ticket submitted.');
+    //window.location.reload(false);
   };
 
   return (

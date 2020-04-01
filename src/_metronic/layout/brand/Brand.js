@@ -26,7 +26,6 @@ class Brand extends React.Component {
   }
 
   render() {
-    console.log(this.state.business);
     return (
       <div
         className={`kt-aside__brand kt-grid__item ${this.props.brandClasses}`}
