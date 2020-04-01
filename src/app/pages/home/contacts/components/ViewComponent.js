@@ -9,12 +9,15 @@ import {
 } from '../../../../services/contact.service';
 import { getAccountList } from '../../../../services/account.service';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import TableModal from '../../Modal';
 import { Row, Col } from 'react-bootstrap';
 import ContactsInput from './ContactsInput';
-import 'react-toastify/dist/ReactToastify.css';
+
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const notify = data => {
   if (data.success) {
@@ -22,10 +25,10 @@ const notify = data => {
   } else {
     toast.error(data.message);
   }
-}
+};
 
-  var selectedAccount = {};
-  const ViewComponent = () => {
+var selectedAccount = {};
+const ViewComponent = () => {
   const [state, setState] = useState(0);
   const [account, setAccount] = useState(0);
 
@@ -95,7 +98,7 @@ const notify = data => {
                         setIsUpdate(true);
                       }}
                     >
-                      UPDATE
+                      <EditIcon />
                     </Button>
                   </Col>
                   <Col>
@@ -103,7 +106,7 @@ const notify = data => {
                       variant='contained'
                       onClick={() => delContact(data.id)}
                     >
-                      DELETE
+                      <DeleteIcon />
                     </Button>
                   </Col>
                 </Row>
@@ -132,7 +135,7 @@ const notify = data => {
       phone: data.phone,
       accountId: data.accountId,
       street: data.street
-    })
+    });
     setIsModalOpen(true);
     setRerender(!reRender);
   };
@@ -152,7 +155,7 @@ const notify = data => {
       ...input,
       [e.target.id]: e.target.value
     });
-    console.log(input)
+    console.log(input);
   };
 
   const handleSubmitContact = async e => {
@@ -175,10 +178,10 @@ const notify = data => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <TableModal
-        type='admin'
-        title='Master Admin'
+        type='contacts'
+        title='Contacts'
         open={isModalOpen}
         handleClose={closeModal}
       >

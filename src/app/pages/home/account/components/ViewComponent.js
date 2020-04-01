@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
-import { 
+import {
   getAccountList,
   registerAccount,
   updateAccount,
-  deleteAccount } from '../../../../services/account.service';
+  deleteAccount
+} from '../../../../services/account.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
 import AccountInput from './AccountInput';
@@ -12,11 +13,12 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const ViewComponent = () => {
-
   const userData = useSelector(state => state.auth.user);
-  
+
   const initialInput = {
     id: '',
     profile: '',
@@ -37,8 +39,8 @@ const ViewComponent = () => {
     country: '',
     state: '',
     city: '',
-    zipCode:'',
-    description:''
+    zipCode: '',
+    description: ''
   };
 
   const notify = data => {
@@ -47,7 +49,7 @@ const ViewComponent = () => {
     } else {
       toast.error(data.message);
     }
-  }
+  };
 
   const [state, setState] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,15 +59,16 @@ const ViewComponent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-    const response = await getAccountList();
+      const response = await getAccountList();
       setState({
         columns: [
           { title: 'Profile', field: 'profile' },
           { title: 'Account Name', field: 'accountName' },
           { title: 'Phone', field: 'phone' },
-          { title: 'Website', field: 'website'},
-          { title: 'Address', field: 'addressLine'},
-          { title: 'Action',
+          { title: 'Website', field: 'website' },
+          { title: 'Address', field: 'addressLine' },
+          {
+            title: 'Action',
             field: 'actions',
             width: 200,
             render: data => {
@@ -81,7 +84,7 @@ const ViewComponent = () => {
                         setIsUpdate(true);
                       }}
                     >
-                      UPDATE
+                      <EditIcon />
                     </Button>
                   </Col>
                   <Col>
@@ -89,7 +92,7 @@ const ViewComponent = () => {
                       variant='contained'
                       onClick={() => delAccount(data.id)}
                     >
-                      DELETE
+                      <DeleteIcon />
                     </Button>
                   </Col>
                 </Row>
@@ -97,9 +100,9 @@ const ViewComponent = () => {
             }
           }
         ],
-        data : response.data
+        data: response.data
       });
-    }
+    };
     fetchData();
   }, [reRender]);
 
@@ -122,7 +125,7 @@ const ViewComponent = () => {
       industryName: data.industryName,
       parentName: data.parentName,
       accountType: data.accountType,
-      description:data.description
+      description: data.description
     });
     setIsModalOpen(true);
     setRerender(!reRender);
@@ -195,6 +198,6 @@ const ViewComponent = () => {
       />
     </Container>
   );
-}
+};
 
 export default ViewComponent;

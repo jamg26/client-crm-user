@@ -1,36 +1,23 @@
-import React, { Suspense, lazy } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import React, { Suspense, lazy } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Dashboard from './Dashboard';
 
-import { LayoutSplashScreen } from "../../../_metronic";
+import { LayoutSplashScreen } from '../../../_metronic';
 
-const AccountComponent = lazy(() =>
-  import("./account/Accounts")
-)
+const AccountComponent = lazy(() => import('./account/Accounts'));
 
-const ContactComponent = lazy(() =>
-  import("./contacts/Contacts")
-)
+const ContactComponent = lazy(() => import('./contacts/Contacts'));
 
-const LeadsComponent = lazy(() =>
-  import("./leads/Leads")
-)
+const LeadsComponent = lazy(() => import('./leads/Leads'));
 
-const BusinessComponent = lazy(() =>
-  import("./business/Business")
-)
+const BusinessComponent = lazy(() => import('./business/Business'));
 
-const SupportComponent = lazy(() =>
-  import("./support/SupportComponent")
-)
+const SupportComponent = lazy(() => import('./support/SupportComponent'));
 
-// const InviteUserComponent = lazy(() =>
-//   import("./inviteuser/inviteuser")
-// )
+const InviteUserComponent = lazy(() => import('./inviteuser/inviteuser'));
 
-const PasswordComponent = lazy(() =>
-  import("./myaccount/password")
-)
+const userTypes = lazy(() => import('./usertypes/UserTypes'));
+const PasswordComponent = lazy(() => import('./myaccount/password'));
 
 export default function HomePage() {
   // useEffect(() => {
@@ -43,17 +30,19 @@ export default function HomePage() {
       <Switch>
         {
           /* Redirect from root URL to /dashboard. */
-          <Redirect exact from="/" to="/dashboard" />
+          <Redirect exact from='/' to='/dashboard' />
         }
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/account" component={AccountComponent} />
-        <Route path="/contacts" component={ContactComponent}/>
-        <Route path="/leads" component={LeadsComponent}/>
-        <Route path="/business" component={BusinessComponent}/>
-        <Route path="/supports" component={SupportComponent}/>
-        {/* <Route path="/invite-user" component={InviteUserComponent}/> */}
-        <Route path="/change-password" component={PasswordComponent}/>
-        <Redirect to="/error/error-v1" />
+
+        <Route path='/dashboard' component={Dashboard} />
+        <Route path='/account' component={AccountComponent} />
+        <Route path='/contacts' component={ContactComponent} />
+        <Route path='/leads' component={LeadsComponent} />
+        <Route path='/business' component={BusinessComponent} />
+        <Route path='/supports' component={SupportComponent} />
+        <Route path='/invite-user' component={InviteUserComponent} />
+        <Route path='/change-password' component={PasswordComponent} />
+        <Redirect to='/error/error-v1' />
+        <Route path='/usertypes' component={userTypes} />
       </Switch>
     </Suspense>
   );

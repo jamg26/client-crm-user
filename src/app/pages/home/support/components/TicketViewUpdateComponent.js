@@ -324,7 +324,7 @@ class TicketViewUpdateComponent extends React.Component {
             <div className='kt-portlet__head-label'>
               <h3 className='kt-portlet__head-title'>
                 # {this.state.ticket ? this.state.ticket.ticketNumber : ''} /{' '}
-                {this.state.ticket ? this.state.ticket.description : ''}
+                {this.state.ticket ? this.state.ticket.subject : ''}
               </h3>
             </div>
             <SupportTicketDropdown handleClose={this.handleCloseEvent} />
@@ -359,6 +359,7 @@ class TicketViewUpdateComponent extends React.Component {
                 </ListItem>
                 <Divider light />
               </List>
+
               <Grid container spacing={3} justify='center'>
                 <Grid item xs={12}>
                   <ExpansionPanel>
@@ -447,6 +448,22 @@ class TicketViewUpdateComponent extends React.Component {
                       </Grid>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={3} justify='center'>
+                <Grid item xs={12}>
+                  <Typography className={classes.heading}>
+                    Description
+                  </Typography>
+                  <hr />
+                  <Grid container spacing={3} justify='space-between'>
+                    <Grid item xs={12}>
+                      <Typography style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        {this.state.ticket?.description}
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid container spacing={3} justify='center'>

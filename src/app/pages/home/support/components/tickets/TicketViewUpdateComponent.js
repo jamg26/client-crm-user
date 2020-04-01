@@ -339,7 +339,6 @@ class TicketViewUpdateComponent extends React.Component {
                     </Grid>
                     <Grid item xs={4}>
                       <div>
-                        {' '}
                         {this.state.ticket ? this.state.ticket.status : ''}{' '}
                       </div>
                     </Grid>
@@ -347,6 +346,7 @@ class TicketViewUpdateComponent extends React.Component {
                 </ListItem>
                 <Divider light />
               </List>
+
               <Grid container spacing={3} justify='center'>
                 <Grid item xs={12}>
                   <ExpansionPanel>

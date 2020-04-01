@@ -28,6 +28,7 @@ const TicketsAllComponent = props => {
   const [reRender, setRerender] = useState(false); // Re render table after updating
 
   useEffect(() => {
+    setState(0);
     const fetchData = async () => {
       const response = await getOpenSupportTicket();
       console.log(response);
@@ -42,7 +43,7 @@ const TicketsAllComponent = props => {
             )
           },
           { title: 'Status', dataIndex: 'status' },
-          { title: 'Ticket#', dataIndex: 'supportTicketKey' },
+          { title: 'Ticket#', dataIndex: 'ticketNumber' },
           { title: 'Subject', dataIndex: 'subject' },
           {
             title: 'Requested On',
@@ -54,7 +55,7 @@ const TicketsAllComponent = props => {
       });
     };
     fetchData();
-  }, []);
+  }, [reRender]);
 
   const editTicketSupport = data => {
     propsData.history.push({
@@ -97,6 +98,11 @@ const TicketsAllComponent = props => {
     setIsModalOpen(false);
     setRerender(!reRender);
   };
+
+  const refreshTable = () => {
+    setRerender(!reRender);
+  };
+
   return (
     <>
       <TableModal
@@ -112,48 +118,15 @@ const TicketsAllComponent = props => {
         />
       </TableModal>
 
-      {/* <Button
-        className='mb-2'
-        variant='contained'
-        color='primary'
-        size='large'
-        onClick={() => {
-          setIsModalOpen(true);
-          setIsUpdate(false);
-          setInput(initialInput);
-        }}
-      >
-        Add support ticket
-      </Button> */}
-
       <Table
         columns={state.columns}
         dataSource={state.data}
+        title={() => <Button onClick={refreshTable}>Refresh</Button>}
         bordered
         size='small'
         showHeader
         loading={!state.data ? true : false}
       />
-      {/* <MaterialTable
-        title='All Ticket'
-        columns={state.columns}
-        data={state.data}
-        onRowClick={(event, rowData) => editTicketSupport(rowData)}
-        editable={{
-          onRowAdd: newData =>
-            new Promise(resolve => {
-              // saveBusiness(newData)
-              //   .then((result) => {
-              //     resolve();
-              //     setState(prevState => {
-              //       const data = [...prevState.data];
-              //       data.push(newData);
-              //       return { ...prevState, data };
-              //     });
-              //   })
-            })
-        }}
-      /> */}
     </>
   );
 };
