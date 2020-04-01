@@ -50,6 +50,7 @@ const ViewUserType = props => {
     const getData = async () => {
       const id = await getBusinessId();
       const usertypes = await getUserTypeList(id);
+      console.log(usertypes);
       setState({
         columns: [
           {
@@ -79,8 +80,7 @@ const ViewUserType = props => {
                       variant='contained'
                       size='small'
                       onClick={() => {
-                        deleteUserType(rowData.id);
-                        setRerender(!reRender);
+                        deleteType(rowData.id);
                       }}
                     >
                       <DeleteIcon />
@@ -155,6 +155,12 @@ const ViewUserType = props => {
 
   const refreshTable = () => setRerender(!reRender);
 
+  const deleteType = async id => {
+    const type = await deleteUserType(id);
+    console.log(type);
+    setRerender(!reRender);
+  };
+
   return (
     <Container>
       <TableModal
@@ -176,7 +182,7 @@ const ViewUserType = props => {
         dataSource={state.data}
         title={() => (
           <>
-            {/* <Button
+            <Button
               className='mb-2'
               variant='contained'
               color='primary'
@@ -191,7 +197,7 @@ const ViewUserType = props => {
             </Button>
             <Button className='float-right' onClick={refreshTable}>
               Refresh
-            </Button> */}
+            </Button>
           </>
         )}
         bordered
