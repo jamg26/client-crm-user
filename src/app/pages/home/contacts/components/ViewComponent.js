@@ -180,8 +180,8 @@ const ViewComponent = () => {
     <>
       <ToastContainer />
       <TableModal
-        type='admin'
-        title='Master Admin'
+        type='contacts'
+        title='Contacts'
         open={isModalOpen}
         handleClose={closeModal}
       >
