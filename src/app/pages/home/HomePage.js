@@ -17,6 +17,7 @@ const SupportComponent = lazy(() => import('./support/SupportComponent'));
 const InviteUserComponent = lazy(() => import('./inviteuser/inviteuser'));
 
 const userTypes = lazy(() => import('./usertypes/UserTypes'));
+
 const PasswordComponent = lazy(() => import('./myaccount/password'));
 
 export default function HomePage() {
