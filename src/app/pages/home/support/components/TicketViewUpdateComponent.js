@@ -27,7 +27,7 @@ import {
   getCommentById,
   saveComment,
   requestFileUpload,
-  closeSupportTicket
+  closeSupportTicket,
 } from '../../../../services/support.service';
 import TicketSupportAttachment from './TicketSupportAttachment';
 import TextField from '@material-ui/core/TextField';
@@ -37,16 +37,16 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import { green } from '@material-ui/core/colors';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const classes = theme => ({
+const classes = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   wrapper: {
     position: 'relative',
-    width: '100%'
+    width: '100%',
   },
   buttonProgress: {
     color: green[500],
@@ -54,8 +54,8 @@ const classes = theme => ({
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 });
 
 class TicketViewUpdateComponent extends React.Component {
@@ -69,7 +69,7 @@ class TicketViewUpdateComponent extends React.Component {
       tempAttachment: [],
       loading: false,
       open: false,
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.handleAttachment = this.handleAttachment.bind(this);
@@ -84,7 +84,7 @@ class TicketViewUpdateComponent extends React.Component {
     this.getSupportCommentById();
   }
 
-  handleAttachment = data => {
+  handleAttachment = (data) => {
     this.setState({ attachments: data });
     // getAttachment(attachments.id)
     //     .then(results => this.setState({attachments: results.data}))
@@ -93,72 +93,70 @@ class TicketViewUpdateComponent extends React.Component {
 
   geSupportTicketData() {
     getTicketById(this.state.id)
-      .then(results => this.setState({ ticket: results.data }))
-      .catch(err => console.log(err));
+      .then((results) => this.setState({ ticket: results.data }))
+      .catch((err) => console.log(err));
   }
 
   getSupportAttachment() {
     getAttachment(this.state.id)
-      .then(results => this.setState({ attachments: results.data }))
-      .catch(err => console.log(err));
+      .then((results) => this.setState({ attachments: results.data }))
+      .catch((err) => console.log(err));
   }
 
   getSupportCommentById() {
     getCommentById(this.state.id)
-      .then(results => this.setState({ comments: results.data }))
-      .catch(err => console.log(err));
+      .then((results) => this.setState({ comments: results.data }))
+      .catch((err) => console.log(err));
   }
 
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     let obj = {
-      name: event.target.files[0].name
+      name: event.target.files[0].name,
     };
     this.setState({
       selectedFile: event.target.files[0],
       loaded: 0,
       isUploaded: true,
       isTemp: true,
-      tempAttachment: [...this.state.tempAttachment, obj]
+      tempAttachment: [...this.state.tempAttachment, obj],
     });
   };
 
-  handleCloseEvent = async event => {
-    console.log(this.state);
+  handleCloseEvent = async (event) => {
     const options = {
       id: this.state.id,
       businessId: this.state.ticket.businessId,
       //   subject: this.state.ticket.subject,
       //   description: this.state.ticket.description,
-      status: 'Cancelled'
+      status: 'Cancelled',
     };
     const ticket = await closeSupportTicket(options);
-    console.log(ticket);
     window.location.href = '/supports';
   };
 
-  onchangeCommentHandler = event => {
+  onchangeCommentHandler = (event) => {
     this.setState({ comment: event.target.value });
   };
 
   onUpload() {
     this.setState({ loading: true });
     requestFileUpload(this.state.selectedFile)
-      .then(response => {
+      .then((response) => {
         this.saveAttachment(response)
-          .then(responseData => {
+          .then((responseData) => {
             this.setState({
               loading: false,
               open: true,
               isTemp: false,
               isUploaded: false,
               message: 'Upload complete',
-              responseData: responseData
+              responseData: responseData,
             });
             setTimeout(() => this.setState({ open: false }), 4000);
           })
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   saveAttachment(data) {
@@ -168,14 +166,14 @@ class TicketViewUpdateComponent extends React.Component {
         supportTicketId: this.state.ticket.id,
         filePath: upload.fileURL,
         fileName: getFileName(upload.fileURL),
-        userId: this.props.user.id
+        userId: this.props.user.id,
       };
       saveAttachment(file)
-        .then(results => {
+        .then((results) => {
           this.getSupportAttachment();
           resolve(results);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     });
   }
 
@@ -183,7 +181,7 @@ class TicketViewUpdateComponent extends React.Component {
     let data = {
       supportTicketId: this.state.id,
       userId: this.props.user.id,
-      comment: this.state.comment
+      comment: this.state.comment,
     };
     let comments = await saveComment(data);
     this.getSupportCommentById();
@@ -519,7 +517,7 @@ class TicketViewUpdateComponent extends React.Component {
               <Snackbar
                 anchorOrigin={{
                   vertical: 'top',
-                  horizontal: 'right'
+                  horizontal: 'right',
                 }}
                 open={this.state.open}
                 message={this.state.message}
@@ -532,9 +530,9 @@ class TicketViewUpdateComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
   };
 };
 

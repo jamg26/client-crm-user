@@ -3,7 +3,7 @@ import MaterialTable from 'material-table';
 import * as moment from 'moment';
 import {
   getOpenSupportTicket,
-  saveNewTicketSupport
+  saveNewTicketSupport,
 } from '../../../../../services/support.service';
 import { Table } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
@@ -13,14 +13,14 @@ import TableModal from '../../../Modal';
 import { Row, Col } from 'react-bootstrap';
 import TicketInput from './TicketInput';
 
-const TicketsAllComponent = props => {
+const TicketsAllComponent = (props) => {
   const [state, setState] = useState(0);
   const propsData = props.props;
 
   const initialInput = {
     id: '',
     subject: '',
-    description: ''
+    description: '',
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -31,16 +31,15 @@ const TicketsAllComponent = props => {
     setState(0);
     const fetchData = async () => {
       const response = await getOpenSupportTicket();
-      console.log(response);
       setState({
         columns: [
           {
             title: 'Action',
-            render: rowData => (
+            render: (rowData) => (
               <a onClick={() => editTicketSupport(rowData)}>
                 <EditOutlined twoToneColor='#1a88d9' />
               </a>
-            )
+            ),
           },
           { title: 'Status', dataIndex: 'status' },
           { title: 'Ticket#', dataIndex: 'ticketNumber' },
@@ -48,19 +47,19 @@ const TicketsAllComponent = props => {
           {
             title: 'Requested On',
             dataIndex: 'dateCreated',
-            render: rowData => `${moment(rowData).format('LLL')}`
-          }
+            render: (rowData) => `${moment(rowData).format('LLL')}`,
+          },
         ],
-        data: response.data.reverse()
+        data: response.data.reverse(),
       });
     };
     fetchData();
   }, [reRender]);
 
-  const editTicketSupport = data => {
+  const editTicketSupport = (data) => {
     propsData.history.push({
       pathname: `supports/${data.id}`,
-      data: data
+      data: data,
     });
   };
 
@@ -68,20 +67,20 @@ const TicketsAllComponent = props => {
     setIsModalOpen(false);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
-  const handleSubmitTicket = async e => {
+  const handleSubmitTicket = async (e) => {
     e.preventDefault();
     const newInput = {
       ...input,
-      businessId: 'R2PPfBhpaLA.'
+      businessId: 'R2PPfBhpaLA.',
     };
-    console.log(newInput);
+
     if (isUpdate) {
       try {
         //await addContacts(input);

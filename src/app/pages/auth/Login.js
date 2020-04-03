@@ -12,7 +12,7 @@ function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
   const [loadingButtonStyle, setLoadingButtonStyle] = useState({
-    paddingRight: '2.5rem'
+    paddingRight: '2.5rem',
   });
 
   const enableLoading = () => {
@@ -49,27 +49,27 @@ function Login(props) {
           <Formik
             initialValues={{
               email: '',
-              password: ''
+              password: '',
             }}
-            validate={values => {
+            validate={(values) => {
               const errors = {};
 
               if (!values.email) {
                 // https://github.com/formatjs/react-intl/blob/master/docs/API.md#injection-api
                 errors.email = intl.formatMessage({
-                  id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+                  id: 'AUTH.VALIDATION.REQUIRED_FIELD',
                 });
               } else if (
                 !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
               ) {
                 errors.email = intl.formatMessage({
-                  id: 'AUTH.VALIDATION.INVALID_FIELD'
+                  id: 'AUTH.VALIDATION.INVALID_FIELD',
                 });
               }
 
               if (!values.password) {
                 errors.password = intl.formatMessage({
-                  id: 'AUTH.VALIDATION.REQUIRED_FIELD'
+                  id: 'AUTH.VALIDATION.REQUIRED_FIELD',
                 });
               }
 
@@ -88,7 +88,7 @@ function Login(props) {
                     setSubmitting(false);
                     setStatus(
                       intl.formatMessage({
-                        id: 'AUTH.VALIDATION.INVALID_LOGIN'
+                        id: 'AUTH.VALIDATION.INVALID_LOGIN',
                       })
                     );
                   });
@@ -103,7 +103,7 @@ function Login(props) {
               handleChange,
               handleBlur,
               handleSubmit,
-              isSubmitting
+              isSubmitting,
             }) => (
               <form
                 noValidate={true}
@@ -154,14 +154,13 @@ function Login(props) {
                   >
                     <FormattedMessage id='AUTH.GENERAL.FORGOT_BUTTON' />
                   </Link>
-
                   <button
                     id='kt_login_signin_submit'
                     type='submit'
                     disabled={isSubmitting}
                     className={`btn btn-primary btn-elevate kt-login__btn-primary ${clsx(
                       {
-                        'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading
+                        'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading,
                       }
                     )}`}
                     style={loadingButtonStyle}
@@ -169,6 +168,12 @@ function Login(props) {
                     Sign In
                   </button>
                 </div>
+
+                <Link to='/signup' className='kt-link kt-login__link-signup'>
+                  <button className='btn btn-primary btn-elevate kt-login__btn-danger'>
+                    Create account
+                  </button>
+                </Link>
               </form>
             )}
           </Formik>

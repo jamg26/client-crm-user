@@ -5,7 +5,7 @@ import {
   getUserTypeList,
   addUserType,
   updateUserType,
-  deleteUserType
+  deleteUserType,
 } from '../../../../services/userType.service';
 import { getBusiness } from '../../../../services/business.service';
 import { Table } from 'antd';
@@ -17,7 +17,7 @@ import UserTypesInput from './UserTypesInput';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const notify = data => {
+const notify = (data) => {
   if (data.success) {
     toast.success(data.message);
   } else {
@@ -25,7 +25,7 @@ const notify = data => {
   }
 };
 
-const ViewUserType = props => {
+const ViewUserType = (props) => {
   const [state, setState] = useState({});
   const [reRender, setRerender] = useState(false); // Re render table after updating
 
@@ -33,7 +33,7 @@ const ViewUserType = props => {
     id: '',
     name: '',
     businessUserRoleName: '',
-    active: true
+    active: true,
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -50,14 +50,14 @@ const ViewUserType = props => {
     const getData = async () => {
       const id = await getBusinessId();
       const usertypes = await getUserTypeList(id);
-      console.log(usertypes);
+
       setState({
         columns: [
           {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: rowData => {
+            render: (rowData) => {
               return (
                 <Row>
                   <Col>
@@ -88,21 +88,21 @@ const ViewUserType = props => {
                   </Col>
                 </Row>
               );
-            }
+            },
           },
           {
             title: 'Name',
             field: 'businessUserRoleName',
-            render: role => role.businessUserRoleName
+            render: (role) => role.businessUserRoleName,
           },
-          { title: 'Include Users', render: data => usertypes.data.length },
+          { title: 'Include Users', render: (data) => usertypes.data.length },
           {
             title: 'Active',
             field: 'active',
-            render: active => (active.active ? 'true' : 'false')
-          }
+            render: (active) => (active.active ? 'true' : 'false'),
+          },
         ],
-        data: usertypes.data
+        data: usertypes.data,
       });
     };
     getData();
@@ -112,28 +112,28 @@ const ViewUserType = props => {
     setIsModalOpen(false);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
-  const handleChangeUserType = e => {
+  const handleChangeUserType = (e) => {
     setInput({
       ...input,
-      userType: e.target.value
+      userType: e.target.value,
     });
   };
 
-  const handleChangeActive = e => {
+  const handleChangeActive = (e) => {
     setInput({
       ...input,
-      active: !input.active
+      active: !input.active,
     });
   };
 
-  const handleSubmitTypes = async e => {
+  const handleSubmitTypes = async (e) => {
     e.preventDefault();
     const newInput = { ...input, businessId: props.businessId };
     if (isUpdate) {
@@ -145,7 +145,6 @@ const ViewUserType = props => {
     if (!isUpdate) {
       try {
         const usertype = await addUserType(newInput);
-        console.log(usertype);
         notify({ success: true, message: 'Success adding user types.' });
       } catch (error) {}
     }
@@ -155,9 +154,8 @@ const ViewUserType = props => {
 
   const refreshTable = () => setRerender(!reRender);
 
-  const deleteType = async id => {
+  const deleteType = async (id) => {
     const type = await deleteUserType(id);
-    console.log(type);
     setRerender(!reRender);
   };
 
@@ -209,9 +207,9 @@ const ViewUserType = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    businessId: state.auth.user.mainRole.id
+    businessId: state.auth.user.mainRole.id,
   };
 };
 
