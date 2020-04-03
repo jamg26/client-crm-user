@@ -44,7 +44,7 @@ const ViewComponent = () => {
     description: '',
     dateOfBirth: '',
     phone: '',
-    accountId: 'JR1zcprJkUs.',
+    accountId: '',
     street: ''
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,8 +53,10 @@ const ViewComponent = () => {
   const [reRender, setRerender] = useState(false); // Re render table after updating
 
   const handleSelectAccount = account => {
-    setAccount({ accountId: account.accountId });
-    selectedAccount = account;
+    setInput({
+      ...input,
+      ['accountId']: account
+    });
   };
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const ViewComponent = () => {
       });
     };
     fetchData();
-  }, []);
+  }, [reRender]);
 
   const upContact = data => {
     setInput({
@@ -141,7 +143,6 @@ const ViewComponent = () => {
   };
 
   const delContact = async id => {
-    console.log('deleting', id);
     await deleteContact(id);
     setRerender(!reRender);
   };
@@ -155,7 +156,6 @@ const ViewComponent = () => {
       ...input,
       [e.target.id]: e.target.value
     });
-    console.log(input);
   };
 
   const handleSubmitContact = async e => {
@@ -189,6 +189,7 @@ const ViewComponent = () => {
           data={input}
           handleChange={handleChange}
           handleSubmit={handleSubmitContact}
+          handleSelectAccount={handleSelectAccount}
         />
       </TableModal>
 

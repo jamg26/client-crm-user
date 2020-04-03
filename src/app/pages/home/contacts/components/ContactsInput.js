@@ -1,12 +1,23 @@
 import React from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
+import AccountDropdown from '../../../../partials/shared/AccountDropdown';
 
 const ContactsInput = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <Container>
         <Row>
+          <Col xs={12}>
+            <InputGroup className='mb-4'>
+              <AccountDropdown
+                currentAccount={{
+                  accountId: props.data.accountId
+                }}
+                getSelectedAccount={props.handleSelectAccount}
+              />
+            </InputGroup>
+          </Col>
           <Col xs={6}>
             <InputGroup className='mb-4'>
               <TextField
