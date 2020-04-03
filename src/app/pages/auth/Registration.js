@@ -96,7 +96,6 @@ function Registration(props) {
                 )
                   .then(async ({ data: { accessToken } }) => {
                     props.register(accessToken);
-                    console.log(accessToken);
                   })
                   .catch(() => {
                     setSubmitting(false);

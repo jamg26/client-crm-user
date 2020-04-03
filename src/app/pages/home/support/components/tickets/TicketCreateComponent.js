@@ -14,7 +14,7 @@ import {
   Typography,
   IconButton,
   Button,
-  Snackbar
+  Snackbar,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -29,19 +29,19 @@ import {
   getCommentById,
   saveComment,
   saveNewTicketSupport,
-  requestFileUpload
+  requestFileUpload,
 } from '../../../../../services/support.service';
 
-const classes = theme => ({
+const classes = (theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
   wrapper: {
     position: 'relative',
-    width: '100%'
+    width: '100%',
   },
   buttonProgress: {
     color: green[500],
@@ -49,8 +49,8 @@ const classes = theme => ({
     top: '50%',
     left: '50%',
     marginTop: -12,
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 });
 
 class TicketCreateComponent extends React.Component {
@@ -64,14 +64,13 @@ class TicketCreateComponent extends React.Component {
       subject: '',
       user: this.props.user,
       open: false,
-      message: ''
+      message: '',
     };
     this.class = classes();
     // this.onUpload = this.onUpload.bind(this);
     this.descriptionHandler = this.descriptionHandler.bind(this);
     this.subjectHandler = this.subjectHandler.bind(this);
     this.saveTicket = this.saveTicket.bind(this);
-    console.log(this.state);
   }
 
   descriptionHandler(event) {
@@ -84,16 +83,16 @@ class TicketCreateComponent extends React.Component {
 
   saveTicket() {
     this.saveTicketFunction()
-      .then(result => {
+      .then((result) => {
         this.setState({
           description: '',
           subject: '',
           tempAttachment: [],
           open: true,
-          message: 'Ticket Saved'
+          message: 'Ticket Saved',
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
@@ -115,11 +114,11 @@ class TicketCreateComponent extends React.Component {
         businessId: this.state.user.id,
         userId: this.state.user.mainRole.business.id,
         subject: this.state.subject,
-        description: this.state.description
+        description: this.state.description,
       };
       saveNewTicketSupport(obj)
-        .then(result => resolve(result.data))
-        .catch(err => reject(err));
+        .then((result) => resolve(result.data))
+        .catch((err) => reject(err));
     });
   }
 
@@ -128,8 +127,8 @@ class TicketCreateComponent extends React.Component {
       if (this.state.selectedFile) {
         let fileData = this.state.selectedFile;
         requestFileUpload(fileData)
-          .then(response => resolve(response))
-          .catch(err => reject(err));
+          .then((response) => resolve(response))
+          .catch((err) => reject(err));
       } else {
         resolve(false);
       }
@@ -143,24 +142,24 @@ class TicketCreateComponent extends React.Component {
         supportTicketId: data.ticket.id,
         filePath: upload.fileURL,
         fileName: getFileName(upload.fileURL),
-        userId: this.state.user.id
+        userId: this.state.user.id,
       };
       saveAttachment(file)
-        .then(response => resolve(response))
-        .catch(err => reject(err));
+        .then((response) => resolve(response))
+        .catch((err) => reject(err));
     });
   }
 
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     let obj = {
-      name: event.target.files[0].name
+      name: event.target.files[0].name,
     };
     this.setState({
       selectedFile: event.target.files[0],
       loaded: 0,
       isUploaded: true,
       isTemp: true,
-      tempAttachment: [...this.state.tempAttachment, obj]
+      tempAttachment: [...this.state.tempAttachment, obj],
     });
   };
 
@@ -322,7 +321,7 @@ class TicketCreateComponent extends React.Component {
             <Snackbar
               anchorOrigin={{
                 vertical: 'top',
-                horizontal: 'right'
+                horizontal: 'right',
               }}
               open={this.state.open}
               message={this.state.message}
@@ -334,9 +333,9 @@ class TicketCreateComponent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
   };
 };
 
