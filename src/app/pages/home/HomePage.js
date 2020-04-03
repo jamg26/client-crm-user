@@ -43,7 +43,7 @@ export default function HomePage() {
         <Route path='/invite-user' component={InviteUserComponent} />
         <Route path='/change-password' component={PasswordComponent} />
         <Route path='/usertypes' component={userTypes} />
-        <Redirect to='/error/error-v1' />
+        {/* <Redirect to='/error/error-v1' /> */}
       </Switch>
     </Suspense>
   );
