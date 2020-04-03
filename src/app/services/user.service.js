@@ -22,7 +22,7 @@ export function register(email, fullname, businessName, username, password) {
 }
 
 export function requestPassword(email) {
-  return axios.post(REQUEST_PASSWORD_URL, { email });
+  return axios.get(`${ROOT_URL}/${REQUEST_PASSWORD_URL}/${email}`);
 }
 
 export function getUserByToken() {

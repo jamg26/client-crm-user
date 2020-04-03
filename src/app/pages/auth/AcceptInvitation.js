@@ -67,6 +67,11 @@ const AcceptInvitation = (props) => {
     }
 
   }
+
+  const handleNotNow = e => {
+      window.location.href = "/"
+  }
+  
   const handleAcceptInvite = async e => {
     if (isRejected === false) {
       setFormValidation(clearValidation);
@@ -187,14 +192,14 @@ const AcceptInvitation = (props) => {
             </form>
               <div className="kt-login__actions" style={{display:rejectedElement}}>
                 
-                <Link to="/auth">
-                  <button 
-                      type="button" 
-                      className="btn btn-secondary btn-elevate kt-login__btn-secondary" 
-                  >
-                   Not now
-                  </button>
-                </Link>
+                <button 
+                    type="button" 
+                    className="btn btn-secondary btn-elevate kt-login__btn-secondary" 
+                    onClick={handleNotNow}
+                >
+                 Not now
+                </button>
+
 
                 <button
                   className="btn btn-primary btn-elevate kt-login__btn-primary"

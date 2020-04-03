@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import { TextField } from "@material-ui/core";
@@ -6,16 +6,18 @@ import { Link, Redirect } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../../store/ducks/auth.duck";
 import { requestPassword } from "../../services/user.service";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 class ForgotPassword extends Component {
-  state = { isRequested: false };
-
+  state = { isRequested: false,  notifyAccept: ''};
+  
   render() {
+    const { notifyAccept } = this.state;
     const { intl } = this.props;
     const { isRequested } = this.state;
 
     if (isRequested) {
-      return <Redirect to="/auth" />;
+        setTimeout(() => { window.location.href = "/"; }, 5000);
     }
 
     return (
@@ -50,7 +52,12 @@ class ForgotPassword extends Component {
               onSubmit={(values, { setStatus, setSubmitting }) => {
                 requestPassword(values.email)
                   .then(() => {
-                    this.setState({ isRequested: true });
+                    this.setState({ isRequested: true, 
+                              notifyAccept :  <Alert severity="success">
+                                                  <AlertTitle>Success</AlertTitle>
+                                                  Requesting for resetting your password was sent to your email. 
+                                              </Alert> 
+                            });
                   })
                   .catch(() => {
                     setSubmitting(false);
@@ -79,6 +86,8 @@ class ForgotPassword extends Component {
                       <div className="alert-text">{status}</div>
                     </div>
                   )}
+
+                  {notifyAccept}
 
                   <div className="form-group">
                     <TextField
