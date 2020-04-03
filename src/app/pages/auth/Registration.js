@@ -86,7 +86,6 @@ function Registration(props) {
                 return errors;
               }}
               onSubmit={(values, { setStatus, setSubmitting }) => {
-                console.log('values', values);
                 register(
                   values.email,
                   values.fullname,
