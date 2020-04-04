@@ -95,7 +95,6 @@ const InputContainer = props => {
                 </Col>
             </Row>
         </Container>
-
   );
 };
 

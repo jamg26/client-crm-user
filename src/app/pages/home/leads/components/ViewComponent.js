@@ -6,7 +6,7 @@ import {
   getLeadsList,
   registerLead,
   updateLead,
-  deleteLead
+  deleteLead,
 } from '../../../../services/leads.service';
 import { getLeadSourceList } from '../../../../services/leadSource.service';
 import { Button, CircularProgress } from '@material-ui/core';
@@ -26,7 +26,7 @@ const ViewComponent = () => {
   const [state, setState] = useState(0);
   const [leadSource, setLeadSource] = useState(0);
 
-  const userData = useSelector(state => state.auth.user);
+  const userData = useSelector((state) => state.auth.user);
 
   // const handleSelectLeadSource = (leadSource) => {
   //   setLeadSource({leadSourceId : leadSource.leadSourceId})
@@ -43,7 +43,7 @@ const ViewComponent = () => {
 
   const [reRender, setRerender] = useState(false);
 
-  const notify = data => {
+  const notify = (data) => {
     if (data.success) {
       toast.success(data.message);
     } else {
@@ -66,7 +66,7 @@ const ViewComponent = () => {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: rowData => {
+            render: (rowData) => {
               return (
                 <Row>
                   <Col>
@@ -85,7 +85,6 @@ const ViewComponent = () => {
                       onClick={() => {
                         deleteLead(rowData.id);
                         setRerender(!reRender);
-
                       }}
                     >
                       DELETE
@@ -93,10 +92,10 @@ const ViewComponent = () => {
                   </Col>
                 </Row>
               );
-            }
-          }
+            },
+          },
         ],
-        data: response.data
+        data: response.data,
       });
     };
     fetchData();
@@ -107,12 +106,12 @@ const ViewComponent = () => {
       formData.businessId = userData.mainRole.business.id;
 
       registerLead(formData)
-        .then(result => {
+        .then((result) => {
           setRerender(!reRender);
           setShow(false);
           notify({ success: true, message: 'Success adding leads.' });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } else {
       setShow(false);
     }
@@ -121,12 +120,12 @@ const ViewComponent = () => {
   const handleUpdate = () => {
     if (formData != {}) {
       updateLead(formData)
-        .then(result => {
+        .then((result) => {
           setRerender(!reRender);
           setShow(false);
           notify({ success: true, message: 'Success updating leads.' });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } else {
       setShow(false);
     }
@@ -134,14 +133,14 @@ const ViewComponent = () => {
 
   const handleDelete = () => {
     console.log(deleteId);
-    deleteLead(deleteId).then(result => {
+    deleteLead(deleteId).then((result) => {
       setRerender(!reRender);
       setShow(false);
       notify({ success: true, message: 'Success deleting leads.' });
     });
   };
 
-  const handleChange = newData => {
+  const handleChange = (newData) => {
     formData = newData;
   };
 
@@ -151,7 +150,11 @@ const ViewComponent = () => {
     setModalSize('lg');
     setModalTitle('Add Lead');
     setModalBody(
-      <InputfieldsContainer modalType='add' getFormData={handleChange} businessId={userData.mainRole.business.id} />
+      <InputfieldsContainer
+        modalType='add'
+        getFormData={handleChange}
+        businessId={userData.mainRole.business.id}
+      />
     );
     setModalFooter(
       <CrudButtonOPtions
@@ -162,7 +165,7 @@ const ViewComponent = () => {
     );
   };
 
-  const showUpdateModal = leadsourceId => {
+  const showUpdateModal = (leadsourceId) => {
     formData = {};
     setShow(true);
     setModalSize('lg');
@@ -183,7 +186,7 @@ const ViewComponent = () => {
     );
   };
 
-  const showLeadDetailModal = leadsourceId => {
+  const showLeadDetailModal = (leadsourceId) => {
     formData = {};
     setShow(true);
     setModalSize('lg');
