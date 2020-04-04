@@ -1,7 +1,16 @@
 export default {
   header: {
     self: {},
-    items: []
+    items: [
+      {
+        title: 'Point of Sale',
+        root: true,
+        icon: 'flaticon2-shopping-cart',
+        page: 'point-of-sale',
+        translate: 'MENU.DASHBOARD',
+        bullet: 'dot'
+      },
+    ]
   },
   aside: {
     self: {},
@@ -31,11 +40,6 @@ export default {
             title: 'Category',
             bullet: 'dot',
             page: 'product-category'
-          },
-          {
-            title: 'POS',
-            bullet: 'dot',
-            page: 'pos'
           }
         ]
       },
