@@ -20,12 +20,29 @@ export default {
         icon: 'flaticon2-graph-2',
         page: 'products-services',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
+        submenu: [
+          {
+            title: 'Products',
+            bullet: 'dot',
+            page: 'product-list'
+          },
+          {
+            title: 'Category',
+            bullet: 'dot',
+            page: 'product-category'
+          },
+          {
+            title: 'POS',
+            bullet: 'dot',
+            page: 'pos'
+          }
+        ]
       },
       {
         title: 'Invite User',
         root: true,
-        icon: 'flaticon2-phone',
+        icon: 'flaticon2-analytics-1',
         page: 'invite-user',
         translate: '',
         bullet: 'dot'
