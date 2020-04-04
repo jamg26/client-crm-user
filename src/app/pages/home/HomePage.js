@@ -20,6 +20,8 @@ const userTypes = lazy(() => import('./usertypes/UserTypes'));
 
 const PasswordComponent = lazy(() => import('./myaccount/password'));
 
+const ScheduledCalls = lazy(() => import('./scheduled-calls/ScheduledCalls'));
+
 export default function HomePage() {
   // useEffect(() => {
   //   console.log('Home page');
@@ -43,6 +45,7 @@ export default function HomePage() {
         <Route path='/invite-user' component={InviteUserComponent} />
         <Route path='/change-password' component={PasswordComponent} />
         <Route path='/usertypes' component={userTypes} />
+        <Route path='/scheduled-calls' component={ScheduledCalls} />
         {/* <Redirect to='/error/error-v1' /> */}
       </Switch>
     </Suspense>

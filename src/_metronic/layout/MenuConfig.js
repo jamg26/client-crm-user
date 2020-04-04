@@ -1,7 +1,7 @@
 export default {
   header: {
     self: {},
-    items: []
+    items: [],
   },
   aside: {
     self: {},
@@ -12,7 +12,15 @@ export default {
         icon: 'flaticon2-architecture-and-city',
         page: 'dashboard',
         translate: 'MENU.DASHBOARD',
-        bullet: 'dot'
+        bullet: 'dot',
+      },
+      {
+        title: 'Scheduled Calls',
+        root: true,
+        icon: 'flaticon2-phone',
+        page: 'scheduled-calls',
+        translate: '',
+        bullet: 'dot',
       },
       {
         title: 'Product & Services',
@@ -20,15 +28,15 @@ export default {
         icon: 'flaticon2-graph-2',
         page: 'products-services',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Invite User',
         root: true,
-        icon: 'flaticon2-phone',
+        icon: 'flaticon-feed',
         page: 'invite-user',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Leads',
@@ -36,7 +44,7 @@ export default {
         icon: 'flaticon-rocket',
         page: 'leads',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Account',
@@ -44,7 +52,7 @@ export default {
         icon: 'flaticon2-user',
         page: 'account',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Contacts',
@@ -52,7 +60,7 @@ export default {
         icon: 'flaticon2-phone',
         page: 'contacts',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Business',
@@ -60,7 +68,7 @@ export default {
         icon: 'flaticon-business',
         page: 'business',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Configuration',
@@ -87,20 +95,20 @@ export default {
               {
                 title: 'User Type',
                 bullet: 'line',
-                page: 'usertypes'
-              }
-            ]
-          }
-        ]
+                page: 'usertypes',
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'Support',
         root: true,
-        icon: 'flaticon2-phone',
+        icon: 'flaticon-support',
         page: 'supports',
         translate: '',
-        bullet: 'dot'
-      }
-    ]
-  }
+        bullet: 'dot',
+      },
+    ],
+  },
 };
