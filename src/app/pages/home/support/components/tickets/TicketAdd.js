@@ -28,33 +28,6 @@ const TicketAdd = () => {
   const [attached, setAttached] = useState({ fileName: '', filePath: '' });
   const [ticketBtn, setTicketBtn] = useState(false);
 
-  // useEffect(() => {
-  //   // const fetchData = async () => {
-  //   // const response = await getClosedSupportTicket();
-  //   //   setState({
-  //   //     columns: [
-  //   //       { title: 'Status', field: 'status' },
-  //   //       { title: 'Name', field: 'user',
-  //   //         render: rowData => `${rowData.user.firstName} ${rowData.user.lastName}`
-  //   //       },
-  //   //       { title: 'Email', field: 'email',
-  //   //         render: rowData => `${rowData.user.email}`
-  //   //       },
-  //   //       { title: 'Phone', field: 'phone',
-  //   //         render: rowData => `${rowData.user.phoneNumber}`
-  //   //       },
-  //   //       { title: 'Ticket#', field: 'supportTicketKey'},
-  //   //       { title: 'Subject', field: 'subject'},
-  //   //       { title: 'Requested On', field: 'dateCreated',
-  //   //         render: rowData => `${moment(rowData.dateCreated).format('LLL')}`
-  //   //       }
-  //   //     ],
-  //   //     data : response.data
-  //   //   });
-  //   //}
-  //   //fetchData();
-  // }, []);
-
   const handleChange = (e) => {
     setInput({
       ...input,
@@ -89,7 +62,6 @@ const TicketAdd = () => {
     setAttached({ fileName: '', filePath: '' });
     setTicketBtn(false);
     notify('Ticket submitted.');
-    //window.location.reload(false);
   };
 
   return (
