@@ -1,7 +1,16 @@
 export default {
   header: {
     self: {},
-    items: [],
+    items: [
+      {
+        title: 'Point of Sale',
+        root: true,
+        icon: 'flaticon2-shopping-cart',
+        page: 'point-of-sale',
+        translate: 'MENU.DASHBOARD',
+        bullet: 'dot',
+      },
+    ],
   },
   aside: {
     self: {},
@@ -29,11 +38,23 @@ export default {
         page: 'products-services',
         translate: '',
         bullet: 'dot',
+        submenu: [
+          {
+            title: 'Products',
+            bullet: 'dot',
+            page: 'product-list',
+          },
+          {
+            title: 'Category',
+            bullet: 'dot',
+            page: 'product-category',
+          },
+        ],
       },
       {
         title: 'Invite User',
         root: true,
-        icon: 'flaticon-feed',
+        icon: 'flaticon2-analytics-1',
         page: 'invite-user',
         translate: '',
         bullet: 'dot',
