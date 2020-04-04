@@ -8,9 +8,9 @@ export default {
         icon: 'flaticon2-shopping-cart',
         page: 'point-of-sale',
         translate: 'MENU.DASHBOARD',
-        bullet: 'dot'
+        bullet: 'dot',
       },
-    ]
+    ],
   },
   aside: {
     self: {},
@@ -21,7 +21,15 @@ export default {
         icon: 'flaticon2-architecture-and-city',
         page: 'dashboard',
         translate: 'MENU.DASHBOARD',
-        bullet: 'dot'
+        bullet: 'dot',
+      },
+      {
+        title: 'Scheduled Calls',
+        root: true,
+        icon: 'flaticon2-phone',
+        page: 'scheduled-calls',
+        translate: '',
+        bullet: 'dot',
       },
       {
         title: 'Product & Services',
@@ -34,14 +42,14 @@ export default {
           {
             title: 'Products',
             bullet: 'dot',
-            page: 'product-list'
+            page: 'product-list',
           },
           {
             title: 'Category',
             bullet: 'dot',
-            page: 'product-category'
-          }
-        ]
+            page: 'product-category',
+          },
+        ],
       },
       {
         title: 'Invite User',
@@ -49,7 +57,7 @@ export default {
         icon: 'flaticon2-analytics-1',
         page: 'invite-user',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Leads',
@@ -57,7 +65,7 @@ export default {
         icon: 'flaticon-rocket',
         page: 'leads',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Account',
@@ -65,7 +73,7 @@ export default {
         icon: 'flaticon2-user',
         page: 'account',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Contacts',
@@ -73,7 +81,7 @@ export default {
         icon: 'flaticon2-phone',
         page: 'contacts',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Business',
@@ -81,7 +89,7 @@ export default {
         icon: 'flaticon-business',
         page: 'business',
         translate: '',
-        bullet: 'dot'
+        bullet: 'dot',
       },
       {
         title: 'Configuration',
@@ -108,20 +116,20 @@ export default {
               {
                 title: 'User Type',
                 bullet: 'line',
-                page: 'usertypes'
-              }
-            ]
-          }
-        ]
+                page: 'usertypes',
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'Support',
         root: true,
-        icon: 'flaticon2-phone',
+        icon: 'flaticon-support',
         page: 'supports',
         translate: '',
-        bullet: 'dot'
-      }
-    ]
-  }
+        bullet: 'dot',
+      },
+    ],
+  },
 };
