@@ -26,9 +26,15 @@ const pointOfSaleComponent = lazy(() =>
   import('./product-services/PointOfSaleComponents')
 );
 
-const ProductCategoryComponent = lazy(() => import('./product-services/Category'));
+const ProductCategoryComponent = lazy(() =>
+  import('./product-services/Category')
+);
 
 const ProductComponent = lazy(() => import('./product-services/Products'));
+
+const LeadSource = lazy(() => import('./lead-source/LeadSource'));
+
+const LeadStatus = lazy(() => import('./lead-status/LeadStatus'));
 
 export default function HomePage() {
   // useEffect(() => {
@@ -58,6 +64,8 @@ export default function HomePage() {
         <Route path='/products' component={ProductComponent} />
         {/* <Redirect to='/error/error-v1' /> */}
         <Route path='/point-of-sale' component={pointOfSaleComponent} />
+        <Route path='/lead-source' component={LeadSource} />
+        <Route path='/lead-status' component={LeadStatus} />
         <Redirect to='/error/error-v1' />
       </Switch>
     </Suspense>
