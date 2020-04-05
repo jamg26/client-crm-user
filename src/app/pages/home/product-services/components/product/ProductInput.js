@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useSelector } from 'react-redux';
 import ProdcutInfo from './multiforms/ProductInfo';
+import ComissionSetUp from './multiforms/ComissionSetUp';
+import Agents from './multiforms/Agents';
+import Images from './multiforms/Images';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,80 +48,122 @@ const defaultProductLocationInfo = {
     active: true,
 }
 
-    const defaultProductInfo = {
-        id: '',
-        businessId: userData.mainRole.business.id,
-        categoryId: '0', 
-        subCategoryId: '-1',
-        productTypeId: '0',
-        productName: '',
-        productCode: '',
-        price: '', // wala value
-        salesTax: '', // wala value
-        minimumPrice: '', // wala value
-        productUniqueNo: '',
-        productDesc: '',
-        isAddOn: false,
-        isLead: true,
-        canSetAnyPrice: false,
-        invoiceTerms: "",
-        showOnInvoice: false,
-        receiptTerms: "",
-        showOnReceipt: false,
-        active: true,
-        productLocationInfo: defaultProductLocationInfo
-    }
+const defaultCommissionSetUp = {
+    boPart: "",
+    affiliateFixedCommissionAmount: "",
+    affiliateCommission: "",
+    paymentProcessorCharge: '',
+    transactionFees: "",
+}
+
+const defaultAgents = {
+    opener: [{
+        type: '',
+        title: '',
+        oFrom: '0',
+        oTo: '0',
+        pay: '1',
+        payRemainingSales: ''
+      }],
+    closer: [{
+        type: '',
+        title: '',
+        oFrom: '0',
+        oTo: '0',
+        pay: '1',
+        payRemainingSales: ''
+      }]
+};
+
+const defaultProductInfo = {
+    id: '',
+    businessId: userData.mainRole.business.id,
+    categoryId: '0', 
+    subCategoryId: '0',
+    productTypeId: '0',
+    productName: '',
+    productCode: '',
+    price: '', // wala value
+    salesTax: '', // wala value
+    minimumPrice: '', // wala value
+    productUniqueNo: '',
+    productDesc: '',
+    isAddOn: false,
+    isLead: true,
+    canSetAnyPrice: false,
+    invoiceTerms: "",
+    showOnInvoice: false,
+    receiptTerms: "",
+    showOnReceipt: false,
+    active: true,
+    productLocationInfo: defaultProductLocationInfo
+}
 
 
-    const [formDataProductInfo, setFormDataProductInfo] = useState(defaultProductInfo);
+const [formDataProductInfo, setFormDataProductInfo] = useState(defaultProductInfo);
+const [productSubCategorySelection, setProductSubCategorySelection] = useState('');
+const [formDataCommissionSetUp, setFormDataCommissionSetUp] = useState(defaultCommissionSetUp);
+const [formDataAgents, setFormDataAgents] = useState(defaultAgents);
 
-    const [productSubCategorySelection, setProductSubCategorySelection] = useState('');
+const handleSelectedProductTYpe = data => {
+    setFormDataProductInfo({
+      ...formDataProductInfo,
+      ['productTypeId']: data
+    });
+}
 
-    const handleSelectedProductTYpe = data => {
+const handleSelection = event => {
+    let keyName = event.target.name
+    if (event.target.name === 'categoryId') {
+         setFormDataProductInfo({
+          ...formDataProductInfo,
+          [event.target.name]: event.target.value,
+          ['subCategoryId']: '0'
+        });
+    } else if (event.target.name === 'businessLocationId') {
+
         setFormDataProductInfo({
           ...formDataProductInfo,
-          ['productTypeId']: data
+          ['productLocationInfo']: {
+                    ...formDataProductInfo.productLocationInfo, 
+                    [keyName] :event.target.value
+                }
         });
-    }
-
-    const handleSelection = event => {
-        let keyName = event.target.name
-        if (event.target.name === 'categoryId') {
-             setFormDataProductInfo({
-              ...formDataProductInfo,
-              [event.target.name]: event.target.value,
-              ['subCategoryId']: '0'
-            });
-        } else if (event.target.name === 'businessLocationId') {
-
-            setFormDataProductInfo({
-              ...formDataProductInfo,
-              ['productLocationInfo']: {
-                        ...formDataProductInfo.productLocationInfo, 
-                        [keyName] :event.target.value
-                    }
-            });
-        } else {
-            setFormDataProductInfo({
-              ...formDataProductInfo,
-              [event.target.name]: event.target.value
-            });
-        }
-    }
-
-    const handleOption = event => {
+    } else {
         setFormDataProductInfo({
           ...formDataProductInfo,
-          [event.target.name]: event.target.checked
+          [event.target.name]: event.target.value
         });
     }
+}
 
-    const handleChange = event => {
-        setFormDataProductInfo({
-          ...formDataProductInfo,
-          [event.target.id]: event.target.value
-        });
-    }
+const handleOption = event => {
+    setFormDataProductInfo({
+      ...formDataProductInfo,
+      [event.target.name]: event.target.checked
+    });
+}
+
+const handleChange0 = event => {
+    setFormDataProductInfo({
+      ...formDataProductInfo,
+      [event.target.id]: event.target.value
+    });
+}
+
+const handleChange1 = event => {
+    setFormDataCommissionSetUp({
+      ...formDataCommissionSetUp,
+      [event.target.id]: event.target.value
+    });
+}
+
+const handleChange2 = event => {
+    setFormDataCommissionSetUp({
+      ...formDataCommissionSetUp,
+      [event.target.id]: event.target.value
+    });
+}
 
 
 function getStepContent(step) {
@@ -129,14 +174,28 @@ function getStepContent(step) {
                 businessLocationData={formDataProductInfo.productLocationInfo}
                 handleSelection={handleSelection}
                 handleOption={handleOption}
-                handleChange={handleChange}
+                handleChange={handleChange0}
             />
+      break;
     case 1:
-      return 'Commision Setup';
+    
+      return  <ComissionSetUp 
+                data={formDataCommissionSetUp}
+                handleChange={handleChange1}
+              />
+        break;
+      
     case 2:
-      return 'Agents';
+    
+      return <Agents 
+                data={formDataCommissionSetUp}
+                handleChange={handleChange2}
+              />
     case 3:
-      return 'Images';
+      return <Images 
+                data={formDataCommissionSetUp}
+                handleChange={handleChange2}
+              />
     case 4:
       return 'Document';
     case 5:
@@ -157,19 +216,9 @@ function getStepContent(step) {
   };
 
   const handleNext = () => {
-    // let newSkipped = skipped;
-    // if (isStepSkipped(activeStep)) {
-    //   newSkipped = new Set(newSkipped.values());
-    //   newSkipped.delete(activeStep);
-    // }
-    
-    if ((prevActiveStep) => prevActiveStep === 0) {
-        debugger;
-    } else {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-    
-    // setSkipped(newSkipped);
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
   };
 
   const UpdateFormData = () => {
@@ -182,8 +231,6 @@ function getStepContent(step) {
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.");
     }
 
@@ -232,8 +279,7 @@ function getStepContent(step) {
             ) : (
               <div>
                 
-                    <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                    {/*<Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '70vh' }} />*/}
+                    <div className={classes.instructions}>{getStepContent(activeStep)}</div>
 
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>

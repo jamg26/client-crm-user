@@ -24,6 +24,7 @@ const ProductInfo = (props) => {
                         <ProductType 
                             currentSelectedProductTYpe={props.data.productTypeId} 
                             getSelectedProductType={props.handleSelection}
+                            businessId= {props.businessLocationData.businessId}
                         />
                     </InputGroup>
                 </Col>

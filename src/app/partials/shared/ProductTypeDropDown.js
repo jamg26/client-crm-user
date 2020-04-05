@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, MenuItem, InputLabel, FormControl } from "@material-ui/core";
-// import { getAccountList } from '../../services/account.service';
+import { getProductTypeList } from '../../services/productType.service';
 
 
 class ProductTypeDropdown extends React.Component {
@@ -9,20 +9,20 @@ class ProductTypeDropdown extends React.Component {
         super(props);
         this.handleSelectProductType = this.handleSelectProductType.bind(this);
         this.state = {
-            accountData : [],
+            productTypeData : [],
             productTypeId: props.currentSelectedProductTYpe,
         }
     }
+    
+    getProductType() {
+        getProductTypeList(this.props.businessId)
+          .then(results => this.setState({ productTypeData: results.data }))
+          .catch(err => console.log(err));
+    }
 
-    // getAccount() {
-    //     getAccountList()
-    //       .then(results => this.setState({ accountData: results.data }))
-    //       .catch(err => console.log(err));
-    // }
-
-    // componentDidMount(){
-    //     this.getAccount();
-    // }
+    componentDidMount(){
+        this.getProductType();
+    }
     
     handleSelectProductType(event){
         this.setState({ accountId: event.target.value });
@@ -43,12 +43,11 @@ class ProductTypeDropdown extends React.Component {
                     <MenuItem value="0">
                         <em>Select Product Type</em>
                     </MenuItem>
-                    <MenuItem value="product">
-                        <em>Product</em>
-                    </MenuItem>
-                    <MenuItem value="service">
-                        <em>Service</em>
-                    </MenuItem>
+                    { this.state.productTypeData.map(value => 
+                        <MenuItem key={value.id} value={value.id} >
+                            {value.productTypeName}
+                        </MenuItem>) 
+                    }
                     
                 </Select>
           </FormControl>
