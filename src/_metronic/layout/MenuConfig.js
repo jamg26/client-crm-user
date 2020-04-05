@@ -120,6 +120,32 @@ export default {
               },
             ],
           },
+          {
+            title: 'Lead Setup',
+            bullet: 'dot',
+            submenu: [
+              // {
+              //   title: "Users",
+              //   bullet: "line",
+              //   page: "google-material/layout/box"
+              // },
+              // {
+              //   title: "Assign Rights",
+              //   bullet: "line",
+              //   page: "google-material/layout/container"
+              // },
+              {
+                title: 'Source',
+                bullet: 'line',
+                page: 'lead-source',
+              },
+              {
+                title: 'Status',
+                bullet: 'line',
+                page: 'lead-status',
+              },
+            ],
+          },
         ],
       },
       {
