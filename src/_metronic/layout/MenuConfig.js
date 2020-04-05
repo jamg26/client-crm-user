@@ -42,7 +42,7 @@ export default {
           {
             title: 'Products',
             bullet: 'dot',
-            page: 'product-list',
+            page: 'products',
           },
           {
             title: 'Category',

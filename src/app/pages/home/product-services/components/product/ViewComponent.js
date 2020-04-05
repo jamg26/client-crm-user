@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import { Link } from 'react-router-dom';
 import {
-  getCategoryList,
-  registerCategory,
-  updateCategory,
-  deleteCategory,
+  getSubCategoryList,
+  registerSubCategory,
+  updateSubCategory,
+  deleteSubCategory,
 } from '../../../../../services/productCategory.service';
-import TableModal from '../../../../shared/Modal';
 import { Button } from '@material-ui/core';
-import CategoryInput from './CategoryInput';
+import ProductInput from './ProductInput';
 import { Row, Col, Container } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
@@ -16,14 +16,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Alert from '@material-ui/lab/Alert';
-import SubCategory from './ViewSubCategory';
 
-const ViewComponent = () => {
+const ViewComponent = (props) => {
   const userData = useSelector(state => state.auth.user);
   const initialInput = {
     id: '',
+    categoryId: props.categoryId,
     businessId: userData.mainRole.business.id,
-    categoryName: '',
+    subCategoryName: '',
     note: '',
     active: true
   };
@@ -43,7 +43,7 @@ const ViewComponent = () => {
   const [reRender, setRerender] = useState(false); // Re render table after updating
 
   const delCategory = async id => {
-    await deleteCategory(id);
+    await deleteSubCategory(id);
     setRerender(!reRender);
   };
 
@@ -61,10 +61,10 @@ const ViewComponent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getCategoryList(initialInput.businessId);
+      const response = await getSubCategoryList(initialInput.categoryId);
       setState({
         columns: [
-          { title: 'Category', field: 'categoryName' },
+          { title: 'Sub Category', field: 'subCategoryName' },
           { title: 'Note', field: 'note' },
           { 
             title: 'Status', 
@@ -76,7 +76,6 @@ const ViewComponent = () => {
               )
             }
           },
-
           {
             title: 'Action',
             field: 'actions',
@@ -110,17 +109,6 @@ const ViewComponent = () => {
             }
           }
         ],
-        detailPanel: rowData => {
-            return (
-              <Container style={{padding: 10}}>
-                <SubCategory
-                  categoryId = {rowData.id}
-                  categoryName = {rowData.categoryName}
-                />
-              </Container>
-            )
-          },
-        onRowClick: (event, rowData, togglePanel) => { togglePanel()},
         data: response.data
       });
     };
@@ -135,7 +123,8 @@ const ViewComponent = () => {
     setInput({
       id: data.id,
       businessId: userData.mainRole.business.id,
-      categoryName: data.categoryName,
+      categoryId: props.categoryId,
+      subCategoryName: data.subCategoryName,
       note: data.note,
       active: data.active
     });
@@ -162,14 +151,14 @@ const ViewComponent = () => {
     input.businessId = userData.mainRole.business.id;
     if (actionType === 'edit') {
       try {
-        await updateCategory(input);
-        notify({ success: true, message: 'Success updating category.' });
+        await updateSubCategory(input);
+        notify({ success: true, message: 'Success updating sub category.' });
       } catch (error) {}
     }
     if (actionType === 'add') {
       try {
-        await registerCategory(input);
-        notify({ success: true, message: 'Success adding category.' });
+        await registerSubCategory(input);
+        notify({ success: true, message: 'Success adding sub category.' });
       } catch (error) {}
     }
     setIsModalOpen(false);
@@ -179,40 +168,22 @@ const ViewComponent = () => {
   return (
     <Container>
       <ToastContainer />
-      <TableModal
-        type='productCategory'
-        title='Product Category'
-        open={isModalOpen}
-        handleClose={closeModal}
+      <Link
+        to='/products/add'
       >
-        <CategoryInput
-          data={input}
-          handleChange={handleChange}
-          handleChangeActive={handleChangeActive}
-          handleSubmit={handleSubmitBusiness}
-        />
-      </TableModal>
-
-      <Button
-        className='mb-2'
-        variant='contained'
-        color='primary'
-        size='large'
-        onClick={() => {
-          setIsModalOpen(true);
-          setInput(initialInput);
-          setActionType('add');
-        }}
-        
-      >
-        Add
-      </Button>
+        <Button
+          className='mb-2'
+          variant='contained'
+          color='primary'
+          size='large'
+        >
+          Add
+        </Button>
+      </Link>
       <MaterialTable
-        title='Product Category'
+        title={props.categoryName}
         columns={state.columns}
         data={state.data}
-        detailPanel={state.detailPanel}
-        onRowClick={state.onRowClick}
       />
     </Container>
   );
