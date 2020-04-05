@@ -36,9 +36,9 @@ class UserTypeDropDown extends React.Component {
     render(){
         return (
             <FormControl variant="outlined" style={{width:'100%'}} error={this.props.formValidation.invitedAs?.error}>
-                <InputLabel id="labelInvitedAs" >Invited As</InputLabel>
+                <InputLabel id="labelUserType" >Invited As</InputLabel>
                 <Select
-                  labelId="labelInvitedAs"
+                  labelId="labelUserType"
                   value={this.props.currentUserType.businessUserRoleId}
                   onChange={this.handleSelectUserType.bind(this)}
                   label="Invited As"

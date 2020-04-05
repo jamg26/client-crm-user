@@ -28,6 +28,8 @@ const pointOfSaleComponent = lazy(() =>
 
 const ProductCategoryComponent = lazy(() => import('./product-services/Category'));
 
+const ProductComponent = lazy(() => import('./product-services/Products'));
+
 export default function HomePage() {
   // useEffect(() => {
   //   console.log('Home page');
@@ -53,6 +55,7 @@ export default function HomePage() {
         <Route path='/usertypes' component={userTypes} />
         <Route path='/scheduled-calls' component={ScheduledCalls} />
         <Route path='/product-category' component={ProductCategoryComponent} />
+        <Route path='/products' component={ProductComponent} />
         {/* <Redirect to='/error/error-v1' /> */}
         <Route path='/point-of-sale' component={pointOfSaleComponent} />
         <Redirect to='/error/error-v1' />

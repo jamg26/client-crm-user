@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const AccountInput = props => {
+const CategoryInput = props => {
   return (
       <form onSubmit={props.handleSubmit}>
           <Container>
@@ -78,4 +78,4 @@ const AccountInput = props => {
   );
 };
 
-export default AccountInput;
+export default CategoryInput;
