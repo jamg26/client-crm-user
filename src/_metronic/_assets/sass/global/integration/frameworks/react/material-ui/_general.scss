@@ -14,7 +14,7 @@ a {
 .MuiInput-underline:focus:not(.Mui-focused):before,
 .MuiInput-underline:active:not(.Mui-focused):before,
 .MuiInput-underline:hover:not(.Mui-disabled):before {
-  border-bottom: 1px solid #5867dd !important;
+  border-bottom: 1px solid #18c466 !important;
 }
 
 // builder
@@ -30,21 +30,21 @@ a {
   }
 
   .PrivateTabIndicator-colorSecondary-64 {
-    background-color: #5867dd;
+    background-color: #18c466;
   }
 }
 
 .MuiFormControl-marginNormal { width: 100%; }
 
 .MuiSwitch-colorSecondary.Mui-checked {
-  color: #5867dd !important;
+  color: #18c466 !important;
 
   &:hover {
     background-color: rgba(88, 103, 221, 0.08) !important;
   }
 
   & + .MuiSwitch-track {
-    background-color: #5867dd !important;
+    background-color: #18c466 !important;
   }
 }
 

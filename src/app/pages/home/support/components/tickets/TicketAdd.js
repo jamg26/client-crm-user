@@ -62,6 +62,7 @@ const TicketAdd = () => {
     setAttached({ fileName: '', filePath: '' });
     setTicketBtn(false);
     notify('Ticket submitted.');
+    window.location.reload(false);
   };
 
   return (

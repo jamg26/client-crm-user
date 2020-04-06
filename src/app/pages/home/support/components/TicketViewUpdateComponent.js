@@ -325,7 +325,9 @@ class TicketViewUpdateComponent extends React.Component {
                 {this.state.ticket ? this.state.ticket.subject : ''}
               </h3>
             </div>
-            <SupportTicketDropdown handleClose={this.handleCloseEvent} />
+            {this.state.ticket?.active ? (
+              <SupportTicketDropdown handleClose={this.handleCloseEvent} />
+            ) : null}
           </div>
           <div className='kt-portlet__body'>
             <div className='kt-widget4'>
@@ -357,7 +359,21 @@ class TicketViewUpdateComponent extends React.Component {
                 </ListItem>
                 <Divider light />
               </List>
-
+              <Grid container spacing={3} justify='center'>
+                <Grid item xs={12}>
+                  <Typography className={classes.heading}>
+                    Description
+                  </Typography>
+                  <hr />
+                  <Grid container spacing={3} justify='space-between'>
+                    <Grid item xs={12}>
+                      <Typography style={{ fontWeight: 'bold', fontSize: 20 }}>
+                        {this.state.ticket?.description}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid container spacing={3} justify='center'>
                 <Grid item xs={12}>
                   <ExpansionPanel>
@@ -449,21 +465,6 @@ class TicketViewUpdateComponent extends React.Component {
                 </Grid>
               </Grid>
 
-              <Grid container spacing={3} justify='center'>
-                <Grid item xs={12}>
-                  <Typography className={classes.heading}>
-                    Description
-                  </Typography>
-                  <hr />
-                  <Grid container spacing={3} justify='space-between'>
-                    <Grid item xs={12}>
-                      <Typography style={{ fontWeight: 'bold', fontSize: 20 }}>
-                        {this.state.ticket?.description}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
               <Grid container spacing={3} justify='center'>
                 <Grid item xs={12}></Grid>
               </Grid>
