@@ -54,7 +54,7 @@ const ViewComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getLeadsList();
-      const leadSourceList = await getLeadSourceList();
+      const leadSourceList = await getLeadSourceList(userData.mainRole.business.id);
       setLeadSource(leadSourceList.data);
       setState({
         columns: [
