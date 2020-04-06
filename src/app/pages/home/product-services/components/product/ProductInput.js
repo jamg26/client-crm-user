@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { useSelector } from 'react-redux';
 import ProdcutInfo from './multiforms/ProductInfo';
+import CommisionSetupForm from './multiforms/CommisionSetupForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -132,7 +133,7 @@ function getStepContent(step) {
                 handleChange={handleChange}
             />
     case 1:
-      return 'Commision Setup';
+      return <CommisionSetupForm/>;
     case 2:
       return 'Agents';
     case 3:
@@ -163,11 +164,13 @@ function getStepContent(step) {
     //   newSkipped.delete(activeStep);
     // }
     
-    if ((prevActiveStep) => prevActiveStep === 0) {
-        debugger;
-    } else {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
+    // if ((prevActiveStep) => prevActiveStep === 0) {
+    //     // debugger;
+    // } else {
+    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     
     // setSkipped(newSkipped);
   };
@@ -231,10 +234,8 @@ function getStepContent(step) {
               </div>
             ) : (
               <div>
-                
-                    <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                    {getStepContent(activeStep)}
                     {/*<Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '70vh' }} />*/}
-
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
