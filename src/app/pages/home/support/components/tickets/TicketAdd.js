@@ -101,7 +101,7 @@ const TicketAdd = () => {
                 }}
                 size='small'
                 fullWidth={true}
-                rows={4}
+                rows={8}
                 multiline
                 // required
               />
