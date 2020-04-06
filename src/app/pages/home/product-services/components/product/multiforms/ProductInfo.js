@@ -66,8 +66,6 @@ const ProductInfo = (props) => {
                             value={props.data.productCode}
                             variant='outlined'
                             fullWidth={true}
-                            //error={validate?.email?.error}
-                            //helperText={validate?.email?.errorMessage}
                             InputLabelProps={{
                                 shrink: true
                             }}

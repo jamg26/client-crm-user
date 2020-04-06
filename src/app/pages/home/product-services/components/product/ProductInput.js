@@ -231,10 +231,8 @@ function getStepContent(step) {
               </div>
             ) : (
               <div>
-                
-                    <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                    {getStepContent(activeStep)}
                     {/*<Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '70vh' }} />*/}
-
                 <div>
                   <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                     Back
