@@ -40,7 +40,7 @@ class LeadSourceDropDown extends React.Component {
           label='Lead Source'
           name='leadSourceId'
         >
-          <MenuItem value='0'>
+          <MenuItem>
             <em>Select Lead Source</em>
           </MenuItem>
           {this.state.leadData.map(value => (
