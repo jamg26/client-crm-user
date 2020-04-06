@@ -59,7 +59,7 @@ const ViewUserType = (props) => {
             render: (rowData) => {
               return (
                 <Row>
-                  <Col>
+                  {/* <Col>
                     <Button
                       variant='contained'
                       color='secondary'
@@ -73,7 +73,7 @@ const ViewUserType = (props) => {
                     >
                       <EditIcon />
                     </Button>
-                  </Col>
+                  </Col> */}
                   {rowData.canBeDeleted ? (
                     <Col>
                       <Button
