@@ -120,7 +120,8 @@ const TicketsAllComponent = (props) => {
       <Table
         columns={state.columns}
         dataSource={state.data}
-        title={() => <Button onClick={refreshTable}>Refresh</Button>}
+        title={() => ''}
+        // title={() => <Button onClick={refreshTable}>Refresh</Button>}
         bordered
         size='small'
         showHeader
