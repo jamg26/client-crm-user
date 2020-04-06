@@ -11,14 +11,8 @@ export function login(email, password) {
   return axios.post(`${ROOT_URL}/${LOGIN_URL}`, { email, password });
 }
 
-export function register(email, fullname, businessName, username, password) {
-  return axios.post(`${ROOT_URL}/${REGISTER_URL}`, {
-    email,
-    fullname,
-    businessName,
-    username,
-    password,
-  });
+export function register(data) {
+  return axios.post(`${ROOT_URL}/${REGISTER_URL}`, data);
 }
 
 export function requestPassword(email) {
