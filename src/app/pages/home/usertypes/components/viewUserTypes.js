@@ -57,7 +57,6 @@ const ViewUserType = (props) => {
             field: 'actions',
             width: 200,
             render: (rowData) => {
-              console.log(rowData);
               return (
                 <Row>
                   <Col>

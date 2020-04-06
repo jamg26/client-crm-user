@@ -4,7 +4,9 @@ import {
   getAccountList,
   registerAccount,
   updateAccount,
-  deleteAccount
+  deleteAccount,
+  getIndustry,
+  getAccountType,
 } from '../../../../services/account.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
@@ -17,7 +19,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const ViewComponent = () => {
-  const userData = useSelector(state => state.auth.user);
+  const userData = useSelector((state) => state.auth.user);
 
   const initialInput = {
     id: '',
@@ -40,17 +42,18 @@ const ViewComponent = () => {
     state: '',
     city: '',
     zipCode: '',
-    description: ''
+    description: '',
   };
 
-  const notify = data => {
+  const notify = (data) => {
     if (data.success) {
       toast.success(data.message);
     } else {
       toast.error(data.message);
     }
   };
-
+  // const [industry, setIndustry] = useState([]);
+  // const [accountTypes, setAccountTypes] = useState([]);
   const [state, setState] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -60,6 +63,13 @@ const ViewComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAccountList();
+      const industry = getIndustry();
+      const acctype = getAccountType();
+      const promise = await Promise.all([industry, acctype]);
+
+      // setIndustry(promise[0].data);
+      // setAccountTypes(promise[1].data);
+
       setState({
         columns: [
           { title: 'Profile', field: 'profile' },
@@ -71,7 +81,7 @@ const ViewComponent = () => {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: data => {
+            render: (data) => {
               return (
                 <Row>
                   <Col>
@@ -97,10 +107,12 @@ const ViewComponent = () => {
                   </Col>
                 </Row>
               );
-            }
-          }
+            },
+          },
         ],
-        data: response.data
+        data: response.data,
+        industry: promise[0].data,
+        accountTypes: promise[1].data,
       });
     };
     fetchData();
@@ -110,7 +122,7 @@ const ViewComponent = () => {
     setIsModalOpen(false);
   };
 
-  const upAccount = data => {
+  const upAccount = (data) => {
     setInput({
       id: data.id,
       profile: data.profile,
@@ -125,20 +137,20 @@ const ViewComponent = () => {
       industryName: data.industryName,
       parentName: data.parentName,
       accountType: data.accountType,
-      description: data.description
+      description: data.description,
     });
     setIsModalOpen(true);
     setRerender(!reRender);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value
+      [e.target.id || e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmitBusiness = async e => {
+  const handleSubmitBusiness = async (e) => {
     e.preventDefault();
     input.businessId = userData.mainRole.business.id;
     if (isUpdate) {
@@ -157,13 +169,14 @@ const ViewComponent = () => {
     setRerender(!reRender);
   };
 
-  const delAccount = async id => {
+  const delAccount = async (id) => {
     await deleteAccount(id);
     setRerender(!reRender);
   };
 
   return (
     <>
+      {console.log(state)}
       <ToastContainer />
       <TableModal
         type='Account'
@@ -175,6 +188,8 @@ const ViewComponent = () => {
           data={input}
           handleChange={handleChange}
           handleSubmit={handleSubmitBusiness}
+          industry={state.industry}
+          accountType={state.accountTypes}
         />
       </TableModal>
 

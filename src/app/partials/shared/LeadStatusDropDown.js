@@ -10,14 +10,14 @@ class LeadStatusDropDown extends React.Component {
     this.state = {
       leadData: [],
       leadStatusId: this.props.currentLeadStatus.leadStatusId,
-      listStatusList: []
+      listStatusList: [],
     };
   }
 
   getLeadStatusList = async () => {
     const leadStatus = await getLeadStatus(this.props.businessId);
     this.setState({
-      leadStatusList: leadStatus.data
+      leadStatusList: leadStatus.data,
     });
   };
 
@@ -25,8 +25,6 @@ class LeadStatusDropDown extends React.Component {
     // this.getLeadsSource();
     this.setState({ leadStatusId: this.props.currentLeadStatus.leadStatusId });
     this.getLeadStatusList();
-    
-    
   }
 
   // getLeadsSource() {
@@ -57,12 +55,11 @@ class LeadStatusDropDown extends React.Component {
             </em>
           </MenuItem>
 
-
-          { this.state?.leadStatusList?.map(value => 
-                        <MenuItem key={value.id} value={value.id}>
-                            {value.leadStatusName}
-                        </MenuItem>) 
-                    }
+          {this.state?.leadStatusList?.map((value) => (
+            <MenuItem key={value.id} value={value.id}>
+              {value.leadStatusName}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     );
