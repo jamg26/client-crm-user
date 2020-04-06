@@ -4,6 +4,7 @@ export const ROOT_URL = process.env.REACT_APP_API_URL;
 export const ACCOUNT_URL = 'api/account';
 export const ACCOUNT_INDUSTRY = 'api/config/industry';
 export const ACCOUNT_TYPE = 'api/config/accounttype';
+export const ACCOUNT_PARENT = 'api/Lead/TableView/Business';
 
 export function getAccountList() {
   return axios.get(`${ROOT_URL}/${ACCOUNT_URL}`);
@@ -27,4 +28,8 @@ export function getIndustry() {
 
 export function getAccountType() {
   return axios.get(`${ROOT_URL}/${ACCOUNT_INDUSTRY}`);
+}
+
+export function getParentAccount(id) {
+  return axios.get(`${ROOT_URL}/${ACCOUNT_PARENT}/${id}`);
 }

@@ -78,7 +78,32 @@ const AccountInput = (props) => {
             </InputGroup> */}
           </Col>
           <Col xs={6}>
-            <InputGroup className='mb-4'>
+            <FormControl
+              margin='dense'
+              variant='outlined'
+              style={{ width: '100%', margin: 2 }}
+            >
+              <InputLabel id='labelLeadStatus'>Parent Account</InputLabel>
+              <Select
+                value={props.data.parentName}
+                onChange={props.handleChange}
+                label='Parent Account'
+                name='parentName'
+              >
+                <MenuItem value='0'>
+                  <em>
+                    Select Parent
+                    {/* {!this.state?.leadStatusList ? 'Loading' : 'Select Lead Status'} */}
+                  </em>
+                </MenuItem>
+                {props.parent?.map((value) => (
+                  <MenuItem key={value.id} value={value.id}>
+                    {value.firstName} {value.lastName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {/* <InputGroup className='mb-4'>
               <TextField
                 onChange={props.handleChange}
                 id='parentName'
@@ -92,7 +117,7 @@ const AccountInput = (props) => {
                 }}
                 size='small'
               />
-            </InputGroup>
+            </InputGroup> */}
           </Col>
           <Col xs={6}>
             <InputGroup className='mb-4'>

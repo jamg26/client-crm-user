@@ -7,6 +7,7 @@ import {
   deleteAccount,
   getIndustry,
   getAccountType,
+  getParentAccount,
 } from '../../../../services/account.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
@@ -63,9 +64,12 @@ const ViewComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getAccountList();
+
       const industry = getIndustry();
       const acctype = getAccountType();
-      const promise = await Promise.all([industry, acctype]);
+      const parent = getParentAccount('R2PPfBhpaLA.');
+
+      const promise = await Promise.all([industry, acctype, parent]);
 
       // setIndustry(promise[0].data);
       // setAccountTypes(promise[1].data);
@@ -113,6 +117,7 @@ const ViewComponent = () => {
         data: response.data,
         industry: promise[0].data,
         accountTypes: promise[1].data,
+        parentAccount: promise[2].data,
       });
     };
     fetchData();
@@ -189,6 +194,7 @@ const ViewComponent = () => {
           handleSubmit={handleSubmitBusiness}
           industry={state.industry}
           accountType={state.accountTypes}
+          parent={state.parentAccount}
         />
       </TableModal>
 
