@@ -49,7 +49,7 @@ const AttachedDocumentForm = () => {
             type="file"
         />
         <label htmlFor="contained-button-file">
-            <Button variant="contained" color="primary" component="span">Upload</Button>
+            <Button variant="contained" color="secondary" component="span">Upload</Button>
         </label>
         </div>
         <div className="kt-portlet__body">
