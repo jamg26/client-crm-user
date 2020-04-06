@@ -118,7 +118,7 @@ const ViewComponent = () => {
                   <Col>
                     <Button
                       variant='contained'
-                      color='primary'
+                      color='secondary'
                       title={data.id}
                       disabled={btnAcceptDisable}
                       onClick={() => {
@@ -348,7 +348,7 @@ const ViewComponent = () => {
       <Button
         className='mb-2'
         variant='contained'
-        color='primary'
+        color='secondary'
         size='large'
         onClick={() => {
           setIsModalOpen(true);

@@ -128,7 +128,7 @@ const TicketAdd = () => {
                 size='large'
                 className='float-right mt-3'
                 variant='contained'
-                color='primary'
+                color='secondary'
                 disabled={ticketBtn}
               >
                 Confirm

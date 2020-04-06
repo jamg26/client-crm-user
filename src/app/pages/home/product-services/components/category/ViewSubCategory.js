@@ -166,7 +166,7 @@ const ViewSubCategory = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <ToastContainer />
       <TableModal
         type='productCategory'
@@ -185,7 +185,7 @@ const ViewSubCategory = (props) => {
       <Button
         className='mb-2'
         variant='contained'
-        color='primary'
+        color='secondary'
         size='large'
         onClick={() => {
           setIsModalOpen(true);
@@ -201,7 +201,7 @@ const ViewSubCategory = (props) => {
         columns={state.columns}
         data={state.data}
       />
-    </Container>
+    </>
   );
 };
 

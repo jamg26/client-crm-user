@@ -252,7 +252,7 @@ const ContactsInput = props => {
                 size='large'
                 className='float-right'
                 variant='contained'
-                color='primary'
+                color='secondary'
               >
                 Confirm
               </Button>

@@ -6,6 +6,7 @@ const ModalTable = props => {
   return (
     <div>
       <Modal
+        size="lg"
         dialogClassName='modal-90w'
         show={props.open}
         onHide={props.handleClose}
