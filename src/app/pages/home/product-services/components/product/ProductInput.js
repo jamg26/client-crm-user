@@ -252,7 +252,7 @@ function getStepContent(step) {
 
                   <Button
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={handleNext}
                     className={classes.button}
                   >

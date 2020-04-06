@@ -51,8 +51,8 @@ export default function SupportViewComponent(props) {
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor='primary'
-          textColor='primary'
+          indicatorColor='secondary'
+          textColor='secondary'
           variant='fullWidth'
         >
           <Tab label='Open' />

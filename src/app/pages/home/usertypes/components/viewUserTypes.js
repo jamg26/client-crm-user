@@ -161,7 +161,7 @@ const ViewUserType = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <TableModal
         type='usertypes'
         title='User Types'
@@ -184,7 +184,7 @@ const ViewUserType = (props) => {
             <Button
               className='mb-2'
               variant='contained'
-              color='primary'
+              color='secondary'
               size='large'
               onClick={() => {
                 setIsModalOpen(true);
@@ -204,7 +204,7 @@ const ViewUserType = (props) => {
         showHeader
         loading={!state.data ? true : false}
       />
-    </Container>
+    </>
   );
 };
 
