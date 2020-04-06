@@ -161,7 +161,7 @@ const ViewUserType = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <TableModal
         type='usertypes'
         title='User Types'
@@ -204,7 +204,7 @@ const ViewUserType = (props) => {
         showHeader
         loading={!state.data ? true : false}
       />
-    </Container>
+    </>
   );
 };
 
