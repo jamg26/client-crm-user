@@ -176,7 +176,6 @@ const ViewComponent = () => {
 
   return (
     <>
-      {console.log(state)}
       <ToastContainer />
       <TableModal
         type='Account'
