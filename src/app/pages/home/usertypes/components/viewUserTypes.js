@@ -50,7 +50,6 @@ const ViewUserType = (props) => {
     const getData = async () => {
       const id = await getBusinessId();
       const usertypes = await getUserTypeList(id);
-
       setState({
         columns: [
           {
@@ -58,6 +57,7 @@ const ViewUserType = (props) => {
             field: 'actions',
             width: 200,
             render: (rowData) => {
+              console.log(rowData);
               return (
                 <Row>
                   <Col>
@@ -75,17 +75,19 @@ const ViewUserType = (props) => {
                       <EditIcon />
                     </Button>
                   </Col>
-                  <Col>
-                    <Button
-                      variant='contained'
-                      size='small'
-                      onClick={() => {
-                        deleteType(rowData.id);
-                      }}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </Col>
+                  {rowData.canBeDeleted ? (
+                    <Col>
+                      <Button
+                        variant='contained'
+                        size='small'
+                        onClick={() => {
+                          deleteType(rowData.id);
+                        }}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Col>
+                  ) : null}
                 </Row>
               );
             },

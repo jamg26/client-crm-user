@@ -7,11 +7,11 @@ import {
   RadioGroup,
   FormControl,
   FormLabel,
-  Checkbox
+  Checkbox,
 } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const UserTypesInput = props => {
+const UserTypesInput = (props) => {
   const { userType } = props.data;
   return (
     <form onSubmit={props.handleSubmit}>
@@ -27,7 +27,7 @@ const UserTypesInput = props => {
                 value={props.data.businessUserRoleName}
                 variant='outlined'
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
                 fullWidth={true}
@@ -35,7 +35,7 @@ const UserTypesInput = props => {
               />
             </InputGroup>
           </Col>
-          <Col xs={12}>
+          {/* <Col xs={12}>
             <FormControl component='fieldset'>
               <FormLabel component='legend'>User Type</FormLabel>
               <RadioGroup
@@ -66,7 +66,7 @@ const UserTypesInput = props => {
                 />
               </RadioGroup>
             </FormControl>
-          </Col>
+          </Col> */}
           <Col xs={12}>
             <FormControlLabel
               control={
