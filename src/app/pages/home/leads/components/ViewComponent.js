@@ -228,7 +228,7 @@ const ViewComponent = () => {
   };
 
   return (
-    <Container>
+    <>
       <ToastContainer />
       {state.data ? (
         <>
@@ -260,7 +260,7 @@ const ViewComponent = () => {
           <CircularProgress />
         </div>
       )}
-    </Container>
+    </>
   );
 };
 
