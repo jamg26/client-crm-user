@@ -49,20 +49,6 @@ const TicketsCloseComponent = (props) => {
       columns={state.columns}
       data={state.data}
       onRowClick={(event, rowData) => editTicketSupport(rowData)}
-      editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            // saveBusiness(newData)
-            //   .then((result) => {
-            //     resolve();
-            //     setState(prevState => {
-            //       const data = [...prevState.data];
-            //       data.push(newData);
-            //       return { ...prevState, data };
-            //     });
-            //   })
-          })
-      }}
     />
   );
 }

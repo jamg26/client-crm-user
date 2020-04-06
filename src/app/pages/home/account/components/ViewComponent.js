@@ -163,7 +163,7 @@ const ViewComponent = () => {
   };
 
   return (
-    <Container>
+    <>
       <ToastContainer />
       <TableModal
         type='Account'
@@ -196,7 +196,7 @@ const ViewComponent = () => {
         columns={state.columns}
         data={state.data}
       />
-    </Container>
+    </>
   );
 };
 

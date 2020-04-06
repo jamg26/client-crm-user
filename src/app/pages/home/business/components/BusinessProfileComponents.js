@@ -144,7 +144,7 @@ class BusinessProfileComponents extends React.Component {
                           '/media/logos/logo-thecrmnetwork-dark.png'
                         }
                         alt='banner'
-                        style={{ width: 100, border: '1px solid' }}
+                        style={{ width: 100, border: '1px solid',padding:'5px' }}
                       />
                     </div>
                     <input
@@ -165,7 +165,7 @@ class BusinessProfileComponents extends React.Component {
                           this.state.business.logoUrl ||
                           '/media/logos/logo-thecrmnetwork-dark.png'
                         }
-                        style={{ width: 100, border: '1px solid' }}
+                        style={{ width: 100, border: '1px solid', padding:'5px' }}
                         alt='logo'
                       />
                     </div>
