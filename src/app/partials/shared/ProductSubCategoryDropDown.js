@@ -11,23 +11,26 @@ class ProductSubCategoryDropDown extends React.Component {
         this.state = {
             ProductSubCategory : [],
             categoryId: props.categoryId,
+        }
+    }
 
+    componentWillReceiveProps(prevProps) {
+        if (prevProps.categoryId !== this.state.categoryId) {
+            this.state.categoryId = prevProps.categoryId;
+            this.getProductSubCategory();
         }
     }
 
 
-    componentDidUpdate(prevProps) {
-        this.getProductSubCategory();
-    }
-
-
     getProductSubCategory() {
-        getSubCategoryList(this.props.categoryId)
-            .then(results => 
-                    this.setState({ProductSubCategory : results.data})
-                )
-                
-            .catch(err => console.log(err))
+        if (typeof(this.state.categoryId) !== 'undefined' && this.state.categoryId != '0'){
+            getSubCategoryList(this.state.categoryId)
+                .then(results => 
+                        this.setState({ProductSubCategory : results.data})
+                    )
+                    
+                .catch(err => console.log(err))
+        }
     }
     
     handleSelectProductSubCategory(event){
