@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { Link } from 'react-router-dom';
 import {
-  getSubCategoryList,
-  registerSubCategory,
-  updateSubCategory,
-  deleteSubCategory,
-} from '../../../../../services/productCategory.service';
+  getProductList,
+} from '../../../../../services/products.service';
 import { Button } from '@material-ui/core';
 import ProductInput from './ProductInput';
 import { Row, Col, Container } from 'react-bootstrap';
@@ -41,11 +38,11 @@ const ViewComponent = (props) => {
   const [actionType, setActionType] = useState('');
   const [input, setInput] = useState(initialInput);
   const [reRender, setRerender] = useState(false); // Re render table after updating
-
+  /*
   const delCategory = async id => {
     await deleteSubCategory(id);
     setRerender(!reRender);
-  };
+  };*/
 
   const renderStastus = data => {
     if (data) {
@@ -58,10 +55,10 @@ const ViewComponent = (props) => {
       </Alert>)
     }
   }
-
+  
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getSubCategoryList(initialInput.categoryId);
+      const response = await getProductList(initialInput.businessId);
       setState({
         columns: [
           { title: 'Sub Category', field: 'subCategoryName' },
@@ -99,7 +96,6 @@ const ViewComponent = (props) => {
                   <Col>
                     <Button
                       variant='contained'
-                      onClick={() => delCategory(data.id)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -150,16 +146,16 @@ const ViewComponent = (props) => {
     e.preventDefault();
     input.businessId = userData.mainRole.business.id;
     if (actionType === 'edit') {
-      try {
+      /*try {
         await updateSubCategory(input);
         notify({ success: true, message: 'Success updating sub category.' });
-      } catch (error) {}
+      } catch (error) {}*/
     }
     if (actionType === 'add') {
-      try {
+      /*try {
         await registerSubCategory(input);
         notify({ success: true, message: 'Success adding sub category.' });
-      } catch (error) {}
+      } catch (error) {}*/
     }
     setIsModalOpen(false);
     setRerender(!reRender);
