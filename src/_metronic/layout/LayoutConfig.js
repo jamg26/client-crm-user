@@ -32,7 +32,7 @@ export const initLayoutConfig = {
       brand: '#5d78ff',
       dark: '#282a3c',
       light: '#ffffff',
-      primary: '#5867dd',
+      primary: '#18c466',
       success: '#34bfa3',
       info: '#36a3f7',
       warning: '#ffb822',
