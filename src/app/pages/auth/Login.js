@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -79,9 +79,13 @@ function Login(props) {
               enableLoading();
               setTimeout(() => {
                 login(values.email, values.password)
-                  .then(({ data: { accessToken } }) => {
+                  .then(async ({ data: { accessToken } }) => {
                     disableLoading();
                     props.login(accessToken);
+                    setTimeout(() => {
+                      // return <Redirect to='/business' />;
+                      window.location.href = '/business';
+                    }, 2000);
                   })
                   .catch(() => {
                     disableLoading();
