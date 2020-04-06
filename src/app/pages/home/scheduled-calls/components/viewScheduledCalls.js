@@ -145,14 +145,14 @@ const ViewScheduledCalls = (props) => {
           </Row>
         </Modal.Body>
       </Modal>
-      <Row>
+      {/* <Row>
         <Col md={4}>
           <Row>
             <Col md={8}>
               <h5>
                 Outgoing Call <Badge status='error' />
               </h5>
-              <h2>Shane Connel</h2>
+              <h2>Derek</h2>
               <Button>Scheduled Call</Button>
             </Col>
             <Col md={4}>
@@ -216,7 +216,7 @@ const ViewScheduledCalls = (props) => {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col md={8}>
           <div className='mt-3'>
