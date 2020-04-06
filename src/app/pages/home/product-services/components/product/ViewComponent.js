@@ -166,7 +166,7 @@ const ViewComponent = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <ToastContainer />
       <Link
         to='/products/add'
@@ -174,7 +174,7 @@ const ViewComponent = (props) => {
         <Button
           className='mb-2'
           variant='contained'
-          color='primary'
+          color='secondary'
           size='large'
         >
           Add
@@ -185,7 +185,7 @@ const ViewComponent = (props) => {
         columns={state.columns}
         data={state.data}
       />
-    </Container>
+    </>
   );
 };
 

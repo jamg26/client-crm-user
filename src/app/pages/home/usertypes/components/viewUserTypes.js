@@ -184,7 +184,7 @@ const ViewUserType = (props) => {
             <Button
               className='mb-2'
               variant='contained'
-              color='primary'
+              color='secondary'
               size='large'
               onClick={() => {
                 setIsModalOpen(true);

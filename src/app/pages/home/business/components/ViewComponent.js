@@ -139,8 +139,8 @@ const ViewComponent = () => {
 			        id="BusinessProfileTab"
 			        variant="scrollable"
 			        scrollButtons="on"
-			        indicatorColor="primary"
-			        textColor="primary"
+			        indicatorColor="secondary"
+			        textColor="secondary"
 			        aria-label="scrollable force tabs example"
 		        >
 			        <Tab label="Profile" icon={<ProfileIcon />} {...a11yProps(0)} />
