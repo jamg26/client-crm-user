@@ -131,7 +131,7 @@ const ViewLeadSource = (props) => {
       });
     };
     getLeadSource();
-  }, []);
+  }, [reRender]);
 
   const closeModal = () => {
     setIsModalOpen(false);
