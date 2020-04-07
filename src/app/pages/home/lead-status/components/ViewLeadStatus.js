@@ -169,7 +169,7 @@ const ViewLeadStatus = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    businessId: state.auth.user.mainRole.id,
+    businessId: state.auth.user.mainRole.business.id,
   };
 };
 

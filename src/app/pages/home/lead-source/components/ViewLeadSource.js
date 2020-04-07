@@ -39,6 +39,7 @@ const ViewLeadSource = (props) => {
       // const businessUsers = await getBusinessUsers(props.businessId);
       // setBusinessUsers(businessUsers.data);
       const list = await getLeadSourceList(props.businessId);
+      console.log(list);
       let newList = [];
       list.data.reverse().map((data) => {
         if (data.isDeleted) return;
@@ -150,7 +151,8 @@ const ViewLeadSource = (props) => {
     }
     if (!isUpdate) {
       try {
-        await addLeadSource(newInput);
+        const lead = await addLeadSource(newInput);
+        console.log(lead);
         //const usertype = await addUserType(newInput);
         //notify({ success: true, message: 'Success adding user types.' });
       } catch (error) {}
@@ -248,7 +250,7 @@ const ViewLeadSource = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    businessId: state.auth.user.mainRole.id,
+    businessId: state.auth.user.mainRole.business.id,
     userId: state.auth.user.id,
   };
 };
