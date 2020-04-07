@@ -4,7 +4,7 @@ import {
   Portlet,
   PortletBody,
   PortletHeader,
-  PortletHeaderToolbar
+  PortletHeaderToolbar,
 } from '../../partials/content/Portlet';
 import { metronic } from '../../../_metronic';
 import QuickStatsChart from '../../widgets/QuickStatsChart';
@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 
 function Dashboard() {
   const { brandColor, dangerColor, successColor, primaryColor } = useSelector(
-    state => ({
+    (state) => ({
       brandColor: metronic.builder.selectors.getConfig(
         state,
         'colors.state.brand'
@@ -37,7 +37,7 @@ function Dashboard() {
       primaryColor: metronic.builder.selectors.getConfig(
         state,
         'colors.state.primary'
-      )
+      ),
     })
   );
 
@@ -46,33 +46,33 @@ function Dashboard() {
       chart1: {
         data: [10, 14, 18, 11, 9, 12, 14, 17, 18, 14],
         color: brandColor,
-        border: 3
+        border: 3,
       },
 
       chart2: {
         data: [11, 12, 18, 13, 11, 12, 15, 13, 19, 15],
         color: dangerColor,
-        border: 3
+        border: 3,
       },
 
       chart3: {
         data: [12, 12, 18, 11, 15, 12, 13, 16, 11, 18],
         color: successColor,
-        border: 3
+        border: 3,
       },
 
       chart4: {
         data: [11, 9, 13, 18, 13, 15, 14, 13, 18, 15],
         color: primaryColor,
-        border: 3
-      }
+        border: 3,
+      },
     }),
     [brandColor, dangerColor, primaryColor, successColor]
   );
 
   return (
     <>
-      <div className='row'>
+      {/* <div className='row'>
         <div className='col-xl-6'>
           <div className='row row-full-height'>
             <div className='col-sm-12 col-md-12 col-lg-6'>
@@ -183,7 +183,7 @@ function Dashboard() {
         <div className='col-xl-4'>
           <LatestUpdates />
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="row">
         <div className="col-xl-8"></div>
@@ -192,22 +192,22 @@ function Dashboard() {
         </div>
       </div> */}
 
-      <div className='row'>
+      {/* <div className='row'>
         <div className='col-xl-8'>
           <BestSellers />
         </div>
         <div className='col-xl-4'>
           <RecentActivities />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
-    business: state.auth.user.mainRole.business
+    business: state.auth.user.mainRole.business,
   };
 };
 
