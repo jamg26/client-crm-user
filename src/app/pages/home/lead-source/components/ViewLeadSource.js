@@ -39,7 +39,7 @@ const ViewLeadSource = (props) => {
       // const businessUsers = await getBusinessUsers(props.businessId);
       // setBusinessUsers(businessUsers.data);
       const list = await getLeadSourceList(props.businessId);
-      console.log(list);
+      //console.log(list);
       let newList = [];
       list.data.reverse().map((data) => {
         if (data.isDeleted) return;
@@ -89,8 +89,22 @@ const ViewLeadSource = (props) => {
                       color='primary'
                       onClick={async () => {
                         const users = await getLeadSourceUsers(rowData.id);
-                        console.log(users.data);
+                        //console.log(users.data);
                         setBusinessUsers(users.data);
+
+                        let user = {};
+
+                        users.data.map((u) => {
+                          if (!u.isAssign) return;
+                          user = {
+                            ...user,
+                            [u.id]: true,
+                          };
+                        });
+
+                        setAssignedUsers(user);
+                        console.log(user);
+
                         setIsModalAssignOpen(true);
                         setAssignedLeadId(rowData.id);
                         setRerender(!reRender);
@@ -117,7 +131,7 @@ const ViewLeadSource = (props) => {
       });
     };
     getLeadSource();
-  }, [reRender]);
+  }, []);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -144,7 +158,7 @@ const ViewLeadSource = (props) => {
     if (isUpdate) {
       try {
         const lead = await updateLeadSource(newInput);
-        console.log(lead);
+        //console.log(lead);
         //const usertype = await updateUserType(newInput);
         //notify({ success: true, message: 'Success updating user type.' });
       } catch (error) {}
@@ -152,7 +166,7 @@ const ViewLeadSource = (props) => {
     if (!isUpdate) {
       try {
         const lead = await addLeadSource(newInput);
-        console.log(lead);
+        //console.log(lead);
         //const usertype = await addUserType(newInput);
         //notify({ success: true, message: 'Success adding user types.' });
       } catch (error) {}
@@ -162,19 +176,35 @@ const ViewLeadSource = (props) => {
   };
 
   const onChange = (e) => {
-    setAssignedUsers({
-      ...assignedUsers,
-      [e.target.name]: e.target.checked,
-    });
+    // console.log(assignedUsers);
+    // console.log(e.target.name);
+    // console.log(assignedUsers);
+    if (!e.target.checked) {
+      delete assignedUsers[e.target.name];
+    } else {
+      setAssignedUsers({
+        ...assignedUsers,
+        [e.target.name]: e.target.checked,
+      });
+    }
+    // console.log(assignedUsers);
   };
 
   const onAssignSubmit = async (e) => {
     let users = [];
-    Object.keys(assignedUsers).map((userId) => {
-      //if (assignedUsers[userId] === false) return;
-      users.push({ leadSourceId: assignLeadId, userId: userId });
+
+    console.log(assignedUsers);
+
+    Object.keys(assignedUsers).map((u) => {
+      if (!assignedUsers[u]) return;
+      users.push({ leadSourceId: assignLeadId, userId: u });
     });
-    const lead = assignLeadSource(users);
+
+    console.log(users);
+
+    const lead = await assignLeadSource(users);
+    console.log(lead);
+
     setRerender(!reRender);
     setIsModalAssignOpen(false);
   };
