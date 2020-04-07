@@ -82,10 +82,6 @@ function Login(props) {
                   .then(async ({ data: { accessToken } }) => {
                     disableLoading();
                     props.login(accessToken);
-                    setTimeout(() => {
-                      // return <Redirect to='/business' />;
-                      window.location.href = '/business';
-                    }, 2000);
                   })
                   .catch(() => {
                     disableLoading();
