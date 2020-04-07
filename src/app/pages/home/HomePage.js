@@ -66,7 +66,7 @@ export default function HomePage() {
         <Route path='/point-of-sale' component={pointOfSaleComponent} />
         <Route path='/lead-source' component={LeadSource} />
         <Route path='/lead-status' component={LeadStatus} />
-        <Redirect to='/error/error-v1' />
+        {/* <Redirect to='/error/error-v1' /> */}
       </Switch>
     </Suspense>
   );
