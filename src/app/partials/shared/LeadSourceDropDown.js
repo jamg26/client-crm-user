@@ -9,7 +9,7 @@ class LeadSourceDropDown extends React.Component {
     this.handleSelectLeadSource = this.handleSelectLeadSource.bind(this);
     this.state = {
       leadData: [],
-      leadSourceId: this.props.currentLeadSource.leadSourceId
+      leadSourceId: this.props.currentLeadSource.leadSourceId,
     };
   }
 
@@ -20,8 +20,8 @@ class LeadSourceDropDown extends React.Component {
 
   getLeadsSource() {
     getLeadSourceList()
-      .then(results => this.setState({ leadData: results.data }))
-      .catch(err => console.log(err));
+      .then((results) => this.setState({ leadData: results.data }))
+      .catch((err) => console.log(err));
   }
 
   handleSelectLeadSource(event) {
@@ -43,7 +43,8 @@ class LeadSourceDropDown extends React.Component {
           <MenuItem>
             <em>Select Lead Source</em>
           </MenuItem>
-          {this.state.leadData.map(value => (
+          {console.log(this.state.leadData)}
+          {this.state.leadData.map((value) => (
             <MenuItem key={value.id} value={value.id}>
               {value.leadSourceName}
             </MenuItem>
