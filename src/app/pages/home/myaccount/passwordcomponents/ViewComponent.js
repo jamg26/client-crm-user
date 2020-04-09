@@ -48,7 +48,13 @@ const ViewComponent = () => {
 								errorMessage: 'Incorrect password.'
 							}
 						});
-                	} else  {
+                	} else if (data.data.result === 'Incorrect password.') {
+						setValidation({oldPassword : {
+							error: true,
+							errorMessage: 'Incorrect password.'
+						}
+					});
+					} else {
                 		notify({ success: true, message: 'Changing password successful.' });
                 		setformData(clearFormData)
                 	}
