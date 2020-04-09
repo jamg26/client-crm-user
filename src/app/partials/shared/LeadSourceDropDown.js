@@ -2,6 +2,7 @@ import React from 'react';
 import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getLeadSourceList } from '../../services/leadSource.service';
+import { connect } from 'react-redux';
 
 class LeadSourceDropDown extends React.Component {
   constructor(props) {
@@ -16,12 +17,13 @@ class LeadSourceDropDown extends React.Component {
   componentDidMount() {
     this.getLeadsSource();
     this.setState({ leadSourceId: this.props.currentLeadSource.leadSourceId });
+    console.log(this.props.businessId);
   }
 
   getLeadsSource() {
-    getLeadSourceList()
+    getLeadSourceList(this.props.businessId)
       .then((results) => this.setState({ leadData: results.data }))
-      .catch((err) => console.log(err));
+      .catch((err) => console.log('err', err));
   }
 
   handleSelectLeadSource(event) {
@@ -43,7 +45,6 @@ class LeadSourceDropDown extends React.Component {
           <MenuItem>
             <em>Select Lead Source</em>
           </MenuItem>
-          {console.log(this.state.leadData)}
           {this.state.leadData.map((value) => (
             <MenuItem key={value.id} value={value.id}>
               {value.leadSourceName}
@@ -55,4 +56,9 @@ class LeadSourceDropDown extends React.Component {
   }
 }
 
-export default LeadSourceDropDown;
+const mapStateToProps = (state) => {
+  return {
+    businessId: state.auth.user.mainRole.business.id,
+  };
+};
+export default connect(mapStateToProps)(LeadSourceDropDown);

@@ -18,6 +18,11 @@ import './_metronic/_assets/plugins/line-awesome/css/line-awesome.css';
 import './_metronic/_assets/plugins/flaticon/flaticon.css';
 import './_metronic/_assets/plugins/flaticon2/flaticon.css';
 import 'antd/dist/antd.css';
+import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reducers from './app/store/reducers';
+
 /**
  * Base URL of the website.
  *
@@ -40,9 +45,14 @@ const { PUBLIC_URL } = process.env;
  *
  * @see https://github.com/axios/axios#interceptors
  */
+
+const storee = createStore(reducers, {}, compose(applyMiddleware(reduxThunk)));
+
 setupAxios(axios, store);
 
 ReactDOM.render(
-  <App store={store} persistor={persistor} basename={PUBLIC_URL} />,
+  <Provider store={storee}>
+    <App store={store} persistor={persistor} basename={PUBLIC_URL} />
+  </Provider>,
   document.getElementById('root')
 );

@@ -54,7 +54,9 @@ const ViewComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getLeadsList();
-      const leadSourceList = await getLeadSourceList(userData.mainRole.business.id);
+      const leadSourceList = await getLeadSourceList(
+        userData.mainRole.business.id
+      );
       setLeadSource(leadSourceList.data);
       setState({
         columns: [
@@ -154,6 +156,7 @@ const ViewComponent = () => {
         modalType='add'
         getFormData={handleChange}
         businessId={userData.mainRole.business.id}
+        leadSource={leadSource}
       />
     );
     setModalFooter(
@@ -175,6 +178,7 @@ const ViewComponent = () => {
         modalType='add'
         getFormData={handleChange}
         leadsourceId={leadsourceId}
+        leadSource={leadSource}
       />
     );
     setModalFooter(
@@ -196,6 +200,7 @@ const ViewComponent = () => {
         modalType='details'
         getFormData={handleChange}
         leadsourceId={leadsourceId}
+        leadSource={leadSource}
       />
     );
     setModalFooter(

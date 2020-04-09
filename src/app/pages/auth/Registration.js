@@ -90,11 +90,11 @@ function Registration(props) {
                   .then(async ({ data: { accessToken } }) => {
                     props.register(accessToken);
                   })
-                  .catch(() => {
+                  .catch((err) => {
                     setSubmitting(false);
                     setStatus(
                       intl.formatMessage({
-                        id: 'AUTH.VALIDATION.INVALID_LOGIN',
+                        id: err.response.data.message,
                       })
                     );
                   });

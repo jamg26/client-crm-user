@@ -83,12 +83,12 @@ function Login(props) {
                     disableLoading();
                     props.login(accessToken);
                   })
-                  .catch(() => {
+                  .catch((err) => {
                     disableLoading();
                     setSubmitting(false);
                     setStatus(
                       intl.formatMessage({
-                        id: 'AUTH.VALIDATION.INVALID_LOGIN',
+                        id: err.response.data.message,
                       })
                     );
                   });

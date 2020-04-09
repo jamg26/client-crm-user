@@ -8,16 +8,21 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
 } from '@material-ui/core';
 import LeadSourceDropdown from '../../../../partials/shared/LeadSourceDropDown';
 import LeadStatusDropDown from '../../../../partials/shared/LeadStatusDropDown';
-import { getLeadsDetails } from '../../../../services/leads.service';
+import {
+  getLeadsDetails,
+  getLeadsList,
+} from '../../../../services/leads.service';
+
+import { getLeadSourceList } from '../../../../services/leadSource.service';
 
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
-  KeyboardDatePicker
+  KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -41,7 +46,7 @@ class InputFieldsContainer extends React.Component {
       isdcode: '',
       mobile: '',
       note: '',
-      receivedDate: defaultReceiveDate.toISOString()
+      receivedDate: defaultReceiveDate.toISOString(),
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -53,14 +58,20 @@ class InputFieldsContainer extends React.Component {
   componentDidMount() {
     let leadId = this.props.leadsourceId;
 
-    if (typeof(leadId) !== 'undefined') {
+    if (typeof leadId !== 'undefined') {
       getLeadsDetails(leadId)
-        .then(results => {
+        .then((results) => {
           let leadData = results.data;
           this.setState(leadData);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
+
+    // getLeadSourceList()
+    //   .then((results) => {
+    //     this.setState(results.data);
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
   handleChange(event) {
@@ -120,7 +131,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -132,9 +143,10 @@ class InputFieldsContainer extends React.Component {
             >
               <LeadSourceDropdown
                 currentLeadSource={{
-                  leadSourceId: this.state.leadSourceId
+                  leadSourceId: this.state.leadSourceId,
                 }}
                 getSelectedLeadSource={this.handleSelectLeadSource}
+                leadSource={this.props.leadSource}
               />
             </div>
 
@@ -149,7 +161,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -166,7 +178,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -183,7 +195,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -200,7 +212,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -217,7 +229,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -236,7 +248,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -255,7 +267,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -267,7 +279,7 @@ class InputFieldsContainer extends React.Component {
                 style={{
                   paddingTop: '0px',
                   paddingBottom: '0px',
-                  marginBottom: '0px'
+                  marginBottom: '0px',
                 }}
               >
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -280,7 +292,7 @@ class InputFieldsContainer extends React.Component {
                     value={this.state.receivedDate}
                     onChange={this.handleReceivedDate}
                     KeyboardButtonProps={{
-                      'aria-label': 'change date'
+                      'aria-label': 'change date',
                     }}
                     style={{ paddingTop: '0px', paddingBottom: '0 px' }}
                   />
@@ -294,7 +306,7 @@ class InputFieldsContainer extends React.Component {
             >
               <LeadStatusDropDown
                 currentLeadStatus={{
-                  leadStatusId: this.state.leadStatusId
+                  leadStatusId: this.state.leadStatusId,
                 }}
                 getSelectedLeadStatus={this.handleSelectLeadStatus}
                 businessId={this.props.businessId}
@@ -313,7 +325,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -330,7 +342,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -347,7 +359,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -364,7 +376,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />
@@ -383,7 +395,7 @@ class InputFieldsContainer extends React.Component {
                 onChange={this.handleChange}
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true
+                  shrink: true,
                 }}
                 size='small'
               />

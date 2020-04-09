@@ -14,6 +14,7 @@ import Images from './multiforms/Images';
 import DocumentForm from './multiforms/DocumentForm';
 import * as actions from '../../../../../store/actions';
 import { connect } from 'react-redux';
+import { addProduct } from '../../../../../services/products.service';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -193,7 +194,6 @@ const ProductInput = (props) => {
             handleChange={handleChange0}
           />
         );
-        break;
       case 1:
         return (
           <ComissionSetUp
@@ -201,8 +201,6 @@ const ProductInput = (props) => {
             handleChange={handleChange1}
           />
         );
-        break;
-
       case 2:
         return (
           <Agents data={formDataCommissionSetUp} handleChange={handleChange2} />
@@ -230,7 +228,44 @@ const ProductInput = (props) => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
+  const data = {
+    id: 'string',
+    businessId: 'string',
+    productId: 'string',
+    productPrice1: 0,
+    minimumPrice: 0,
+    salesTax: 0,
+    active: true,
+    enteredBy: 0,
+    updatedBy: 0,
+    dateCreated: '2020-04-08T16:56:58.560Z',
+    dateUpdate: '2020-04-08T16:56:58.560Z',
+  };
+
+  const handleNext = async () => {
+    console.log(formDataProductInfo);
+    const data = {
+      businessId: formDataProductInfo.businessId,
+      canSetAnyPrice: formDataProductInfo.canSetAnyPrice,
+      categoryId: formDataProductInfo.categoryId,
+      invoiceTerms: formDataProductInfo.invoiceTerms,
+      businessLocationId:
+        formDataProductInfo.productLocationInfo.businessLocationId,
+      productName: formDataProductInfo.productName,
+      productCode: formDataProductInfo.productCode,
+      productUniqueNo: formDataProductInfo.productUniqueNo,
+      productPrice: parseFloat(formDataProductInfo.price),
+      minimumPrice: parseFloat(formDataProductInfo.minimumPrice),
+      productDesc: formDataProductInfo.productDesc,
+      isAddOn: formDataProductInfo.isAddOn,
+      isLead: formDataProductInfo.isLead,
+      showOnInvoice: formDataProductInfo.showOnInvoice,
+      receiptTerms: formDataProductInfo.receiptTerms,
+      showOnReceipt: formDataProductInfo.showOnReceipt,
+      salesTax: parseFloat(formDataProductInfo.salesTax),
+    };
+    const product = await addProduct(data);
+    console.log(product);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -328,4 +363,11 @@ const ProductInput = (props) => {
     </>
   );
 };
-export default connect(null, actions)(ProductInput);
+
+const mapStateToProps = (state) => {
+  return {
+    business: state.auth.user.mainRole.business,
+  };
+};
+
+export default connect(mapStateToProps, actions)(ProductInput);

@@ -1,7 +1,7 @@
 export default function(state = null, action) {
   switch (action.type) {
     case 'PRODUCT_ADDED':
-      return action.payload || false;
+      return { ...state, productInfo: action.payload };
     default:
       return state;
   }
