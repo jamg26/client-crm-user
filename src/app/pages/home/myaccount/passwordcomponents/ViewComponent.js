@@ -104,7 +104,15 @@ const ViewComponent = () => {
 		<div className="row">
 			<ToastContainer />
 		    <div className="col-md-12">
-		        <div className="form-container" style={{width:"70%",margin:"0 auto"}}>
+				<div className="form-container"
+					style={{
+						width:"70%",
+						margin:"0 auto",
+						background:"#fff",
+						border: "1px solid #000",
+    					padding: "1px",
+						borderRadius: "5px"
+					}}>
 					<div className="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 						<div className="kt-portlet">
 							<div className="kt-portlet__head">
