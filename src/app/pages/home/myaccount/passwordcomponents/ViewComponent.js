@@ -52,7 +52,6 @@ const ViewComponent = () => {
                 		notify({ success: true, message: 'Changing password successful.' });
                 		setformData(clearFormData)
                 	}
-
                 }).catch(() => {});
 		}
 		
@@ -74,7 +73,7 @@ const ViewComponent = () => {
 				}
 			});
 			return false
-		} else if (formData.newPassword.length < 8) {
+		} else if (formData.newPassword.length < 4) {
 			setValidation({newPassword : {
 					error: true,
 					errorMessage: 'New password must container atleast 8 characters.'

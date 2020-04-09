@@ -37,12 +37,18 @@ class HeaderMobile extends React.Component {
         className={`kt-header-mobile ${headerMobileCssClasses}`}
         {...headerMobileAttributes}
       >
-        <div className='kt-header-mobile__logo'>
+        <div className='kt-header-mobile__logo'
+          style={{
+            objectFit: "cover",
+            width: "10%",
+            height: "65px"
+          }}
+        >
           <Link to='/'>
             <img
               alt='logo'
-              width='180px'
-              height='64px'
+              width='100%'
+              height='100%'
               src={this.state.business.logoUrl || this.props.headerLogo}
             />
           </Link>
