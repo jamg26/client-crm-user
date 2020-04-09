@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -10,7 +10,7 @@ import StepConnector from '@material-ui/core/StepConnector';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 //icons
-import ShoppingCart from '@material-ui/icons/ShoppingCart'
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Home from '@material-ui/icons/Home';
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -82,7 +82,11 @@ function QontoStepIcon(props) {
         [classes.active]: active,
       })}
     >
-      {completed ? <Check className={classes.completed} /> : <div className={classes.circle} />}
+      {completed ? (
+        <Check className={classes.completed} />
+      ) : (
+        <div className={classes.circle} />
+      )}
     </div>
   );
 }
@@ -147,10 +151,10 @@ function ColorlibStepIcon(props) {
     1: <ShoppingCart />,
     2: <AccountCircle />,
     3: <Home />,
-    4: <LocationOn/>,
-    5: <Payment/>,
-    6: <Description/>,
-    7: <Attachment/>
+    4: <LocationOn />,
+    5: <Payment />,
+    6: <Description />,
+    7: <Attachment />,
   };
 
   return (
@@ -185,34 +189,64 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Select Product', 'Customer Details', 'Billing Address', 'Shipping Address', 'Payment Method', 'Terms & Condition', 'Attached Document'];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <SelectProductForm />;
-    case 1:
-      return <CustomerDetailsForm />;
-    case 2:
-      return <BillingAddressForm/>;
-    case 3:
-      return <ShippingAddressForm/>;
-    case 4:
-      return <PaymentMethodForm/>;
-    case 5:
-      return <TermsConditionForm/>;
-    case 6:
-      return <AttachedDocumentForm/>;
-    default:
-      return 'Unknown step';
-  }
+  return [
+    'Select Product',
+    'Customer Details',
+    'Billing Address',
+    'Shipping Address',
+    'Payment Method',
+    'Terms & Condition',
+    'Attached Document',
+  ];
 }
 
 export default function ViewPointOfSaleComponents() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
+
+  //1st step data
+
+  //2nd step data
+  const form = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+  };
+  const [state2ndStep, setState2ndStep] = useState(form);
+
+  const handleChange2ndStep = (e) => {
+    console.log(e.target.value);
+    setState2ndStep({ ...state2ndStep, [e.target.id]: e.target.value });
+  };
+  //
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <SelectProductForm />;
+      case 1:
+        return (
+          <CustomerDetailsForm
+            onChange={handleChange2ndStep}
+            data={state2ndStep}
+          />
+        );
+      case 2:
+        return <BillingAddressForm />;
+      case 3:
+        return <ShippingAddressForm />;
+      case 4:
+        return <PaymentMethodForm />;
+      case 5:
+        return <TermsConditionForm />;
+      case 6:
+        return <AttachedDocumentForm />;
+      default:
+        return 'Unknown step';
+    }
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -228,7 +262,11 @@ export default function ViewPointOfSaleComponents() {
 
   return (
     <div className={classes.root}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+      <Stepper
+        alternativeLabel
+        activeStep={activeStep}
+        connector={<ColorlibConnector />}
+      >
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
@@ -249,12 +287,17 @@ export default function ViewPointOfSaleComponents() {
           <div>
             {getStepContent(activeStep)}
             <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.button}
+                hidden={activeStep === 0 ? true : false}
+              >
                 Back
               </Button>
               <Button
-                variant="contained"
-                color="secondary"
+                variant='contained'
+                color='secondary'
                 onClick={handleNext}
                 className={classes.button}
               >
