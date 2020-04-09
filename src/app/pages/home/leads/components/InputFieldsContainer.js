@@ -17,6 +17,8 @@ import {
   getLeadsList,
 } from '../../../../services/leads.service';
 
+import { getLeadSourceList } from '../../../../services/leadSource.service';
+
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -64,6 +66,12 @@ class InputFieldsContainer extends React.Component {
         })
         .catch((err) => console.log(err));
     }
+
+    // getLeadSourceList()
+    //   .then((results) => {
+    //     this.setState(results.data);
+    //   })
+    //   .catch((err) => console.log(err));
   }
 
   handleChange(event) {
@@ -138,6 +146,7 @@ class InputFieldsContainer extends React.Component {
                   leadSourceId: this.state.leadSourceId,
                 }}
                 getSelectedLeadSource={this.handleSelectLeadSource}
+                leadSource={this.props.leadSource}
               />
             </div>
 

@@ -156,6 +156,7 @@ const ViewComponent = () => {
         modalType='add'
         getFormData={handleChange}
         businessId={userData.mainRole.business.id}
+        leadSource={leadSource}
       />
     );
     setModalFooter(
@@ -177,6 +178,7 @@ const ViewComponent = () => {
         modalType='add'
         getFormData={handleChange}
         leadsourceId={leadsourceId}
+        leadSource={leadSource}
       />
     );
     setModalFooter(
@@ -198,6 +200,7 @@ const ViewComponent = () => {
         modalType='details'
         getFormData={handleChange}
         leadsourceId={leadsourceId}
+        leadSource={leadSource}
       />
     );
     setModalFooter(

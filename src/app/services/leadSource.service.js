@@ -6,7 +6,7 @@ export const ASSIGN_LEAD_SOURCE_URL = 'api/config/leadsource/assign';
 export const LEAD_SOURCE_USER_URL = 'api/config/leadsource/users';
 
 export function getLeadSourceList(id) {
-  return axios.get(`${ROOT_URL}/${LEAD_SOURCE_URL}/${id}`);
+  return axios.get(`${ROOT_URL}/${LEAD_SOURCE_URL}`);
 }
 
 export function addLeadSource(data) {
