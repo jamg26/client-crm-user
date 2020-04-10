@@ -1,14 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import {
-  Checkbox,
-  FormControlLabel,
+  // Checkbox,
+  // FormControlLabel,
   TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Button,
+  // Select,
+  // MenuItem,
+  // InputLabel,
+  // FormControl,
+  Button
 } from '@material-ui/core';
 import { Row, Col } from 'react-bootstrap';
 import { notification } from 'antd';
@@ -18,7 +18,7 @@ import {
   updateBusinessBanner,
   getBusiness,
   removeBusinessBanner,
-  removeBusinessLogo,
+  removeBusinessLogo
 } from '../../../../services/business.service';
 
 class BusinessProfileComponents extends React.Component {
@@ -28,14 +28,14 @@ class BusinessProfileComponents extends React.Component {
       formData: {
         businessName: this.props.data.businessName,
         email: this.props.data.email,
-        id: this.props.data.id,
+        id: this.props.data.id
       },
       processing: this.props.onProcessing,
       banner: [],
       logo: [],
       bannerBlob: '',
       logoBlob: '',
-      business: {},
+      business: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,7 +45,7 @@ class BusinessProfileComponents extends React.Component {
   getBusinessDetails = async () => {
     const business = await getBusiness();
     this.setState({
-      business: business.data,
+      business: business.data
     });
   };
 
@@ -65,17 +65,17 @@ class BusinessProfileComponents extends React.Component {
     this.props.onUpdateProfile(this.state.formData);
   }
 
-  openNotification = (message) => {
+  openNotification = message => {
     notification.open({
       message: 'Notification',
       description: `${message}`,
       onClick: () => {
         console.log('Notification Clicked!');
-      },
+      }
     });
   };
 
-  handleChangeLogo = (e) => {
+  handleChangeLogo = e => {
     e.persist();
     const fileReaderInstance = new FileReader();
     fileReaderInstance.readAsDataURL(e.target.files[0]);
@@ -85,16 +85,16 @@ class BusinessProfileComponents extends React.Component {
       var idBlob = `${e.target.id}Blob`;
       this.setState({
         [id]: e.target.files[0],
-        [idBlob]: base64data,
+        [idBlob]: base64data
       });
       var formData = new FormData();
       formData.append('file', e.target.files[0]);
-      const res = await updateBusinessLogo(this.props.data.id, formData);
+      await updateBusinessLogo(this.props.data.id, formData);
       this.openNotification('Logo updated.');
     };
   };
 
-  handleChangeBanner = (e) => {
+  handleChangeBanner = e => {
     e.persist();
     const fileReaderInstance = new FileReader();
     fileReaderInstance.readAsDataURL(e.target.files[0]);
@@ -104,11 +104,11 @@ class BusinessProfileComponents extends React.Component {
       var idBlob = `${e.target.id}Blob`;
       this.setState({
         [id]: e.target.files[0],
-        [idBlob]: base64data,
+        [idBlob]: base64data
       });
       var formData = new FormData();
       formData.append('file', e.target.files[0]);
-      const res = await updateBusinessBanner(this.props.data.id, formData);
+      await updateBusinessBanner(this.props.data.id, formData);
 
       this.openNotification('Banner updated.');
     };
@@ -118,11 +118,11 @@ class BusinessProfileComponents extends React.Component {
   triggerLogo = () => this.logo.click();
 
   clearLogo = async () => {
-    const logo = await removeBusinessLogo(this.props.data.id);
+    await removeBusinessLogo(this.props.data.id);
   };
 
   clearBanner = async () => {
-    const logo = await removeBusinessBanner(this.props.data.id);
+    await removeBusinessBanner(this.props.data.id);
   };
 
   render() {
@@ -144,11 +144,15 @@ class BusinessProfileComponents extends React.Component {
                           '/media/logos/logo-thecrmnetwork-dark.png'
                         }
                         alt='banner'
-                        style={{ width: 100, border: '1px solid',padding:'5px' }}
+                        style={{
+                          width: 100,
+                          border: '1px solid',
+                          padding: '5px'
+                        }}
                       />
                     </div>
                     <input
-                      ref={(fileInput) => (this.banner = fileInput)}
+                      ref={fileInput => (this.banner = fileInput)}
                       id='banner'
                       type='file'
                       onChange={this.handleChangeBanner}
@@ -165,12 +169,16 @@ class BusinessProfileComponents extends React.Component {
                           this.state.business.logoUrl ||
                           '/media/logos/logo-thecrmnetwork-dark.png'
                         }
-                        style={{ width: 100, border: '1px solid', padding:'5px' }}
+                        style={{
+                          width: 100,
+                          border: '1px solid',
+                          padding: '5px'
+                        }}
                         alt='logo'
                       />
                     </div>
                     <input
-                      ref={(fileInput) => (this.logo = fileInput)}
+                      ref={fileInput => (this.logo = fileInput)}
                       id='logo'
                       type='file'
                       onChange={this.handleChangeLogo}
@@ -225,10 +233,10 @@ class BusinessProfileComponents extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     user: state.auth.user,
-    business: state.auth.user.mainRole.business,
+    business: state.auth.user.mainRole.business
   };
 };
 

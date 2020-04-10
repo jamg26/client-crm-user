@@ -26,50 +26,52 @@ import PaymentMethodForm from './multiform/PaymentMethodForm';
 import TermsConditionForm from './multiform/TermsConditionForm';
 import AttachedDocumentForm from './multiform/AttachedDocumentForm';
 
-const QontoConnector = withStyles({
-  alternativeLabel: {
-    top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
-  },
-  active: {
-    '& $line': {
-      borderColor: '#784af4',
-    },
-  },
-  completed: {
-    '& $line': {
-      borderColor: '#784af4',
-    },
-  },
-  line: {
-    borderColor: '#eaeaf0',
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-})(StepConnector);
+import { createOrder } from '../../../../../services/businessSale.service';
+
+// const QontoConnector = withStyles({
+//   alternativeLabel: {
+//     top: 10,
+//     left: 'calc(-50% + 16px)',
+//     right: 'calc(50% + 16px)',
+//   },
+//   active: {
+//     '& $line': {
+//       borderColor: '#784af4',
+//     },
+//   },
+//   completed: {
+//     '& $line': {
+//       borderColor: '#784af4',
+//     },
+//   },
+//   line: {
+//     borderColor: '#eaeaf0',
+//     borderTopWidth: 3,
+//     borderRadius: 1,
+//   },
+// })(StepConnector);
 
 const useQontoStepIconStyles = makeStyles({
   root: {
     color: '#eaeaf0',
     display: 'flex',
     height: 22,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   active: {
-    color: '#784af4',
+    color: '#784af4'
   },
   circle: {
     width: 8,
     height: 8,
     borderRadius: '50%',
-    backgroundColor: 'currentColor',
+    backgroundColor: 'currentColor'
   },
   completed: {
     color: '#784af4',
     zIndex: 1,
-    fontSize: 18,
-  },
+    fontSize: 18
+  }
 });
 
 function QontoStepIcon(props) {
@@ -79,7 +81,7 @@ function QontoStepIcon(props) {
   return (
     <div
       className={clsx(classes.root, {
-        [classes.active]: active,
+        [classes.active]: active
       })}
     >
       {completed ? (
@@ -93,31 +95,31 @@ function QontoStepIcon(props) {
 
 QontoStepIcon.propTypes = {
   active: PropTypes.bool,
-  completed: PropTypes.bool,
+  completed: PropTypes.bool
 };
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
-    top: 22,
+    top: 22
   },
   active: {
     '& $line': {
       backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)'
+    }
   },
   completed: {
     '& $line': {
       backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
-    },
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)'
+    }
   },
   line: {
     height: 3,
     border: 0,
     backgroundColor: '#eaeaf0',
-    borderRadius: 1,
-  },
+    borderRadius: 1
+  }
 })(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles({
@@ -130,17 +132,17 @@ const useColorlibStepIconStyles = makeStyles({
     display: 'flex',
     borderRadius: '50%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   active: {
     backgroundImage:
       'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)'
   },
   completed: {
     backgroundImage:
-      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
-  },
+      'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)'
+  }
 });
 
 function ColorlibStepIcon(props) {
@@ -154,14 +156,14 @@ function ColorlibStepIcon(props) {
     4: <LocationOn />,
     5: <Payment />,
     6: <Description />,
-    7: <Attachment />,
+    7: <Attachment />
   };
 
   return (
     <div
       className={clsx(classes.root, {
         [classes.active]: active,
-        [classes.completed]: completed,
+        [classes.completed]: completed
       })}
     >
       {icons[String(props.icon)]}
@@ -172,20 +174,20 @@ function ColorlibStepIcon(props) {
 ColorlibStepIcon.propTypes = {
   active: PropTypes.bool,
   completed: PropTypes.bool,
-  icon: PropTypes.node,
+  icon: PropTypes.node
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    width: '100%'
   },
   button: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
+    marginBottom: theme.spacing(1)
+  }
 }));
 
 function getSteps() {
@@ -196,7 +198,7 @@ function getSteps() {
     'Shipping Address',
     'Payment Method',
     'Terms & Condition',
-    'Attached Document',
+    'Attached Document'
   ];
 }
 
@@ -206,37 +208,58 @@ export default function ViewPointOfSaleComponents() {
   const steps = getSteps();
 
   //1st step data
+  const [productDetails, setProductDetails] = useState({});
 
   //2nd step data
-  const form = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-  };
-  const [state2ndStep, setState2ndStep] = useState(form);
+  // const form = {
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   phoneNumber: '',
+  // };
+  const [customerDetails, setCustomerDetails] = useState({});
 
-  const handleChange2ndStep = (e) => {
-    console.log(e.target.value);
-    setState2ndStep({ ...state2ndStep, [e.target.id]: e.target.value });
+  //3rd step data
+  const [billingAddress, setBillingAddress] = useState({});
+
+  //4th step
+  const [shippingAddress, setShippingAddress] = useState({});
+
+  const handleChange2ndStep = e => {
+    setCustomerDetails({ ...customerDetails, [e.target.id]: e.target.value });
   };
   //
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <SelectProductForm />;
+        return (
+          <SelectProductForm
+            setState={setProductDetails}
+            state={productDetails}
+          />
+        );
       case 1:
         return (
           <CustomerDetailsForm
             onChange={handleChange2ndStep}
-            data={state2ndStep}
+            data={customerDetails}
           />
         );
       case 2:
-        return <BillingAddressForm />;
+        return (
+          <BillingAddressForm
+            setState={setBillingAddress}
+            state={billingAddress}
+          />
+        );
       case 3:
-        return <ShippingAddressForm />;
+        return (
+          <ShippingAddressForm
+            setState={setShippingAddress}
+            state={shippingAddress}
+          />
+        );
       case 4:
         return <PaymentMethodForm />;
       case 5:
@@ -248,12 +271,26 @@ export default function ViewPointOfSaleComponents() {
     }
   }
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    if (activeStep === 6) {
+      let data = {};
+      data = {
+        ...data,
+        ...customerDetails,
+        productOrders: [{ ...productDetails }],
+        custAddress: `${billingAddress.addressLine1} ${billingAddress.addressLine2} ${billingAddress.city} ${billingAddress.state} ${billingAddress.country}, ${billingAddress.zipCode}`,
+        billingAddress: `${billingAddress.addressLine1} ${billingAddress.addressLine2} ${billingAddress.city} ${billingAddress.state} ${billingAddress.country}, ${billingAddress.zipCode}`,
+        shippingAddress: `${shippingAddress.addressLine1} ${shippingAddress.addressLine2} ${shippingAddress.city} ${shippingAddress.state} ${shippingAddress.country}, ${shippingAddress.zipCode}`,
+        country: billingAddress.country
+      };
+      const order = await createOrder(data);
+      console.log(order);
+    }
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
   const handleReset = () => {
@@ -267,7 +304,7 @@ export default function ViewPointOfSaleComponents() {
         activeStep={activeStep}
         connector={<ColorlibConnector />}
       >
-        {steps.map((label) => (
+        {steps.map(label => (
           <Step key={label}>
             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
           </Step>

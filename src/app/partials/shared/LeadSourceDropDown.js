@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { getLeadSourceList } from '../../services/leadSource.service';
 import { connect } from 'react-redux';
 
@@ -10,7 +10,7 @@ class LeadSourceDropDown extends React.Component {
     this.handleSelectLeadSource = this.handleSelectLeadSource.bind(this);
     this.state = {
       leadData: [],
-      leadSourceId: this.props.currentLeadSource.leadSourceId,
+      leadSourceId: this.props.currentLeadSource.leadSourceId
     };
   }
 
@@ -22,8 +22,8 @@ class LeadSourceDropDown extends React.Component {
 
   getLeadsSource() {
     getLeadSourceList(this.props.businessId)
-      .then((results) => this.setState({ leadData: results.data }))
-      .catch((err) => console.log('err', err));
+      .then(results => this.setState({ leadData: results.data }))
+      .catch(err => console.log('err', err));
   }
 
   handleSelectLeadSource(event) {
@@ -37,7 +37,7 @@ class LeadSourceDropDown extends React.Component {
         <InputLabel id='labelLeadSource'>Lead Source</InputLabel>
         <Select
           labelId='labelLeadSource'
-          value={this.props.currentLeadSource.leadSourceId}
+          //value={this.props.currentLeadSource.leadSourceId}
           onChange={this.handleSelectLeadSource.bind(this)}
           label='Lead Source'
           name='leadSourceId'
@@ -45,7 +45,7 @@ class LeadSourceDropDown extends React.Component {
           <MenuItem>
             <em>Select Lead Source</em>
           </MenuItem>
-          {this.state.leadData.map((value) => (
+          {this.state.leadData.map(value => (
             <MenuItem key={value.id} value={value.id}>
               {value.leadSourceName}
             </MenuItem>
@@ -56,9 +56,9 @@ class LeadSourceDropDown extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    businessId: state.auth.user.mainRole.business.id,
+    businessId: state.auth.user.mainRole.business.id
   };
 };
 export default connect(mapStateToProps)(LeadSourceDropDown);

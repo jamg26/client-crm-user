@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography } from '@material-ui/core';
+import React from 'react';
+import { Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, InputGroup, Row, Col } from 'react-bootstrap';
+// import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(1),
-    },
+      margin: theme.spacing(1)
+    }
   },
   input: {
-    display: 'none',
-  },
+    display: 'none'
+  }
 }));
 
-const defaultValidation = {
-  error: false,
-  errorMessage: '',
-};
+// const defaultValidation = {
+//   error: false,
+//   errorMessage: ''
+// };
 
-const form = {
-  termsConditions: '',
-};
+// const form = {
+//   termsConditions: ''
+// };
 
 const DocumentForm = () => {
-  const [formValiation, setFormValidation] = useState(defaultValidation);
-  const [state, setState] = useState(form);
+  // const [formValiation, setFormValidation] = useState(defaultValidation);
+  // const [state, setState] = useState(form);
 
   const classes = useStyles();
 
-  const handleChange = (e) => {
-    setState({ ...state, [e.target.id]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setState({ ...state, [e.target.id]: e.target.value });
+  // };
 
   return (
     <>

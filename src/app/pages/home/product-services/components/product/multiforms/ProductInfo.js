@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Switch, FormControlLabel } from '@material-ui/core';
+import React from 'react';
+import { TextField, Switch, FormControlLabel } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 import ProductType from '../../../../../../partials/shared/ProductTypeDropDown';
 import BusinessLocation from '../../../../../../partials/shared/BusinessLocationDropdown';
 import ProductCategory from '../../../../../../partials/shared/ProductCategoryDropDown';
 import ProductSubCategory from '../../../../../../partials/shared/ProductSubCategoryDropDown';
 
-const defaultValidation = {
-  error: false,
-  errorMessage: '',
-};
+// const defaultValidation = {
+//   error: false,
+//   errorMessage: ''
+// };
 
-const ProductInfo = (props) => {
-  const [formValiation, setFormValidation] = useState(defaultValidation);
+const ProductInfo = props => {
+  // const [formValiation, setFormValidation] = useState(defaultValidation);
 
   return (
     <>
@@ -51,7 +51,7 @@ const ProductInfo = (props) => {
                 //error={validate?.email?.error}
                 //helperText={validate?.email?.errorMessage}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -68,7 +68,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -85,7 +85,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -103,7 +103,7 @@ const ProductInfo = (props) => {
                 fullWidth={true}
                 type='number'
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -121,7 +121,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -138,7 +138,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 multiline
                 rows='4'
@@ -178,7 +178,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -242,7 +242,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 multiline
                 rows='4'
@@ -262,7 +262,7 @@ const ProductInfo = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 multiline
                 rows='4'

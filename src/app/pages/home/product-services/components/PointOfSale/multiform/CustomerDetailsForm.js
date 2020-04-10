@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import React from 'react';
+import { TextField } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const defaultValidation = {
-  error: false,
-  errorMessage: '',
-};
+// const defaultValidation = {
+//   error: false,
+//   errorMessage: ''
+// };
 
-const form = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phoneNumber: '',
-};
+// const form = {
+//   firstName: '',
+//   lastName: '',
+//   email: '',
+//   phoneNumber: '',
+// };
 
-const CustomerDetailsForm = (props) => {
-  const [formValiation, setFormValidation] = useState(defaultValidation);
+const CustomerDetailsForm = props => {
+  // const [formValiation, setFormValidation] = useState(defaultValidation);
 
   return (
     <>
@@ -25,14 +25,14 @@ const CustomerDetailsForm = (props) => {
             <InputGroup className='mb-4'>
               <TextField
                 onChange={props.onChange}
-                id='firstName'
+                id='custFirstName'
                 label='First name'
                 className=''
-                value={props.data.firstName}
+                value={props.data.custFirstName}
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -42,14 +42,14 @@ const CustomerDetailsForm = (props) => {
             <InputGroup className='mb-4'>
               <TextField
                 onChange={props.onChange}
-                id='lastName'
+                id='custLastName'
                 label='Last name'
                 className=''
-                value={props.data.lastName}
+                value={props.data.custLastName}
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -59,16 +59,16 @@ const CustomerDetailsForm = (props) => {
             <InputGroup className='mb-4'>
               <TextField
                 onChange={props.onChange}
-                id='email'
+                id='custEmail'
                 label='Email'
                 className=''
-                value={props.data.email}
+                value={props.data.custEmail}
                 variant='outlined'
                 fullWidth={true}
                 //error={validate?.email?.error}
                 //helperText={validate?.email?.errorMessage}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -78,14 +78,14 @@ const CustomerDetailsForm = (props) => {
             <InputGroup className='mb-4'>
               <TextField
                 onChange={props.onChange}
-                id='phoneNumber'
+                id='custPhone'
                 label='Phone number'
                 className=''
-                value={props.data.phoneNumber}
+                value={props.data.custPhone}
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />

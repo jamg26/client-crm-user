@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   addSupportTicket,
-  saveAttachment,
+  saveAttachment
 } from '../../../../../services/support.service';
 import { fileUpload } from '../../../../../services/aws.service';
 
@@ -11,9 +11,9 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Input,
+  Input
 } from '@material-ui/core';
-import { Container, InputGroup, Row, Col } from 'react-bootstrap';
+import { InputGroup, Row, Col } from 'react-bootstrap';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { notify } from '../../../../shared/Notify';
 
@@ -22,41 +22,41 @@ const TicketAdd = () => {
     id: '',
     subject: '',
     description: '',
-    attachments: '',
+    attachments: ''
   };
   const [input, setInput] = useState(initialInput);
   const [attached, setAttached] = useState({ fileName: '', filePath: '' });
   const [ticketBtn, setTicketBtn] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
 
-  const addFile = async (e) => {
+  const addFile = async e => {
     var formData = new FormData();
     formData.append('files', e.target.files[0]);
     const file = await fileUpload(formData);
     setAttached({
       fileName: file.data[0].fileName,
-      filePath: file.data[0].fileURL,
+      filePath: file.data[0].fileURL
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setTicketBtn(true);
     const newParam = {
       ...input,
-      businessId: 'R2PPfBhpaLA.',
+      businessId: 'R2PPfBhpaLA.'
     };
 
     const ticket = await addSupportTicket(newParam);
 
     const newAttached = { ...attached, supportTicketId: ticket.data.id };
-    const attachAdmin = await saveAttachment(newAttached);
+    await saveAttachment(newAttached);
 
     setInput(initialInput);
     setAttached({ fileName: '', filePath: '' });
@@ -79,7 +79,7 @@ const TicketAdd = () => {
                 value={input.subject}
                 variant='outlined'
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
                 fullWidth={true}
@@ -97,7 +97,7 @@ const TicketAdd = () => {
                 value={input.description}
                 variant='outlined'
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
                 fullWidth={true}

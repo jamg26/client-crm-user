@@ -1,12 +1,12 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Checkbox, FormControlLabel, TextField } from '@material-ui/core';
 import * as auth from '../../store/ducks/auth.duck';
 import { register } from '../../services/user.service';
-import { Card, Row, Col } from 'antd';
+import { Card } from 'antd';
 
 function Registration(props) {
   const { intl } = props;
@@ -18,7 +18,7 @@ function Registration(props) {
           <div className='kt-login__form'>
             <div className='kt-login__title' align='center'>
               <h3>{/* <FormattedMessage id='AUTH.REGISTER.TITLE' /> */}</h3>
-              <img src='/media/logos/logo-thecrmnetwork.png' />
+              <img src='/media/logos/logo-thecrmnetwork.png' alt='logo' />
             </div>
 
             <Formik
@@ -29,50 +29,50 @@ function Registration(props) {
                 businessName: '',
                 password: '',
                 acceptTerms: true,
-                confirmPassword: '',
+                confirmPassword: ''
               }}
-              validate={(values) => {
+              validate={values => {
                 const errors = {};
 
                 if (!values.email) {
                   errors.email = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                 ) {
                   errors.email = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.INVALID_FIELD',
+                    id: 'AUTH.VALIDATION.INVALID_FIELD'
                   });
                 }
 
                 if (!values.firstName) {
                   errors.firstName = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 }
 
                 if (!values.firstName) {
                   errors.lastName = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 }
 
                 if (!values.businessName) {
                   errors.businessName = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 }
 
                 if (!values.password) {
                   errors.password = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 }
 
                 if (!values.confirmPassword) {
                   errors.confirmPassword = intl.formatMessage({
-                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 } else if (values.password !== values.confirmPassword) {
                   errors.confirmPassword =
@@ -90,11 +90,11 @@ function Registration(props) {
                   .then(async ({ data: { accessToken } }) => {
                     props.register(accessToken);
                   })
-                  .catch((err) => {
+                  .catch(err => {
                     setSubmitting(false);
                     setStatus(
                       intl.formatMessage({
-                        id: err.response.data.message,
+                        id: err.response.data.message
                       })
                     );
                   });
@@ -108,7 +108,7 @@ function Registration(props) {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting,
+                isSubmitting
               }) => (
                 <form onSubmit={handleSubmit} noValidate autoComplete='off'>
                   {status && (

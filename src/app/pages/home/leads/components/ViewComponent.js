@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import MaterialTable, { MTableToolbar } from 'material-table';
-import LeadSourceDropdown from '../../../../partials/shared/LeadSourceDropDown';
+import MaterialTable from 'material-table';
+//import LeadSourceDropdown from '../../../../partials/shared/LeadSourceDropDown';
 import {
   getLeadsList,
   registerLead,
   updateLead,
-  deleteLead,
+  deleteLead
 } from '../../../../services/leads.service';
 import { getLeadSourceList } from '../../../../services/leadSource.service';
 import { Button, CircularProgress } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
+// import AddIcon from '@material-ui/icons/Add';
+// import IconButton from '@material-ui/core/IconButton';
 import ModalContainer from '../../../../partials/shared/ModalContainer';
 import InputfieldsContainer from './InputFieldsContainer';
 import CrudButtonOPtions from '../../../../partials/shared/CrudButtonOptions';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import { Row, Col, Container } from 'react-bootstrap';
+// import { Alert, AlertTitle } from '@material-ui/lab';
+import { Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,7 +26,7 @@ const ViewComponent = () => {
   const [state, setState] = useState(0);
   const [leadSource, setLeadSource] = useState(0);
 
-  const userData = useSelector((state) => state.auth.user);
+  const userData = useSelector(state => state.auth.user);
 
   // const handleSelectLeadSource = (leadSource) => {
   //   setLeadSource({leadSourceId : leadSource.leadSourceId})
@@ -38,12 +38,12 @@ const ViewComponent = () => {
   const [modalBody, setModalBody] = useState('');
   const [modalFooter, setModalFooter] = useState('');
   const [modalSize, setModalSize] = useState('s');
-  const [deleteId, setDeleteId] = useState(0);
+  // const [deleteId, setDeleteId] = useState(0);
   const handleClose = () => setShow(false);
 
   const [reRender, setRerender] = useState(false);
 
-  const notify = (data) => {
+  const notify = data => {
     if (data.success) {
       toast.success(data.message);
     } else {
@@ -68,7 +68,7 @@ const ViewComponent = () => {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: (rowData) => {
+            render: rowData => {
               return (
                 <Row>
                   <Col>
@@ -94,55 +94,55 @@ const ViewComponent = () => {
                   </Col>
                 </Row>
               );
-            },
-          },
+            }
+          }
         ],
-        data: response.data,
+        data: response.data
       });
     };
     fetchData();
   }, [reRender]);
 
   const handleSave = () => {
-    if (formData != {}) {
+    if (formData !== {}) {
       formData.businessId = userData.mainRole.business.id;
 
       registerLead(formData)
-        .then((result) => {
+        .then(result => {
           setRerender(!reRender);
           setShow(false);
           notify({ success: true, message: 'Success adding leads.' });
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     } else {
       setShow(false);
     }
   };
 
   const handleUpdate = () => {
-    if (formData != {}) {
+    if (formData !== {}) {
       updateLead(formData)
-        .then((result) => {
+        .then(result => {
           setRerender(!reRender);
           setShow(false);
           notify({ success: true, message: 'Success updating leads.' });
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     } else {
       setShow(false);
     }
   };
 
-  const handleDelete = () => {
-    console.log(deleteId);
-    deleteLead(deleteId).then((result) => {
-      setRerender(!reRender);
-      setShow(false);
-      notify({ success: true, message: 'Success deleting leads.' });
-    });
-  };
+  // const handleDelete = () => {
+  //   console.log(deleteId);
+  //   deleteLead(deleteId).then(result => {
+  //     setRerender(!reRender);
+  //     setShow(false);
+  //     notify({ success: true, message: 'Success deleting leads.' });
+  //   });
+  // };
 
-  const handleChange = (newData) => {
+  const handleChange = newData => {
     formData = newData;
   };
 
@@ -168,7 +168,7 @@ const ViewComponent = () => {
     );
   };
 
-  const showUpdateModal = (leadsourceId) => {
+  const showUpdateModal = leadsourceId => {
     formData = {};
     setShow(true);
     setModalSize('lg');
@@ -190,7 +190,7 @@ const ViewComponent = () => {
     );
   };
 
-  const showLeadDetailModal = (leadsourceId) => {
+  const showLeadDetailModal = leadsourceId => {
     formData = {};
     setShow(true);
     setModalSize('lg');
@@ -212,25 +212,25 @@ const ViewComponent = () => {
     );
   };
 
-  const showDeleteModal = () => {
-    setShow(true);
-    setModalSize('lg');
-    setModalTitle('Delete Lead');
+  // const showDeleteModal = () => {
+  //   setShow(true);
+  //   setModalSize('lg');
+  //   setModalTitle('Delete Lead');
 
-    setModalBody(
-      <Alert severity='warning'>
-        <AlertTitle>Warning</AlertTitle>
-        Are you sure do you want do delete?
-      </Alert>
-    );
-    setModalFooter(
-      <CrudButtonOPtions
-        buttonDisplayType='DELETE'
-        handleButton1={handleDelete}
-        handleButton2={handleClose}
-      />
-    );
-  };
+  //   setModalBody(
+  //     <Alert severity='warning'>
+  //       <AlertTitle>Warning</AlertTitle>
+  //       Are you sure do you want do delete?
+  //     </Alert>
+  //   );
+  //   setModalFooter(
+  //     <CrudButtonOPtions
+  //       buttonDisplayType='DELETE'
+  //       handleButton1={handleDelete}
+  //       handleButton2={handleClose}
+  //     />
+  //   );
+  // };
 
   return (
     <>

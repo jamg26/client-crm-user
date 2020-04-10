@@ -2,10 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import objectPath from 'object-path';
-import { withRouter, useHistory } from 'react-router-dom';
-import { QuickActions } from './components/QuickActions';
+import { withRouter } from 'react-router-dom';
+//import { QuickActions } from './components/QuickActions';
 import { LayoutContextConsumer } from '../LayoutContext';
-import { ReactComponent as SortNum1Icon } from '../../../_metronic/layout/assets/layout-svg-icons/SortNum1.svg';
+//import { ReactComponent as SortNum1Icon } from '../../../_metronic/layout/assets/layout-svg-icons/SortNum1.svg';
 import * as builder from '../../ducks/builder';
 import { titleCase, removeWhiteSpace } from '../../utils/utils';
 // import BreadCrumbs from "./components/BreadCrumbs";

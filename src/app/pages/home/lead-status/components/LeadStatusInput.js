@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextField,
   Button,
   FormControlLabel,
-  Checkbox,
+  Checkbox
 } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const LeadStatusInput = (props) => {
+const LeadStatusInput = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <Container>
@@ -23,7 +23,7 @@ const LeadStatusInput = (props) => {
                 variant='outlined'
                 fullWidth={true}
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
               />
@@ -50,7 +50,7 @@ const LeadStatusInput = (props) => {
                 className='float-right'
                 variant='contained'
                 color='primary'
-                onClick={(e) => {
+                onClick={e => {
                   props.handleSubmit(e);
                 }}
               >

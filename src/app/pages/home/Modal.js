@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { Modal } from 'react-bootstrap';
 
 const ModalTable = props => {
   return (
     <div>
       <Modal
-        size="lg"
+        size='lg'
         dialogClassName='modal-90w'
         show={props.open}
         onHide={props.handleClose}
