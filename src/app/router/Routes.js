@@ -16,8 +16,8 @@ import { LayoutContextProvider } from '../../_metronic';
 import Layout from '../../_metronic/layout/Layout';
 import * as routerHelpers from '../router/RouterHelpers';
 import AuthPage from '../pages/auth/AuthPage';
-import RegistrationPage from '../pages/auth/Registration';
-import Registration from '../pages/auth/Registration';
+// import RegistrationPage from '../pages/auth/Registration';
+// import Registration from '../pages/auth/Registration';
 
 export const Routes = withRouter(({ history }) => {
   const lastLocation = useLastLocation();
@@ -26,7 +26,7 @@ export const Routes = withRouter(({ history }) => {
     ({ auth, urls, builder: { menuConfig } }) => ({
       menuConfig,
       isAuthorized: auth.user != null,
-      userLastLocation: routerHelpers.getLastLocation(),
+      userLastLocation: routerHelpers.getLastLocation()
     }),
     shallowEqual
   );

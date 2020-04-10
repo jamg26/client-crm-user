@@ -64,6 +64,7 @@ class TicketSupportAttachment extends React.Component {
                   href={this.state.data.filePath}
                   download={this.state.data.filePath}
                   target='_blank'
+                  rel='noopener noreferrer'
                 >
                   <IconButton aria-label='download'>
                     <GetAppIcon fontSize='small' />

@@ -11,7 +11,7 @@ import { getAccountList } from '../../../../services/account.service';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Button, CircularProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import TableModal from '../../Modal';
 import { Row, Col } from 'react-bootstrap';
 import ContactsInput from './ContactsInput';
@@ -27,10 +27,10 @@ const notify = data => {
   }
 };
 
-var selectedAccount = {};
+// var selectedAccount = {};
 const ViewComponent = () => {
   const [state, setState] = useState(0);
-  const [account, setAccount] = useState(0);
+  // const [account, setAccount] = useState(0);
 
   const initialInput = {
     id: '',
@@ -63,7 +63,7 @@ const ViewComponent = () => {
     const fetchData = async () => {
       const response = await getContactList();
       const accountList = await getAccountList();
-      setAccount(accountList);
+      //setAccount(accountList);
       setState({
         columns: [
           { title: 'Profile', field: 'profile' },

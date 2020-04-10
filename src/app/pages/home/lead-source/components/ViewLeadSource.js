@@ -5,9 +5,9 @@ import {
   updateLeadSource,
   deleteLeadSource,
   assignLeadSource,
-  getLeadSourceUsers,
+  getLeadSourceUsers
 } from '../../../../services/leadSource.service';
-import { getBusinessUsers } from '../../../../services/business.service';
+// import { getBusinessUsers } from '../../../../services/business.service';
 import { Table, Checkbox } from 'antd';
 import { Button } from '@material-ui/core';
 import Modal from '../../../shared/Modal';
@@ -18,12 +18,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Row, Col } from 'react-bootstrap';
 
-const ViewLeadSource = (props) => {
+const ViewLeadSource = props => {
   const [state, setState] = useState([]);
   const initialInput = {
     id: '',
     leadSourceName: '',
-    active: true,
+    active: true
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalAssignOpen, setIsModalAssignOpen] = useState(false);
@@ -41,9 +41,9 @@ const ViewLeadSource = (props) => {
       const list = await getLeadSourceList(props.businessId);
       //console.log(list);
       let newList = [];
-      list.data.reverse().map((data) => {
+      list.data.reverse().map(data => {
         if (data.isDeleted) return;
-        newList.push(data);
+        return newList.push(data);
       });
       setState({
         columns: [
@@ -51,7 +51,7 @@ const ViewLeadSource = (props) => {
             title: 'Action',
             field: 'actions',
             width: 300,
-            render: (rowData) => {
+            render: rowData => {
               return (
                 <Row>
                   <Col md={4}>
@@ -89,17 +89,17 @@ const ViewLeadSource = (props) => {
                       color='primary'
                       onClick={async () => {
                         const users = await getLeadSourceUsers(rowData.id);
-                        //console.log(users.data);
+                        console.log(users);
                         setBusinessUsers(users.data);
 
                         let user = {};
 
-                        users.data.map((u) => {
+                        users.data.map(u => {
                           if (!u.isAssign) return;
-                          user = {
+                          return (user = {
                             ...user,
-                            [u.id]: true,
-                          };
+                            [u.id]: true
+                          });
                         });
 
                         setAssignedUsers(user);
@@ -115,19 +115,19 @@ const ViewLeadSource = (props) => {
                   </Col>
                 </Row>
               );
-            },
+            }
           },
           { title: 'Source Name', dataIndex: 'leadSourceName' },
           {
             title: 'Is Active?',
-            render: (row) => (row.active ? 'true' : 'false'),
+            render: row => (row.active ? 'true' : 'false')
           },
           {
             title: 'Assigned',
-            render: (row) => `${row.assignedUser}`,
-          },
+            render: row => `${row.assignedUser}`
+          }
         ],
-        data: newList,
+        data: newList
       });
     };
     getLeadSource();
@@ -138,26 +138,26 @@ const ViewLeadSource = (props) => {
     setIsModalAssignOpen(false);
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
 
-  const handleChangeActive = (e) => {
+  const handleChangeActive = e => {
     setInput({
       ...input,
-      active: !input.active,
+      active: !input.active
     });
   };
 
-  const handleSubmitSource = async (e) => {
+  const handleSubmitSource = async e => {
     e.preventDefault();
     const newInput = { ...input, businessId: props.businessId };
     if (isUpdate) {
       try {
-        const lead = await updateLeadSource(newInput);
+        await updateLeadSource(newInput);
         //console.log(lead);
         //const usertype = await updateUserType(newInput);
         //notify({ success: true, message: 'Success updating user type.' });
@@ -165,7 +165,7 @@ const ViewLeadSource = (props) => {
     }
     if (!isUpdate) {
       try {
-        const lead = await addLeadSource(newInput);
+        await addLeadSource(newInput);
         //console.log(lead);
         //const usertype = await addUserType(newInput);
         //notify({ success: true, message: 'Success adding user types.' });
@@ -175,7 +175,7 @@ const ViewLeadSource = (props) => {
     setRerender(!reRender);
   };
 
-  const onChange = (e) => {
+  const onChange = e => {
     // console.log(assignedUsers);
     // console.log(e.target.name);
     // console.log(assignedUsers);
@@ -184,18 +184,18 @@ const ViewLeadSource = (props) => {
     } else {
       setAssignedUsers({
         ...assignedUsers,
-        [e.target.name]: e.target.checked,
+        [e.target.name]: e.target.checked
       });
     }
     // console.log(assignedUsers);
   };
 
-  const onAssignSubmit = async (e) => {
+  const onAssignSubmit = async e => {
     let users = [];
 
     console.log(assignedUsers);
 
-    Object.keys(assignedUsers).map((u) => {
+    Object.keys(assignedUsers).map(u => {
       if (!assignedUsers[u]) return;
       users.push({ leadSourceId: assignLeadId, userId: u });
     });
@@ -252,7 +252,7 @@ const ViewLeadSource = (props) => {
       <Table
         columns={state.columns}
         dataSource={state.data}
-        rowKey={(row) => row.id}
+        rowKey={row => row.id}
         title={() => (
           <>
             <Button
@@ -278,10 +278,10 @@ const ViewLeadSource = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     businessId: state.auth.user.mainRole.business.id,
-    userId: state.auth.user.id,
+    userId: state.auth.user.id
   };
 };
 

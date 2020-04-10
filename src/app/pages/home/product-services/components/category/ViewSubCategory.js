@@ -4,12 +4,12 @@ import {
   getSubCategoryList,
   registerSubCategory,
   updateSubCategory,
-  deleteSubCategory,
+  deleteSubCategory
 } from '../../../../../services/productCategory.service';
 import TableModal from '../../../../shared/Modal';
 import { Button } from '@material-ui/core';
 import SubCategoryInput from './SubCategoryInput';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Alert from '@material-ui/lab/Alert';
 
-const ViewSubCategory = (props) => {
+const ViewSubCategory = props => {
   const userData = useSelector(state => state.auth.user);
   const initialInput = {
     id: '',
@@ -49,15 +49,27 @@ const ViewSubCategory = (props) => {
 
   const renderStastus = data => {
     if (data) {
-      return (<Alert icon={false} severity="success" style={{width: 80, justifyContent: 'center', padding: 0}}>
-        ACTIVE
-      </Alert>)
+      return (
+        <Alert
+          icon={false}
+          severity='success'
+          style={{ width: 80, justifyContent: 'center', padding: 0 }}
+        >
+          ACTIVE
+        </Alert>
+      );
     } else {
-      return (<Alert icon={false} severity="error" style={{width: 80, justifyContent: 'center', padding: 0}}>
-        INACTIVE
-      </Alert>)
+      return (
+        <Alert
+          icon={false}
+          severity='error'
+          style={{ width: 80, justifyContent: 'center', padding: 0 }}
+        >
+          INACTIVE
+        </Alert>
+      );
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,14 +78,12 @@ const ViewSubCategory = (props) => {
         columns: [
           { title: 'Sub Category', field: 'subCategoryName' },
           { title: 'Note', field: 'note' },
-          { 
-            title: 'Status', 
+          {
+            title: 'Status',
             field: 'active',
             width: 50,
             render: data => {
-              return (
-                renderStastus(data.active)
-              )
+              return renderStastus(data.active);
             }
           },
           {
@@ -140,11 +150,11 @@ const ViewSubCategory = (props) => {
   };
 
   const handleChangeActive = e => {
-     setInput({
-        ...input,
-        [e.currentTarget.name]: e.currentTarget.checked
+    setInput({
+      ...input,
+      [e.currentTarget.name]: e.currentTarget.checked
     });
-  }
+  };
 
   const handleSubmitBusiness = async e => {
     e.preventDefault();
@@ -192,7 +202,6 @@ const ViewSubCategory = (props) => {
           setInput(initialInput);
           setActionType('add');
         }}
-        
       >
         Add
       </Button>

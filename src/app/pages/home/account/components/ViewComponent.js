@@ -7,12 +7,12 @@ import {
   deleteAccount,
   getIndustry,
   getAccountType,
-  getParentAccount,
+  getParentAccount
 } from '../../../../services/account.service';
 import TableModal from '../../../shared/Modal';
 import { Button } from '@material-ui/core';
 import AccountInput from './AccountInput';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,7 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const ViewComponent = () => {
-  const userData = useSelector((state) => state.auth.user);
+  const userData = useSelector(state => state.auth.user);
 
   const initialInput = {
     id: '',
@@ -34,19 +34,13 @@ const ViewComponent = () => {
     zipCode: '',
     industryName: '',
     parentName: '',
-    phone: '',
     accountType: '',
-    website: '',
     addressLine: '',
     street: '',
-    country: '',
-    state: '',
-    city: '',
-    zipCode: '',
-    description: '',
+    description: ''
   };
 
-  const notify = (data) => {
+  const notify = data => {
     if (data.success) {
       toast.success(data.message);
     } else {
@@ -85,7 +79,7 @@ const ViewComponent = () => {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: (data) => {
+            render: data => {
               return (
                 <Row>
                   <Col>
@@ -111,13 +105,13 @@ const ViewComponent = () => {
                   </Col>
                 </Row>
               );
-            },
-          },
+            }
+          }
         ],
         data: response.data,
         industry: promise[0].data,
         accountTypes: promise[1].data,
-        parentAccount: promise[2].data,
+        parentAccount: promise[2].data
       });
     };
     fetchData();
@@ -127,7 +121,7 @@ const ViewComponent = () => {
     setIsModalOpen(false);
   };
 
-  const upAccount = (data) => {
+  const upAccount = data => {
     setInput({
       id: data.id,
       profile: data.profile,
@@ -142,20 +136,20 @@ const ViewComponent = () => {
       industryName: data.industryName,
       parentName: data.parentName,
       accountType: data.accountType,
-      description: data.description,
+      description: data.description
     });
     setIsModalOpen(true);
     setRerender(!reRender);
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id || e.target.name]: e.target.value,
+      [e.target.id || e.target.name]: e.target.value
     });
   };
 
-  const handleSubmitBusiness = async (e) => {
+  const handleSubmitBusiness = async e => {
     e.preventDefault();
     input.businessId = userData.mainRole.business.id;
     if (isUpdate) {
@@ -174,7 +168,7 @@ const ViewComponent = () => {
     setRerender(!reRender);
   };
 
-  const delAccount = async (id) => {
+  const delAccount = async id => {
     await deleteAccount(id);
     setRerender(!reRender);
   };

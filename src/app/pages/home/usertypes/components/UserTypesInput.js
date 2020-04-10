@@ -3,16 +3,16 @@ import {
   TextField,
   Button,
   FormControlLabel,
-  Radio,
-  RadioGroup,
-  FormControl,
-  FormLabel,
-  Checkbox,
+  // Radio,
+  // RadioGroup,
+  // FormControl,
+  // FormLabel,
+  Checkbox
 } from '@material-ui/core';
 import { Container, InputGroup, Row, Col } from 'react-bootstrap';
 
-const UserTypesInput = (props) => {
-  const { userType } = props.data;
+const UserTypesInput = props => {
+  //const { userType } = props.data;
   return (
     <form onSubmit={props.handleSubmit}>
       <Container>
@@ -27,7 +27,7 @@ const UserTypesInput = (props) => {
                 value={props.data.businessUserRoleName}
                 variant='outlined'
                 InputLabelProps={{
-                  shrink: true,
+                  shrink: true
                 }}
                 size='small'
                 fullWidth={true}

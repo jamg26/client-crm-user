@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { Row, Col, Modal } from 'react-bootstrap';
-import { Badge, Button, Divider, Card } from 'antd';
-import {
-  UnorderedListOutlined,
-  TableOutlined,
-  UserOutlined,
-  UserAddOutlined,
-  PhoneOutlined,
-  SendOutlined,
-  MailOutlined,
-  AuditOutlined,
-} from '@ant-design/icons';
-import PhoneControl from '../../../shared/PhoneControl';
+import { Button, Divider, Card } from 'antd';
+// import {
+//   UnorderedListOutlined,
+//   TableOutlined,
+//   UserOutlined,
+//   UserAddOutlined,
+//   PhoneOutlined,
+//   SendOutlined,
+//   MailOutlined,
+//   AuditOutlined,
+// } from '@ant-design/icons';
+// import PhoneControl from '../../../shared/PhoneControl';
 import InputFieldsContainer from '../../leads/components/InputFieldsContainer';
 import { sendVoiceMessage } from '../../../../services/twilio.service';
 
-const ViewScheduledCalls = (props) => {
+const ViewScheduledCalls = props => {
   const [dialpadOpen, setDialpadOpen] = useState(false);
   const [dial, setDial] = useState('');
   var formData = {};
-  const handleChange = (newData) => {
+
+  const handleChange = newData => {
     formData = newData;
   };
 
@@ -27,7 +28,7 @@ const ViewScheduledCalls = (props) => {
     setDialpadOpen(false);
   };
 
-  const handleDial = (e) => {
+  const handleDial = e => {
     e.persist();
     if (dial.length >= 13) return;
     setDial(dial + e.target.innerText);

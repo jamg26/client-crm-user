@@ -5,7 +5,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+//import Container from '@material-ui/core/Container';
 import { useSelector } from 'react-redux';
 import ProdcutInfo from './multiforms/ProductInfo';
 import ComissionSetUp from './multiforms/ComissionSetUp';
@@ -16,15 +16,15 @@ import * as actions from '../../../../../store/actions';
 import { connect } from 'react-redux';
 import { addProduct } from '../../../../../services/products.service';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {},
   button: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-  },
+    marginBottom: theme.spacing(1)
+  }
 }));
 
 function getSteps() {
@@ -35,17 +35,17 @@ function getSteps() {
     'Images',
     'Document',
     'Add on Product',
-    'Can Agent Apply Discount?',
+    'Can Agent Apply Discount?'
   ];
 }
 
-const ProductInput = (props) => {
+const ProductInput = props => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
 
-  const userData = useSelector((state) => state.auth.user);
+  const userData = useSelector(state => state.auth.user);
 
   const defaultProductLocationInfo = {
     businessLocationName: '',
@@ -53,7 +53,7 @@ const ProductInput = (props) => {
     productId: '',
     businessId: userData.mainRole.business.id,
     businessLocationId: '0',
-    active: true,
+    active: true
   };
 
   const defaultCommissionSetUp = {
@@ -61,31 +61,31 @@ const ProductInput = (props) => {
     affiliateFixedCommissionAmount: '',
     affiliateCommission: '',
     paymentProcessorCharge: '',
-    transactionFees: '',
+    transactionFees: ''
   };
 
-  const defaultAgents = {
-    opener: [
-      {
-        type: '',
-        title: '',
-        oFrom: '0',
-        oTo: '0',
-        pay: '1',
-        payRemainingSales: '',
-      },
-    ],
-    closer: [
-      {
-        type: '',
-        title: '',
-        oFrom: '0',
-        oTo: '0',
-        pay: '1',
-        payRemainingSales: '',
-      },
-    ],
-  };
+  // const defaultAgents = {
+  //   opener: [
+  //     {
+  //       type: '',
+  //       title: '',
+  //       oFrom: '0',
+  //       oTo: '0',
+  //       pay: '1',
+  //       payRemainingSales: ''
+  //     }
+  //   ],
+  //   closer: [
+  //     {
+  //       type: '',
+  //       title: '',
+  //       oFrom: '0',
+  //       oTo: '0',
+  //       pay: '1',
+  //       payRemainingSales: ''
+  //     }
+  //   ]
+  // };
 
   const defaultProductInfo = {
     id: '',
@@ -108,77 +108,77 @@ const ProductInput = (props) => {
     receiptTerms: '',
     showOnReceipt: false,
     active: true,
-    productLocationInfo: defaultProductLocationInfo,
+    productLocationInfo: defaultProductLocationInfo
   };
 
   const [formDataProductInfo, setFormDataProductInfo] = useState(
     defaultProductInfo
   );
-  const [
-    productSubCategorySelection,
-    setProductSubCategorySelection,
-  ] = useState('');
+  // const [
+  //   productSubCategorySelection,
+  //   setProductSubCategorySelection,
+  // ] = useState('');
   const [formDataCommissionSetUp, setFormDataCommissionSetUp] = useState(
     defaultCommissionSetUp
   );
-  const [formDataAgents, setFormDataAgents] = useState(defaultAgents);
+  // const [formDataAgents, setFormDataAgents] = useState(defaultAgents);
 
-  const handleSelectedProductTYpe = (data) => {
-    setFormDataProductInfo({
-      ...formDataProductInfo,
-      ['productTypeId']: data,
-    });
-  };
+  // const handleSelectedProductTYpe = (data) => {
+  //   setFormDataProductInfo({
+  //     ...formDataProductInfo,
+  //     ['productTypeId']: data,
+  //   });
+  // };
 
-  const handleSelection = (event) => {
+  const handleSelection = event => {
     let keyName = event.target.name;
     if (event.target.name === 'categoryId') {
       setFormDataProductInfo({
         ...formDataProductInfo,
         [event.target.name]: event.target.value,
-        ['subCategoryId']: '0',
+        subCategoryId: '0'
       });
     } else if (event.target.name === 'businessLocationId') {
       setFormDataProductInfo({
         ...formDataProductInfo,
-        ['productLocationInfo']: {
+        productLocationInfo: {
           ...formDataProductInfo.productLocationInfo,
-          [keyName]: event.target.value,
-        },
+          [keyName]: event.target.value
+        }
       });
     } else {
       setFormDataProductInfo({
         ...formDataProductInfo,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value
       });
     }
   };
 
-  const handleOption = (event) => {
+  const handleOption = event => {
     setFormDataProductInfo({
       ...formDataProductInfo,
-      [event.target.name]: event.target.checked,
+      [event.target.name]: event.target.checked
     });
   };
 
-  const handleChange0 = (event) => {
+  const handleChange0 = event => {
     setFormDataProductInfo({
       ...formDataProductInfo,
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
     });
   };
 
-  const handleChange1 = (event) => {
+  const handleChange1 = event => {
     setFormDataCommissionSetUp({
       ...formDataCommissionSetUp,
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
     });
   };
 
-  const handleChange2 = (event) => {
+  const handleChange2 = event => {
     setFormDataCommissionSetUp({
       ...formDataCommissionSetUp,
-      [event.target.id]: event.target.value,
+      [event.target.id]: event.target.value
     });
   };
 
@@ -220,27 +220,27 @@ const ProductInput = (props) => {
     }
   }
 
-  const isStepOptional = (step) => {
+  const isStepOptional = step => {
     return step === -1;
   };
 
-  const isStepSkipped = (step) => {
+  const isStepSkipped = step => {
     return skipped.has(step);
   };
 
-  const data = {
-    id: 'string',
-    businessId: 'string',
-    productId: 'string',
-    productPrice1: 0,
-    minimumPrice: 0,
-    salesTax: 0,
-    active: true,
-    enteredBy: 0,
-    updatedBy: 0,
-    dateCreated: '2020-04-08T16:56:58.560Z',
-    dateUpdate: '2020-04-08T16:56:58.560Z',
-  };
+  // const data = {
+  //   id: 'string',
+  //   businessId: 'string',
+  //   productId: 'string',
+  //   productPrice1: 0,
+  //   minimumPrice: 0,
+  //   salesTax: 0,
+  //   active: true,
+  //   enteredBy: 0,
+  //   updatedBy: 0,
+  //   dateCreated: '2020-04-08T16:56:58.560Z',
+  //   dateUpdate: '2020-04-08T16:56:58.560Z',
+  // };
 
   const handleNext = async () => {
     console.log(formDataProductInfo);
@@ -262,17 +262,17 @@ const ProductInput = (props) => {
       showOnInvoice: formDataProductInfo.showOnInvoice,
       receiptTerms: formDataProductInfo.receiptTerms,
       showOnReceipt: formDataProductInfo.showOnReceipt,
-      salesTax: parseFloat(formDataProductInfo.salesTax),
+      salesTax: parseFloat(formDataProductInfo.salesTax)
     };
     const product = await addProduct(data);
     console.log(product);
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
-  const UpdateFormData = () => {};
+  // const UpdateFormData = () => {};
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
   const handleSkip = () => {
@@ -280,8 +280,8 @@ const ProductInput = (props) => {
       throw new Error("You can't skip a step that isn't optional.");
     }
 
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setSkipped(prevSkipped => {
       const newSkipped = new Set(prevSkipped.values());
       newSkipped.add(activeStep);
       return newSkipped;
@@ -364,9 +364,9 @@ const ProductInput = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    business: state.auth.user.mainRole.business,
+    business: state.auth.user.mainRole.business
   };
 };
 

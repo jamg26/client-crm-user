@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import MaterialTable from 'material-table';
+// import MaterialTable from 'material-table';
 import * as moment from 'moment';
 import {
-  getOpenSupportTicket,
+  //getOpenSupportTicket,
   saveNewTicketSupport,
   getClosedSupportTicket
 } from '../../../../../services/support.service';
 import { Table } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
-import { Button, CircularProgress } from '@material-ui/core';
+// import { Button, CircularProgress } from '@material-ui/core';
 import TableModal from '../../../Modal';
-import { Row, Col } from 'react-bootstrap';
+// import { Row, Col } from 'react-bootstrap';
 import TicketInput from './TicketInput';
 
-const TicketsCloseComponent = (props) => {
+const TicketsCloseComponent = props => {
   const [state, setState] = useState(0);
   const propsData = props.props;
 
   const initialInput = {
     id: '',
     subject: '',
-    description: '',
+    description: ''
   };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isUpdate, setIsUpdate] = useState(false);
+  // const [isUpdate, setIsUpdate] = useState(false);
   const [input, setInput] = useState(initialInput);
   const [reRender, setRerender] = useState(false); // Re render table after updating
+
+  const editTicketSupport = data => {
+    propsData.history.push({
+      pathname: `supports/${data.id}`,
+      data: data
+    });
+  };
 
   useEffect(() => {
     setState(0);
@@ -36,11 +44,11 @@ const TicketsCloseComponent = (props) => {
         columns: [
           {
             title: 'Action',
-            render: (rowData) => (
-              <a onClick={() => editTicketSupport(rowData)}>
+            render: rowData => (
+              <a href='/#' onClick={() => editTicketSupport(rowData)}>
                 <EditOutlined twoToneColor='#1a88d9' />
               </a>
-            ),
+            )
           },
           { title: 'Status', dataIndex: 'status' },
           { title: 'Ticket#', dataIndex: 'ticketNumber' },
@@ -48,60 +56,54 @@ const TicketsCloseComponent = (props) => {
           {
             title: 'Requested On',
             dataIndex: 'dateCreated',
-            render: (rowData) => `${moment(rowData).format('LLL')}`,
-          },
+            render: rowData => `${moment(rowData).format('LLL')}`
+          }
         ],
-        data: response.data.reverse(),
+        data: response.data.reverse()
       });
     };
     fetchData();
   }, [reRender]);
 
-  const editTicketSupport = (data) => {
-    propsData.history.push({
-      pathname: `supports/${data.id}`,
-      data: data,
-    });
-  };
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
 
-  const handleSubmitTicket = async (e) => {
+  const handleSubmitTicket = async e => {
     e.preventDefault();
     const newInput = {
       ...input,
-      businessId: 'R2PPfBhpaLA.',
+      businessId: 'R2PPfBhpaLA.'
     };
 
-    if (isUpdate) {
-      try {
-        //await addContacts(input);
-        //notify({ success: true, message: 'Success updating master Contact.' });
-      } catch (error) {}
-    }
-    if (!isUpdate) {
-      try {
-        //await updateContact(input);
-        saveNewTicketSupport(newInput);
-        //notify({ success: true, message: 'Success adding master Contact.' });
-      } catch (error) {}
-    }
+    // if (isUpdate) {
+    //   try {
+    //     //await addContacts(input);
+    //     //notify({ success: true, message: 'Success updating master Contact.' });
+    //   } catch (error) {}
+    // }
+    // if (!isUpdate) {
+    //   try {
+    //     //await updateContact(input);
+    //     await saveNewTicketSupport(newInput);
+    //     //notify({ success: true, message: 'Success adding master Contact.' });
+    //   } catch (error) {}
+    // }
+    await saveNewTicketSupport(newInput);
     setIsModalOpen(false);
     setRerender(!reRender);
   };
 
-  const refreshTable = () => {
-    setRerender(!reRender);
-  };
+  // const refreshTable = () => {
+  //   setRerender(!reRender);
+  // };
 
   return (
     <>

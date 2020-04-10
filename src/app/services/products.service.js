@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const ROOT_URL = process.env.REACT_APP_API_URL;
-export const PRODUCT_URL = 'api/product/infobybusinessid';
+export const PRODUCT_URL = 'api/Product/GetAllProductByBusinessId';
 export const ADD_PRODUCT_URL = 'api/product/addnewproduct';
 export const GET_PRODUCT_URL = 'api/Product/Info/Active';
 

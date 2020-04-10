@@ -3,7 +3,7 @@ import {
   getLeadStatus,
   addLeadStatus,
   updateLeadStatus,
-  deleteLeadStatus,
+  deleteLeadStatus
 } from '../../../../services/leadStatus.service';
 import { Table } from 'antd';
 
@@ -15,12 +15,12 @@ import { Button } from '@material-ui/core';
 import Modal from '../../../shared/Modal';
 import { connect } from 'react-redux';
 
-const ViewLeadStatus = (props) => {
+const ViewLeadStatus = props => {
   const [state, setState] = useState([]);
   const initialInput = {
     id: '',
     leadStatusName: '',
-    active: true,
+    active: true
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
@@ -35,7 +35,7 @@ const ViewLeadStatus = (props) => {
             title: 'Action',
             field: 'actions',
             width: 200,
-            render: (rowData) => {
+            render: rowData => {
               return (
                 <Row>
                   <Col>
@@ -67,54 +67,54 @@ const ViewLeadStatus = (props) => {
                   </Col>
                 </Row>
               );
-            },
+            }
           },
           { title: 'Lead Status Name', dataIndex: 'leadStatusName' },
           {
             title: 'Is Active?',
-            render: (row) => (row.active ? 'true' : 'false'),
+            render: row => (row.active ? 'true' : 'false')
           },
           {
             title: 'Assigned',
-            render: (row) => `${list.data.length}`,
-          },
+            render: row => `${list.data.length}`
+          }
         ],
-        data: list.data,
+        data: list.data
       });
     };
     getLeadSource();
-  }, [reRender]);
+  }, [reRender, props.businessId]);
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setInput({
       ...input,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   };
 
-  const handleChangeActive = (e) => {
+  const handleChangeActive = e => {
     setInput({
       ...input,
-      active: !input.active,
+      active: !input.active
     });
   };
 
-  const handleSubmitStatus = async (e) => {
+  const handleSubmitStatus = async e => {
     e.preventDefault();
     const newInput = { ...input, businessId: props.businessId };
     if (isUpdate) {
       try {
-        const lead = await updateLeadStatus(newInput);
+        await updateLeadStatus(newInput);
         //const usertype = await updateUserType(newInput);
         //notify({ success: true, message: 'Success updating user type.' });
       } catch (error) {}
     }
     if (!isUpdate) {
       try {
-        const lead = await addLeadStatus(newInput);
+        await addLeadStatus(newInput);
         //const usertype = await addUserType(newInput);
         //notify({ success: true, message: 'Success adding user types.' });
       } catch (error) {}
@@ -141,7 +141,7 @@ const ViewLeadStatus = (props) => {
       <Table
         columns={state.columns}
         dataSource={state.data}
-        rowKey={(row) => row.id}
+        rowKey={row => row.id}
         title={() => (
           <>
             <Button
@@ -167,9 +167,9 @@ const ViewLeadStatus = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    businessId: state.auth.user.mainRole.business.id,
+    businessId: state.auth.user.mainRole.business.id
   };
 };
 

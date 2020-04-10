@@ -25,7 +25,7 @@ class HeaderMobile extends React.Component {
 
   render() {
     const {
-      headerLogo,
+      //headerLogo,
       asideDisplay,
       headerMenuSelfDisplay,
       headerMobileCssClasses,
@@ -37,11 +37,12 @@ class HeaderMobile extends React.Component {
         className={`kt-header-mobile ${headerMobileCssClasses}`}
         {...headerMobileAttributes}
       >
-        <div className='kt-header-mobile__logo'
+        <div
+          className='kt-header-mobile__logo'
           style={{
-            objectFit: "cover",
-            width: "10%",
-            height: "65px"
+            objectFit: 'cover',
+            width: '10%',
+            height: '65px'
           }}
         >
           <Link to='/'>
