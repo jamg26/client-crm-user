@@ -260,7 +260,7 @@ const ViewComponent = () => {
 
           });
           isError = true;
-        } else if (inputStatus.password.length < 8) {
+        } else if (inputStatus.password.length < 4) {
           setFormValidation({
               password: {
                 'error': true,
