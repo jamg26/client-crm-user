@@ -30,9 +30,7 @@ const ProductInfo = props => {
           <Col xs={6}>
             <InputGroup className='mb-4'>
               <BusinessLocation
-                currentSelectedBusinessLocation={
-                  props.businessLocationData.businessLocationId
-                }
+                currentSelectedBusinessLocation={props.businessLocationData.businessLocationId}
                 getSelectedBusinessLocation={props.handleSelection}
                 businessId={props.businessLocationData.businessId}
               />
@@ -54,6 +52,7 @@ const ProductInfo = props => {
                   shrink: true
                 }}
                 size='small'
+                required
               />
             </InputGroup>
           </Col>
@@ -106,6 +105,7 @@ const ProductInfo = props => {
                   shrink: true
                 }}
                 size='small'
+                required
               />
             </InputGroup>
           </Col>
@@ -124,6 +124,7 @@ const ProductInfo = props => {
                   shrink: true
                 }}
                 size='small'
+                required
               />
             </InputGroup>
           </Col>
@@ -205,11 +206,7 @@ const ProductInfo = props => {
             <InputGroup className='mb-4'>
               <FormControlLabel
                 control={
-                  <Switch
-                    name='isLead'
-                    onChange={props.handleOption}
-                    checked={props.data.isLead}
-                  />
+                  <Switch name='isLead' onChange={props.handleOption} checked={props.data.isLead} />
                 }
                 label='Is Listed?'
               />

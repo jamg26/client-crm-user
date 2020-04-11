@@ -54,9 +54,7 @@ const ViewComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getLeadsList();
-      const leadSourceList = await getLeadSourceList(
-        userData.mainRole.business.id
-      );
+      const leadSourceList = await getLeadSourceList(userData.mainRole.business.id);
       setLeadSource(leadSourceList.data);
       setState({
         columns: [
@@ -76,8 +74,7 @@ const ViewComponent = () => {
                       variant='contained'
                       color='secondary'
                       title={rowData.id}
-                      onClick={() => showUpdateModal(rowData.id)}
-                    >
+                      onClick={() => showUpdateModal(rowData.id)}>
                       UPDATE
                     </Button>
                   </Col>
@@ -87,8 +84,7 @@ const ViewComponent = () => {
                       onClick={() => {
                         deleteLead(rowData.id);
                         setRerender(!reRender);
-                      }}
-                    >
+                      }}>
                       DELETE
                     </Button>
                   </Col>
@@ -235,36 +231,23 @@ const ViewComponent = () => {
   return (
     <>
       <ToastContainer />
-      {state.data ? (
-        <>
-          <Button
-            className='mb-2'
-            variant='contained'
-            color='secondary'
-            size='large'
-            onClick={showAddModal}
-          >
-            Add
-          </Button>
-          <MaterialTable
-            title='Leads'
-            columns={state.columns}
-            data={state.data}
-          />
-          <ModalContainer
-            handleClose={handleClose}
-            handleOpen={show}
-            modalSize={modalSize}
-            modalTitle={modalTitle}
-            modalBody={modalBody}
-            modalFooter={modalFooter}
-          />
-        </>
-      ) : (
-        <div align='center'>
-          <CircularProgress />
-        </div>
-      )}
+      <Button
+        className='mb-2'
+        variant='contained'
+        color='secondary'
+        size='large'
+        onClick={showAddModal}>
+        Add
+      </Button>
+      <MaterialTable title='Leads' columns={state.columns} data={state.data} />
+      <ModalContainer
+        handleClose={handleClose}
+        handleOpen={show}
+        modalSize={modalSize}
+        modalTitle={modalTitle}
+        modalBody={modalBody}
+        modalFooter={modalFooter}
+      />
     </>
   );
 };
