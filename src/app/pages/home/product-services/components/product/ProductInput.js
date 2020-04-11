@@ -111,16 +111,12 @@ const ProductInput = props => {
     productLocationInfo: defaultProductLocationInfo
   };
 
-  const [formDataProductInfo, setFormDataProductInfo] = useState(
-    defaultProductInfo
-  );
+  const [formDataProductInfo, setFormDataProductInfo] = useState(defaultProductInfo);
   // const [
   //   productSubCategorySelection,
   //   setProductSubCategorySelection,
   // ] = useState('');
-  const [formDataCommissionSetUp, setFormDataCommissionSetUp] = useState(
-    defaultCommissionSetUp
-  );
+  const [formDataCommissionSetUp, setFormDataCommissionSetUp] = useState(defaultCommissionSetUp);
   // const [formDataAgents, setFormDataAgents] = useState(defaultAgents);
 
   // const handleSelectedProductTYpe = (data) => {
@@ -136,7 +132,7 @@ const ProductInput = props => {
       setFormDataProductInfo({
         ...formDataProductInfo,
         [event.target.name]: event.target.value,
-        subCategoryId: '0'
+        subCategoryId: event.target.value
       });
     } else if (event.target.name === 'businessLocationId') {
       setFormDataProductInfo({
@@ -195,20 +191,11 @@ const ProductInput = props => {
           />
         );
       case 1:
-        return (
-          <ComissionSetUp
-            data={formDataCommissionSetUp}
-            handleChange={handleChange1}
-          />
-        );
+        return <ComissionSetUp data={formDataCommissionSetUp} handleChange={handleChange1} />;
       case 2:
-        return (
-          <Agents data={formDataCommissionSetUp} handleChange={handleChange2} />
-        );
+        return <Agents data={formDataCommissionSetUp} handleChange={handleChange2} />;
       case 3:
-        return (
-          <Images data={formDataCommissionSetUp} handleChange={handleChange2} />
-        );
+        return <Images data={formDataCommissionSetUp} handleChange={handleChange2} />;
       case 4:
         return <DocumentForm />;
       case 5:
@@ -249,8 +236,7 @@ const ProductInput = props => {
       canSetAnyPrice: formDataProductInfo.canSetAnyPrice,
       categoryId: formDataProductInfo.categoryId,
       invoiceTerms: formDataProductInfo.invoiceTerms,
-      businessLocationId:
-        formDataProductInfo.productLocationInfo.businessLocationId,
+      businessLocationId: formDataProductInfo.productLocationInfo.businessLocationId,
       productName: formDataProductInfo.productName,
       productCode: formDataProductInfo.productCode,
       productUniqueNo: formDataProductInfo.productUniqueNo,
@@ -299,9 +285,7 @@ const ProductInput = props => {
           const stepProps = {};
           const labelProps = {};
           if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant='caption'>Optional</Typography>
-            );
+            labelProps.optional = <Typography variant='caption'>Optional</Typography>;
           }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
@@ -325,16 +309,10 @@ const ProductInput = props => {
           </div>
         ) : (
           <div>
-            <div className={classes.instructions}>
-              {getStepContent(activeStep)}
-            </div>
+            <div className={classes.instructions}>{getStepContent(activeStep)}</div>
 
             <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}
-              >
+              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                 Back
               </Button>
               {isStepOptional(activeStep) && (
@@ -342,8 +320,7 @@ const ProductInput = props => {
                   variant='contained'
                   color='primary'
                   onClick={handleSkip}
-                  className={classes.button}
-                >
+                  className={classes.button}>
                   Skip
                 </Button>
               )}
@@ -352,8 +329,7 @@ const ProductInput = props => {
                 variant='contained'
                 color='secondary'
                 onClick={handleNext}
-                className={classes.button}
-              >
+                className={classes.button}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>
