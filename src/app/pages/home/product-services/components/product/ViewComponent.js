@@ -49,8 +49,7 @@ const ViewComponent = props => {
         <Alert
           icon={false}
           severity='success'
-          style={{ width: 80, justifyContent: 'center', padding: 0 }}
-        >
+          style={{ width: 80, justifyContent: 'center', padding: 0 }}>
           ACTIVE
         </Alert>
       );
@@ -59,8 +58,7 @@ const ViewComponent = props => {
         <Alert
           icon={false}
           severity='error'
-          style={{ width: 80, justifyContent: 'center', padding: 0 }}
-        >
+          style={{ width: 80, justifyContent: 'center', padding: 0 }}>
           INACTIVE
         </Alert>
       );
@@ -70,9 +68,11 @@ const ViewComponent = props => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getProductList(initialInput.businessId);
+      console.log(response.data);
       setState({
         columns: [
           { title: 'Category', field: 'categoryName' },
+          { title: 'Product Name', field: 'productName' },
           { title: 'Note', field: 'note' },
           {
             title: 'Status',
@@ -97,8 +97,7 @@ const ViewComponent = props => {
                       onClick={() => {
                         formData(data);
                         setActionType('edit');
-                      }}
-                    >
+                      }}>
                       <EditIcon />
                     </Button>
                   </Col>
@@ -172,20 +171,11 @@ const ViewComponent = props => {
     <>
       <ToastContainer />
       <Link to='/products/add'>
-        <Button
-          className='mb-2'
-          variant='contained'
-          color='secondary'
-          size='large'
-        >
+        <Button className='mb-2' variant='contained' color='secondary' size='large'>
           Add
         </Button>
       </Link>
-      <MaterialTable
-        title={props.categoryName}
-        columns={state.columns}
-        data={state.data}
-      />
+      <MaterialTable title={props.categoryName} columns={state.columns} data={state.data} />
     </>
   );
 };

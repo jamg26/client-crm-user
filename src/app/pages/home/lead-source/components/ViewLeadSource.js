@@ -64,8 +64,7 @@ const ViewLeadSource = props => {
                         setInput(rowData);
                         setIsUpdate(true);
                         setIsModalOpen(true);
-                      }}
-                    >
+                      }}>
                       <EditIcon />
                     </Button>
                   </Col>
@@ -77,8 +76,7 @@ const ViewLeadSource = props => {
                       onClick={async () => {
                         await deleteLeadSource(rowData.id);
                         setRerender(!reRender);
-                      }}
-                    >
+                      }}>
                       <DeleteIcon />
                     </Button>
                   </Col>
@@ -88,28 +86,27 @@ const ViewLeadSource = props => {
                       size='small'
                       color='primary'
                       onClick={async () => {
-                        const users = await getLeadSourceUsers(rowData.id);
-                        console.log(users);
-                        setBusinessUsers(users.data);
+                        // const users = await getLeadSourceUsers(rowData.id);
+                        // console.log(users);
+                        // setBusinessUsers(users.data);
 
-                        let user = {};
+                        // let user = {};
 
-                        users.data.map(u => {
-                          if (!u.isAssign) return;
-                          return (user = {
-                            ...user,
-                            [u.id]: true
-                          });
-                        });
+                        // users.data.map(u => {
+                        //   if (!u.isAssign) return;
+                        //   return (user = {
+                        //     ...user,
+                        //     [u.id]: true
+                        //   });
+                        // });
 
-                        setAssignedUsers(user);
-                        console.log(user);
+                        // setAssignedUsers(user);
+                        // console.log(user);
 
                         setIsModalAssignOpen(true);
                         setAssignedLeadId(rowData.id);
                         setRerender(!reRender);
-                      }}
-                    >
+                      }}>
                       Assign
                     </Button>
                   </Col>
@@ -211,12 +208,7 @@ const ViewLeadSource = props => {
 
   return (
     <>
-      <Modal
-        type='leadsource'
-        title='Lead Source'
-        open={isModalOpen}
-        handleClose={closeModal}
-      >
+      <Modal type='leadsource' title='Lead Source' open={isModalOpen} handleClose={closeModal}>
         <LeadSourceInput
           data={input}
           handleChange={handleChange}
@@ -224,13 +216,8 @@ const ViewLeadSource = props => {
           handleChangeActive={handleChangeActive}
         />
       </Modal>
-      <Modal
-        type='assign'
-        title='Assign'
-        open={isModalAssignOpen}
-        handleClose={closeModal}
-      >
-        {businessUsers?.map((users, index) => {
+      <Modal type='assign' title='Assign' open={isModalAssignOpen} handleClose={closeModal}>
+        {/* {businessUsers?.map((users, index) => {
           return (
             <div key={index}>
               <Checkbox
@@ -243,7 +230,13 @@ const ViewLeadSource = props => {
               <br />
             </div>
           );
-        })}
+        })} */}
+        <Checkbox name='User 1'>User One</Checkbox>
+        <br />
+        <Checkbox name='User 1'>User Two</Checkbox>
+        <br />
+        <Checkbox name='User 1'>User Three</Checkbox>
+        <br />
         <br />
         <Button variant='contained' color='secondary' onClick={onAssignSubmit}>
           Confirm
@@ -264,8 +257,7 @@ const ViewLeadSource = props => {
                 setIsModalOpen(true);
                 // setIsUpdate(false);
                 // setInput(initialInput);
-              }}
-            >
+              }}>
               Add
             </Button>
             {/* <Button className='float-right' onClick={refreshTable}>

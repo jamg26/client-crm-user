@@ -179,8 +179,7 @@ const BusinessLocationsComponents = props => {
         type='BusinessLocation'
         title='Business Location'
         open={isModalOpen}
-        handleClose={closeModal}
-      >
+        handleClose={closeModal}>
         <InputBusinessLocation
           data={input}
           handleChange={handleChange}
@@ -197,8 +196,7 @@ const BusinessLocationsComponents = props => {
             setIsModalOpen(true);
             setIsUpdate(false);
             setInput(initialInput);
-          }}
-        >
+          }}>
           Add
         </Button>
         {displayBusinessLocation()}
