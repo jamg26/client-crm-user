@@ -79,32 +79,17 @@ const ProductInfo = props => {
         <Row>
           <Col xs={3}></Col>
           <Col xs={3}>
-            <Typography
-              variant='h6'
-              gutterBottom
-              style={{ marginBottom: '1.2em' }}
-            >
+            <Typography variant='h6' gutterBottom style={{ marginBottom: '1.2em' }}>
               {' '}
               File Types Allowed:{' '}
-              <FormHelperText style={{ color: 'red' }}>
-                {' '}
-                jpg, jpeg, .png{' '}
-              </FormHelperText>
+              <FormHelperText style={{ color: 'red' }}> jpg, jpeg, .png </FormHelperText>
             </Typography>
           </Col>
 
           <Col xs={3}>
-            <Typography
-              variant='h6'
-              gutterBottom
-              style={{ marginBottom: '1.2em' }}
-            >
+            <Typography variant='h6' gutterBottom style={{ marginBottom: '1.2em' }}>
               {' '}
-              File Size Allowed:{' '}
-              <FormHelperText style={{ color: 'red' }}>
-                {' '}
-                2048 KB{' '}
-              </FormHelperText>
+              File Size Allowed: <FormHelperText style={{ color: 'red' }}> 2048 KB </FormHelperText>
             </Typography>
           </Col>
           <Col xs={3}></Col>
@@ -131,12 +116,12 @@ const ProductInfo = props => {
               </CardContent>
             </React.Fragment>
 
-            <img
+            {/* <img
               alt='file'
               width='100%'
               className=''
               src={state.selectedFile}
-            />
+            /> */}
           </Col>
         </Row>
       </Container>
