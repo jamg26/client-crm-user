@@ -45,7 +45,7 @@ const TicketsCloseComponent = props => {
           {
             title: 'Action',
             render: rowData => (
-              <a href='/#' onClick={() => editTicketSupport(rowData)}>
+              <a onClick={() => editTicketSupport(rowData)}>
                 <EditOutlined twoToneColor='#1a88d9' />
               </a>
             )
@@ -107,17 +107,8 @@ const TicketsCloseComponent = props => {
 
   return (
     <>
-      <TableModal
-        type='ticket'
-        title='Support Ticket'
-        open={isModalOpen}
-        handleClose={closeModal}
-      >
-        <TicketInput
-          data={input}
-          handleChange={handleChange}
-          handleSubmit={handleSubmitTicket}
-        />
+      <TableModal type='ticket' title='Support Ticket' open={isModalOpen} handleClose={closeModal}>
+        <TicketInput data={input} handleChange={handleChange} handleSubmit={handleSubmitTicket} />
       </TableModal>
 
       <Table

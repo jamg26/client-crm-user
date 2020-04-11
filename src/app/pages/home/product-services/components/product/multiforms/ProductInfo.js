@@ -77,6 +77,7 @@ const ProductInfo = props => {
             <InputGroup className='mb-4'>
               <TextField
                 onChange={props.handleChange}
+                type='number'
                 id='productUniqueNo'
                 label='Product Unique Number'
                 className=''

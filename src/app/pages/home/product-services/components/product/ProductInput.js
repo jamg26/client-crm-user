@@ -178,7 +178,40 @@ const ProductInput = props => {
     });
   };
 
-  function getStepContent(step) {
+  const saveProduct = async () => {
+    const data = {
+      businessId: formDataProductInfo.businessId,
+      canSetAnyPrice: formDataProductInfo.canSetAnyPrice,
+      categoryId: formDataProductInfo.categoryId,
+      invoiceTerms: formDataProductInfo.invoiceTerms,
+      businessLocationId: formDataProductInfo.productLocationInfo.businessLocationId,
+      productName: formDataProductInfo.productName,
+      productCode: formDataProductInfo.productCode,
+      productUniqueNo: formDataProductInfo.productUniqueNo,
+      productPrice: parseFloat(formDataProductInfo.price),
+      minimumPrice: parseFloat(formDataProductInfo.minimumPrice),
+      productDesc: formDataProductInfo.productDesc,
+      isAddOn: formDataProductInfo.isAddOn,
+      isLead: formDataProductInfo.isLead,
+      showOnInvoice: formDataProductInfo.showOnInvoice,
+      receiptTerms: formDataProductInfo.receiptTerms,
+      showOnReceipt: formDataProductInfo.showOnReceipt,
+      salesTax: parseFloat(formDataProductInfo.salesTax)
+    };
+    try {
+      const product = await addProduct(data);
+      console.log(product);
+    } catch (e) {
+      //alert(e.message);
+      console.log(e);
+      //setActiveStep(prevActiveStep => prevActiveStep - 1);
+    }
+  };
+
+  const getStepContent = step => {
+    if (step === 6) {
+      saveProduct();
+    }
     switch (step) {
       case 0:
         return (
@@ -205,7 +238,7 @@ const ProductInput = props => {
       default:
         return 'Unknown step';
     }
-  }
+  };
 
   const isStepOptional = step => {
     return step === -1;
@@ -230,28 +263,6 @@ const ProductInput = props => {
   // };
 
   const handleNext = async () => {
-    console.log(formDataProductInfo);
-    const data = {
-      businessId: formDataProductInfo.businessId,
-      canSetAnyPrice: formDataProductInfo.canSetAnyPrice,
-      categoryId: formDataProductInfo.categoryId,
-      invoiceTerms: formDataProductInfo.invoiceTerms,
-      businessLocationId: formDataProductInfo.productLocationInfo.businessLocationId,
-      productName: formDataProductInfo.productName,
-      productCode: formDataProductInfo.productCode,
-      productUniqueNo: formDataProductInfo.productUniqueNo,
-      productPrice: parseFloat(formDataProductInfo.price),
-      minimumPrice: parseFloat(formDataProductInfo.minimumPrice),
-      productDesc: formDataProductInfo.productDesc,
-      isAddOn: formDataProductInfo.isAddOn,
-      isLead: formDataProductInfo.isLead,
-      showOnInvoice: formDataProductInfo.showOnInvoice,
-      receiptTerms: formDataProductInfo.receiptTerms,
-      showOnReceipt: formDataProductInfo.showOnReceipt,
-      salesTax: parseFloat(formDataProductInfo.salesTax)
-    };
-    const product = await addProduct(data);
-    console.log(product);
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
 
@@ -300,11 +311,9 @@ const ProductInput = props => {
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
-              All steps completed - you&apos;re finished
-            </Typography>
+            <Typography className={classes.instructions}>Finished</Typography>
             <Button onClick={handleReset} className={classes.button}>
-              Reset
+              DONE
             </Button>
           </div>
         ) : (
