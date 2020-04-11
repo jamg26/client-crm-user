@@ -80,28 +80,28 @@ const ViewLeadSource = props => {
                       <DeleteIcon />
                     </Button>
                   </Col>
-                  <Col md={4}>
+                  {/* <Col md={4}>
                     <Button
                       variant='contained'
                       size='small'
                       color='primary'
                       onClick={async () => {
-                        // const users = await getLeadSourceUsers(rowData.id);
-                        // console.log(users);
-                        // setBusinessUsers(users.data);
+                        const users = await getLeadSourceUsers(rowData.id, props.businessId);
+                        console.log(users);
+                        setBusinessUsers(users.data);
 
-                        // let user = {};
+                        let user = {};
 
-                        // users.data.map(u => {
-                        //   if (!u.isAssign) return;
-                        //   return (user = {
-                        //     ...user,
-                        //     [u.id]: true
-                        //   });
-                        // });
+                        users.data.map(u => {
+                          if (!u.isAssign) return;
+                          return (user = {
+                            ...user,
+                            [u.id]: true
+                          });
+                        });
 
-                        // setAssignedUsers(user);
-                        // console.log(user);
+                        setAssignedUsers(user);
+                        console.log(user);
 
                         setIsModalAssignOpen(true);
                         setAssignedLeadId(rowData.id);
@@ -109,7 +109,7 @@ const ViewLeadSource = props => {
                       }}>
                       Assign
                     </Button>
-                  </Col>
+                  </Col> */}
                 </Row>
               );
             }
@@ -118,11 +118,11 @@ const ViewLeadSource = props => {
           {
             title: 'Is Active?',
             render: row => (row.active ? 'true' : 'false')
-          },
-          {
-            title: 'Assigned',
-            render: row => `${row.assignedUser}`
           }
+          // {
+          //   title: 'Assigned',
+          //   render: row => `${row.assignedUser}`
+          // }
         ],
         data: newList
       });
@@ -194,13 +194,13 @@ const ViewLeadSource = props => {
 
     Object.keys(assignedUsers).map(u => {
       if (!assignedUsers[u]) return;
-      users.push({ leadSourceId: assignLeadId, userId: u });
+      users.push({ leadSourceId: assignLeadId, userId: u, isAssigned: true });
     });
 
     console.log(users);
 
-    const lead = await assignLeadSource(users);
-    console.log(lead);
+    //const lead = await assignLeadSource(assignLeadId, users);
+    //console.log(lead);
 
     setRerender(!reRender);
     setIsModalAssignOpen(false);
@@ -217,27 +217,16 @@ const ViewLeadSource = props => {
         />
       </Modal>
       <Modal type='assign' title='Assign' open={isModalAssignOpen} handleClose={closeModal}>
-        {/* {businessUsers?.map((users, index) => {
+        {businessUsers?.map((users, index) => {
           return (
             <div key={index}>
-              <Checkbox
-                name={users.id}
-                onChange={onChange}
-                defaultChecked={users.isAssign}
-              >
+              <Checkbox name={users.id} onChange={onChange} defaultChecked={users.isAssign}>
                 {users.firstName} {users.lastName}
               </Checkbox>
               <br />
             </div>
           );
-        })} */}
-        <Checkbox name='User 1'>User One</Checkbox>
-        <br />
-        <Checkbox name='User 1'>User Two</Checkbox>
-        <br />
-        <Checkbox name='User 1'>User Three</Checkbox>
-        <br />
-        <br />
+        })}
         <Button variant='contained' color='secondary' onClick={onAssignSubmit}>
           Confirm
         </Button>

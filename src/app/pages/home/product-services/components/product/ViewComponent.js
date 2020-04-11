@@ -68,7 +68,6 @@ const ViewComponent = props => {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getProductList(initialInput.businessId);
-      console.log(response.data);
       setState({
         columns: [
           { title: 'Category', field: 'categoryName' },
