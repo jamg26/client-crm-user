@@ -35,5 +35,6 @@ export function importCVS(data){
       'Content-Type': 'multipart/form-data'
     }
   };
+  formData.append('file', data.file);
   return axios.post(`${ROOT_URL}/${LEAD_URL}/CsvUpload`, formData, { params }, config);
 }
