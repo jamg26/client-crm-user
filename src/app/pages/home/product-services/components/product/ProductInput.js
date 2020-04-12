@@ -35,7 +35,8 @@ function getSteps() {
     'Images',
     'Document',
     'Add on Product',
-    'Can Agent Apply Discount?'
+    'Can Agent Apply Discount?',
+    'Finish'
   ];
 }
 
@@ -58,10 +59,10 @@ const ProductInput = props => {
 
   const defaultCommissionSetUp = {
     boPart: '',
-    affiliateFixedCommissionAmount: '',
-    affiliateCommission: '',
+    affCommissionAmount: '',
+    affCommission: '',
     paymentProcessorCharge: '',
-    transactionFees: ''
+    transactionFee: ''
   };
 
   // const defaultAgents = {
@@ -167,7 +168,7 @@ const ProductInput = props => {
   const handleChange1 = event => {
     setFormDataCommissionSetUp({
       ...formDataCommissionSetUp,
-      [event.target.id]: event.target.value
+      [event.target.id]: parseFloat(event.target.value)
     });
   };
 
@@ -196,7 +197,8 @@ const ProductInput = props => {
       showOnInvoice: formDataProductInfo.showOnInvoice,
       receiptTerms: formDataProductInfo.receiptTerms,
       showOnReceipt: formDataProductInfo.showOnReceipt,
-      salesTax: parseFloat(formDataProductInfo.salesTax)
+      salesTax: parseFloat(formDataProductInfo.salesTax),
+      ...formDataCommissionSetUp
     };
     try {
       const product = await addProduct(data);
@@ -209,7 +211,8 @@ const ProductInput = props => {
   };
 
   const getStepContent = step => {
-    if (step === 6) {
+    console.log(step);
+    if (step === 7) {
       saveProduct();
     }
     switch (step) {
@@ -235,6 +238,8 @@ const ProductInput = props => {
         return 'Add on Product';
       case 6:
         return 'Can Agent Apply Discount?';
+      case 7:
+        return 'Finish';
       default:
         return 'Unknown step';
     }
