@@ -30,6 +30,10 @@ export function importCVS(data){
     BusinessId : data.BusinessId,
     leadSoruceId : data.leadSoruceId
   };
-  formData.append('files', data.file);
-  return axios.post(`${ROOT_URL}/${LEAD_URL}`, formData, { params });
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  return axios.post(`${ROOT_URL}/${LEAD_URL}/CsvUpload`, formData, { params }, config);
 }

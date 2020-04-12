@@ -72,7 +72,6 @@ const ImportLeads = (props) => {
                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     style={{display: 'none' }}
                     id="contained-button-file"
-                    multiple
                     type="file"
                     onChange={onChangeHandler}
                 />
