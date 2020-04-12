@@ -56,7 +56,7 @@ const AcceptInvitation = props => {
       setFormData(response.data);
     };
     fetchData();
-  }, [id, notifyRejected]);
+  }, []);
 
   const handleChange = e => {
     if (isRejected === false) {
