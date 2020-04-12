@@ -19,6 +19,8 @@ import CrudButtonOPtions from '../../../../partials/shared/CrudButtonOptions';
 import { Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+//import Leads
+import ImportLeads from './ImportLeads';
 
 // var selectedLeadSource = {};
 var formData = {};
@@ -173,7 +175,6 @@ const ViewComponent = () => {
       <InputfieldsContainer
         modalType='add'
         getFormData={handleChange}
-        leadsourceId={leadsourceId}
         leadSource={leadSource}
       />
     );
@@ -208,25 +209,29 @@ const ViewComponent = () => {
     );
   };
 
-  // const showDeleteModal = () => {
-  //   setShow(true);
-  //   setModalSize('lg');
-  //   setModalTitle('Delete Lead');
 
-  //   setModalBody(
-  //     <Alert severity='warning'>
-  //       <AlertTitle>Warning</AlertTitle>
-  //       Are you sure do you want do delete?
-  //     </Alert>
-  //   );
-  //   setModalFooter(
-  //     <CrudButtonOPtions
-  //       buttonDisplayType='DELETE'
-  //       handleButton1={handleDelete}
-  //       handleButton2={handleClose}
-  //     />
-  //   );
-  // };
+  const showImportModal = () => {
+    formData = {};
+    setShow(true);
+    setModalSize('lg');
+    setModalTitle('Update Lead');
+    setModalBody(
+      <ImportLeads
+        id={userData.mainRole.business.id}
+        modalType='add'
+        importLeadSubmitHandler={importLeadSubmitHandler}
+      />
+    );
+  };
+
+  const importLeadSubmitHandler = (data) => {
+    setShow(false);
+    if (data){
+      notify({ success: true, message: 'Success importing leads.' });
+    } else {
+      notify({ success: false, message: 'Error on importing leads' });
+    }
+  }
 
   return (
     <>
@@ -239,6 +244,30 @@ const ViewComponent = () => {
         onClick={showAddModal}>
         Add
       </Button>
+      <Button
+        className='mb-2'
+        variant='outlined'
+        color='secondary'
+        size='large'
+        onClick={() => showImportModal()}
+        style={{marginLeft:'10px'}}>
+        Import Leads
+      </Button>
+    
+
+      {/* <ImportLeads data={userData.mainRole.business.id}/> */}
+      {/* <input
+        accept="image/*"
+        style={{display: 'none' }}
+        id="contained-button-file"
+        multiple
+        type="file"
+      />
+      <label htmlFor="contained-button-file">
+        <Button variant="contained" color='secondary' component="span" className='mb-2' size='large'>
+          Import Leads
+        </Button>
+      </label> */}
       <MaterialTable title='Leads' columns={state.columns} data={state.data} />
       <ModalContainer
         handleClose={handleClose}

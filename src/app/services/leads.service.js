@@ -23,3 +23,18 @@ export function updateLead(lead) {
 export function deleteLead(id) {
   return axios.delete(`${ROOT_URL}/${LEAD_URL}/${id}`);
 }
+
+export function importCVS(data){
+  let formData = new FormData();
+  const params = {
+    BusinessId : data.BusinessId,
+    leadSoruceId : data.leadSoruceId
+  };
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  formData.append('file', data.file);
+  return axios.post(`${ROOT_URL}/${LEAD_URL}/CsvUpload`, formData, { params }, config);
+}

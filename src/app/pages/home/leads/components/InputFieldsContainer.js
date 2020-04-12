@@ -1,13 +1,7 @@
 import React from 'react';
 // import { makeStyles } from '@material-ui/core/styles';
 import {
-  // Checkbox,
-  // FormControlLabel,
-  // Switch,
   TextField,
-  // Select,
-  // MenuItem,
-  // InputLabel,
   FormControl
 } from '@material-ui/core';
 import LeadSourceDropdown from '../../../../partials/shared/LeadSourceDropDown';
