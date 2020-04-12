@@ -38,9 +38,7 @@ function Registration(props) {
                   errors.email = intl.formatMessage({
                     id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
-                } else if (
-                  !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
+                } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
                   errors.email = intl.formatMessage({
                     id: 'AUTH.VALIDATION.INVALID_FIELD'
                   });
@@ -75,8 +73,7 @@ function Registration(props) {
                     id: 'AUTH.VALIDATION.REQUIRED_FIELD'
                   });
                 } else if (values.password !== values.confirmPassword) {
-                  errors.confirmPassword =
-                    "Password and Confirm Password didn't match.";
+                  errors.confirmPassword = "Password and Confirm Password didn't match.";
                 }
 
                 if (!values.acceptTerms) {
@@ -92,14 +89,17 @@ function Registration(props) {
                   })
                   .catch(err => {
                     setSubmitting(false);
-                    setStatus(
-                      intl.formatMessage({
-                        id: err.response.data.message
-                      })
-                    );
+                    try {
+                      setStatus(
+                        intl.formatMessage({
+                          id: err.response.data.message
+                        })
+                      );
+                    } catch {
+                      setStatus('Password must be at least 4 characters');
+                    }
                   });
-              }}
-            >
+              }}>
               {({
                 values,
                 status,
@@ -155,9 +155,7 @@ function Registration(props) {
                       onChange={handleChange}
                       value={values.businessName}
                       helperText={touched.businessName && errors.businessName}
-                      error={Boolean(
-                        touched.businessName && errors.businessName
-                      )}
+                      error={Boolean(touched.businessName && errors.businessName)}
                     />
                   </div>
 
@@ -200,12 +198,8 @@ function Registration(props) {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       value={values.confirmPassword}
-                      helperText={
-                        touched.confirmPassword && errors.confirmPassword
-                      }
-                      error={Boolean(
-                        touched.confirmPassword && errors.confirmPassword
-                      )}
+                      helperText={touched.confirmPassword && errors.confirmPassword}
+                      error={Boolean(touched.confirmPassword && errors.confirmPassword)}
                     />
                   </div>
 
@@ -214,11 +208,7 @@ function Registration(props) {
                       label={
                         <>
                           I agree the{' '}
-                          <Link
-                            to='/terms'
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
+                          <Link to='/terms' target='_blank' rel='noopener noreferrer'>
                             Terms & Conditions
                           </Link>
                         </>
@@ -236,25 +226,20 @@ function Registration(props) {
                   </div>
 
                   <div className='kt-login__actions'>
-                    <Link
-                      to='/auth/forgot-password'
-                      className='kt-link kt-login__link-forgot mr-2'
-                    >
+                    <Link to='/auth/forgot-password' className='kt-link kt-login__link-forgot mr-2'>
                       <FormattedMessage id='AUTH.GENERAL.FORGOT_BUTTON' />
                     </Link>
 
                     <Link to='/auth'>
                       <button
                         type='button'
-                        className='btn btn-secondary btn-elevate kt-login__btn-secondary mr-2'
-                      >
+                        className='btn btn-secondary btn-elevate kt-login__btn-secondary mr-2'>
                         Back
                       </button>
                     </Link>
                     <button
                       disabled={isSubmitting || !values.acceptTerms}
-                      className='btn btn-primary btn-elevate kt-login__btn-primary'
-                    >
+                      className='btn btn-primary btn-elevate kt-login__btn-primary'>
                       Submit
                     </button>
                   </div>
