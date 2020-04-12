@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TextField } from '@material-ui/core';
 import * as auth from '../../store/ducks/auth.duck';
-import {
-  getUserInviteData,
-  acceptInviteUser
-} from '../../services/userInvite.service';
+import { getUserInviteData, acceptInviteUser } from '../../services/userInvite.service';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 const AcceptInvitation = props => {
@@ -78,14 +75,14 @@ const AcceptInvitation = props => {
   const handleAcceptInvite = async e => {
     if (isRejected === false) {
       setFormValidation(clearValidation);
-      if (formData.password.length < 8) {
-        setFormValidation({
-          password: {
-            error: true,
-            errorMessage: 'Password should contain atleast 8 characters.'
-          }
-        });
-      } else if (formData.password !== formData.confirmPassword) {
+      // if (formData.password.length < 8) {
+      //   setFormValidation({
+      //     password: {
+      //       error: true,
+      //       errorMessage: 'Password should contain atleast 8 characters.'
+      //     }
+      //   });
+      if (formData.password !== formData.confirmPassword) {
         setFormValidation({
           confirmPassword: {
             error: true,
@@ -196,15 +193,13 @@ const AcceptInvitation = props => {
           <button
             type='button'
             className='btn btn-secondary btn-elevate kt-login__btn-secondary'
-            onClick={handleNotNow}
-          >
+            onClick={handleNotNow}>
             Not now
           </button>
 
           <button
             className='btn btn-primary btn-elevate kt-login__btn-primary'
-            onClick={handleAcceptInvite}
-          >
+            onClick={handleAcceptInvite}>
             Accept
           </button>
         </div>
