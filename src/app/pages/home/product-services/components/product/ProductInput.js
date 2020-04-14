@@ -44,6 +44,7 @@ const ProductInput = props => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [img, setImg] = React.useState([]);
   const steps = getSteps();
 
   const userData = useSelector(state => state.auth.user);
@@ -198,7 +199,8 @@ const ProductInput = props => {
       receiptTerms: formDataProductInfo.receiptTerms,
       showOnReceipt: formDataProductInfo.showOnReceipt,
       salesTax: parseFloat(formDataProductInfo.salesTax),
-      ...formDataCommissionSetUp
+      ...formDataCommissionSetUp,
+      productImages: img
     };
     try {
       const product = await addProduct(data);
@@ -231,7 +233,9 @@ const ProductInput = props => {
       case 2:
         return <Agents data={formDataCommissionSetUp} handleChange={handleChange2} />;
       case 3:
-        return <Images data={formDataCommissionSetUp} handleChange={handleChange2} />;
+        return (
+          <Images data={formDataCommissionSetUp} handleChange={handleChange2} setImg={setImg} />
+        );
       case 4:
         return <DocumentForm />;
       case 5:

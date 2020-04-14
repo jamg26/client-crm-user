@@ -6,6 +6,7 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import { Container, Row, Col } from 'react-bootstrap';
+import { addProductImage } from '../../../../../../services/products.service';
 // import AddIcon from '@material-ui/icons/Add';
 
 //Card
@@ -55,22 +56,56 @@ const ProductInfo = props => {
     selectedFile: null
   });
 
-  const handleUploadClick = event => {
-    let file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  const fileUpload = async data => {
+    return addProductImage(data);
+  };
 
-    reader.onloadend = function(e) {
-      setState({
-        selectedFile: [reader.result]
-      });
-    };
+  const handleUploadClick = async event => {
+    let file = event.target.files;
+    // const reader = new FileReader();
+    // await reader.readAsDataURL(file);
+    // reader.onloadend = function(e) {
+    //   setState({
+    //     selectedFile: [reader.result]
+    //   });
+    //   console.log(state);
+    // };
 
-    setState({
-      mainState: 'uploaded',
-      selectedFile: event.target.files[0],
-      imageUploaded: 1
-    });
+    var formData = new FormData();
+
+    for (var x = 0; x <= file.length; x++) {
+      formData.append('files', file[x]);
+    }
+
+    const files = await fileUpload(formData);
+
+    props.setImg(files.data);
+    // var form = new FormData();
+    // form.append('files', '/home/jamg/Pictures/2.png');
+    // form.append('files', '/home/jamg/Pictures/1.png');
+
+    // var settings = {
+    //   async: true,
+    //   crossDomain: true,
+    //   url:
+    //     'http://ec2-13-57-220-111.us-west-1.compute.amazonaws.com:85/api/fileupload/addproductimage',
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //     'cache-control': 'no-cache',
+    //     'Postman-Token': '70911e38-3428-42ab-9c09-6c8dfb358670'
+    //   },
+    //   processData: false,
+    //   contentType: false,
+    //   mimeType: 'multipart/form-data',
+    //   data: form
+    // };
+
+    // await setState({
+    //   mainState: 'uploaded',
+    //   selectedFile: event.target.files[0],
+    //   imageUploaded: 1
+    // });
   };
 
   return (
@@ -115,13 +150,9 @@ const ProductInfo = props => {
                 </Grid>
               </CardContent>
             </React.Fragment>
-
-            {/* <img
-              alt='file'
-              width='100%'
-              className=''
-              src={state.selectedFile}
-            /> */}
+            {state.selectedFile ? (
+              <img alt='file' width='100' height='auto' className='' src={state.selectedFile} />
+            ) : null}
           </Col>
         </Row>
       </Container>
