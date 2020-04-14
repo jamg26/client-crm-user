@@ -35,7 +35,8 @@ function getSteps() {
     'Images',
     'Document',
     'Add on Product',
-    'Can Agent Apply Discount?'
+    'Can Agent Apply Discount?',
+    'Finish'
   ];
 }
 
@@ -43,6 +44,7 @@ const ProductInput = props => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [img, setImg] = React.useState([]);
   const steps = getSteps();
 
   const userData = useSelector(state => state.auth.user);
@@ -58,10 +60,10 @@ const ProductInput = props => {
 
   const defaultCommissionSetUp = {
     boPart: '',
-    affiliateFixedCommissionAmount: '',
-    affiliateCommission: '',
+    affCommissionAmount: '',
+    affCommission: '',
     paymentProcessorCharge: '',
-    transactionFees: ''
+    transactionFee: ''
   };
 
   // const defaultAgents = {
@@ -167,7 +169,7 @@ const ProductInput = props => {
   const handleChange1 = event => {
     setFormDataCommissionSetUp({
       ...formDataCommissionSetUp,
-      [event.target.id]: event.target.value
+      [event.target.id]: parseFloat(event.target.value)
     });
   };
 
@@ -196,7 +198,9 @@ const ProductInput = props => {
       showOnInvoice: formDataProductInfo.showOnInvoice,
       receiptTerms: formDataProductInfo.receiptTerms,
       showOnReceipt: formDataProductInfo.showOnReceipt,
-      salesTax: parseFloat(formDataProductInfo.salesTax)
+      salesTax: parseFloat(formDataProductInfo.salesTax),
+      ...formDataCommissionSetUp,
+      productImages: img
     };
     try {
       const product = await addProduct(data);
@@ -209,7 +213,8 @@ const ProductInput = props => {
   };
 
   const getStepContent = step => {
-    if (step === 6) {
+    console.log(step);
+    if (step === 7) {
       saveProduct();
     }
     switch (step) {
@@ -228,13 +233,17 @@ const ProductInput = props => {
       case 2:
         return <Agents data={formDataCommissionSetUp} handleChange={handleChange2} />;
       case 3:
-        return <Images data={formDataCommissionSetUp} handleChange={handleChange2} />;
+        return (
+          <Images data={formDataCommissionSetUp} handleChange={handleChange2} setImg={setImg} />
+        );
       case 4:
         return <DocumentForm />;
       case 5:
         return 'Add on Product';
       case 6:
         return 'Can Agent Apply Discount?';
+      case 7:
+        return 'Finish';
       default:
         return 'Unknown step';
     }

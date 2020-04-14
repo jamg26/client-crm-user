@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  addSupportTicket,
-  saveAttachment
-} from '../../../../../services/support.service';
+import { addSupportTicket, saveAttachment } from '../../../../../services/support.service';
 import { fileUpload } from '../../../../../services/aws.service';
 
 import {
@@ -112,8 +109,7 @@ const TicketAdd = () => {
               <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls='panel1bh-content'
-                id='panel1bh-header'
-              >
+                id='panel1bh-header'>
                 Attachments
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
@@ -129,8 +125,7 @@ const TicketAdd = () => {
                 className='float-right mt-3'
                 variant='contained'
                 color='secondary'
-                disabled={ticketBtn}
-              >
+                disabled={ticketBtn}>
                 Confirm
               </Button>
             </InputGroup>
